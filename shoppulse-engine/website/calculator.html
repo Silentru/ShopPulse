@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Etsy Fee Calculator — ShopPulse</title>
+<meta name="description" content="Free Etsy fee calculator. See exactly what Etsy takes from every sale — listing fees, transaction fees, payment processing, and Offsite Ads. Know your real profit.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAFAF8; --fg: #1A1A1A; --accent: #D35400; --accent-light: #FDF2E9;
+    --muted: #6B7280; --light: #9CA3AF; --border: #E5E5E3;
+    --green: #1B7A3D; --green-bg: #EEFBF3; --amber: #92400E; --amber-bg: #FEF3C7;
+    --red: #991B1B;
+  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--fg);
+    line-height: 1.6; -webkit-font-smoothing: antialiased;
+  }
+
+  /* Nav */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(250,250,248,.85); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border); padding: 0 2rem;
+  }
+  .nav-inner {
+    max-width: 960px; margin: auto; display: flex; align-items: center;
+    justify-content: space-between; height: 60px;
+  }
+  .logo {
+    font-family: 'DM Serif Display', serif; font-size: 1.35rem;
+    color: var(--fg); text-decoration: none; letter-spacing: -0.02em;
+  }
+  .logo span { color: var(--accent); }
+  nav a.nav-link {
+    font-size: .85rem; color: var(--muted); text-decoration: none;
+    font-weight: 500; margin-left: 24px;
+  }
+  nav a.nav-link:hover { color: var(--fg); }
+
+  .page { max-width: 640px; margin: 0 auto; padding: 48px 24px 96px; }
+
+  /* Header */
+  .label { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--accent); margin-bottom: .5rem; }
+  h1 { font-family: 'DM Serif Display', serif; font-size: 2rem; font-weight: 400; letter-spacing: -0.03em; line-height: 1.2; margin-bottom: 8px; }
+  .intro { font-size: .95rem; color: var(--muted); margin-bottom: 32px; max-width: 520px; }
+
+  /* Calculator inputs */
+  .calc-section { margin-bottom: 32px; }
+  .input-row { display: flex; gap: 12px; margin-bottom: 12px; }
+  .input-group { flex: 1; }
+  .input-group label {
+    display: block; font-size: .78rem; font-weight: 600; margin-bottom: 4px;
+  }
+  .input-group .hint { font-size: .7rem; color: var(--light); margin-bottom: 4px; }
+  .input-group input {
+    width: 100%; padding: 10px 12px; border: 1.5px solid var(--border);
+    border-radius: 6px; font-family: inherit; font-size: 1rem; background: #fff;
+  }
+  .input-group input:focus { outline: none; border-color: var(--accent); }
+  .input-prefix {
+    position: relative;
+  }
+  .input-prefix input { padding-left: 24px; }
+  .input-prefix::before {
+    content: '$'; position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
+    color: var(--muted); font-size: 1rem; pointer-events: none;
+  }
+
+  .toggle-row { display: flex; align-items: center; gap: 8px; margin: 12px 0 4px; }
+  .toggle-row label { font-size: .82rem; cursor: pointer; }
+  .toggle-row input { width: auto; cursor: pointer; }
+  .toggle-hint { font-size: .72rem; color: var(--light); margin-bottom: 16px; }
+
+  /* Results */
+  .results { display: none; }
+  .results.visible { display: block; }
+  hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+
+  .fee-line {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 7px 0; font-size: .9rem;
+  }
+  .fee-name { color: var(--muted); }
+  .fee-val { font-weight: 500; font-variant-numeric: tabular-nums; }
+  .fee-total {
+    padding-top: 12px; margin-top: 4px;
+    border-top: 2px solid var(--fg);
+  }
+  .fee-total .fee-name, .fee-total .fee-val { font-weight: 700; color: var(--fg); }
+  .fee-rate .fee-val { color: var(--accent); font-weight: 700; }
+
+  .profit-box {
+    margin-top: 24px; padding: 20px; border-radius: 8px;
+    text-align: center;
+  }
+  .profit-box.positive { background: var(--green-bg); border: 1px solid #C6F0D6; }
+  .profit-box.negative { background: #FEF2F2; border: 1px solid #FECACA; }
+  .profit-box.break-even { background: var(--amber-bg); border: 1px solid #FDE68A; }
+  .profit-amount {
+    font-size: 2.2rem; font-weight: 700; line-height: 1.2;
+    font-variant-numeric: tabular-nums;
+  }
+  .profit-box.positive .profit-amount { color: var(--green); }
+  .profit-box.negative .profit-amount { color: var(--red); }
+  .profit-box.break-even .profit-amount { color: var(--amber); }
+  .profit-label { font-size: .82rem; color: var(--muted); margin-top: 4px; }
+  .profit-margin { font-size: .95rem; font-weight: 600; margin-top: 8px; }
+
+  /* Waterfall */
+  .waterfall { margin: 24px 0; }
+  .wf-bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; font-size: .82rem; }
+  .wf-label { width: 100px; text-align: right; color: var(--muted); flex-shrink: 0; }
+  .wf-bar-track { flex: 1; height: 24px; background: #f0f0f0; border-radius: 4px; position: relative; overflow: hidden; }
+  .wf-bar { height: 100%; border-radius: 4px; transition: width .4s ease; }
+  .wf-bar-revenue { background: var(--fg); }
+  .wf-bar-fees { background: var(--accent); }
+  .wf-bar-costs { background: var(--amber); }
+  .wf-bar-profit { background: var(--green); }
+  .wf-bar-loss { background: var(--red); }
+  .wf-val { width: 70px; font-weight: 600; font-variant-numeric: tabular-nums; flex-shrink: 0; }
+
+  /* Offsite warning */
+  .offsite-note {
+    margin-top: 20px; padding: 14px 16px; border-radius: 8px;
+    background: var(--amber-bg); border: 1px solid #FDE68A;
+    font-size: .82rem; color: var(--muted); line-height: 1.5;
+  }
+  .offsite-note strong { color: var(--amber); }
+
+  /* Share */
+  .share-row { display: flex; gap: 8px; margin-top: 24px; align-items: center; }
+  .share-btn {
+    padding: 8px 16px; border: 1.5px solid var(--border); border-radius: 6px;
+    background: #fff; font-family: inherit; font-size: .82rem; font-weight: 600;
+    cursor: pointer; color: var(--fg);
+  }
+  .share-btn:hover { background: var(--accent-light); border-color: var(--accent); }
+  .share-copied { font-size: .78rem; color: var(--green); display: none; }
+
+  /* CTA */
+  .cta-box {
+    margin-top: 48px; padding: 32px; text-align: center;
+    background: #232347; border-radius: 8px; color: #fff;
+  }
+  .cta-box h2 {
+    font-family: 'DM Serif Display', serif; font-size: 1.3rem;
+    color: #fff; margin-bottom: 8px;
+  }
+  .cta-box p { font-size: .88rem; color: #a0a0c0; max-width: 440px; margin: 0 auto; }
+
+  /* Footer */
+  .foot { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border); font-size: .78rem; color: var(--light); }
+  .foot a { color: var(--accent); text-decoration: none; }
+
+  @media (max-width: 480px) {
+    .input-row { flex-direction: column; }
+    .wf-label { width: 70px; font-size: .75rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo">Shop<span>Pulse</span></a>
+    <div>
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="calculator.html" class="nav-link" style="color:var(--fg)">Fee Calculator</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page">
+
+  <div class="label">Free tool</div>
+  <h1>Etsy Fee Calculator</h1>
+  <p class="intro">See exactly what Etsy takes from every sale. Most sellers underestimate their fees by 30-40%. Enter a sale and see your real profit.</p>
+
+  <div class="calc-section">
+    <div class="input-row">
+      <div class="input-group">
+        <label>Sale price</label>
+        <div class="hint">What the buyer pays for the item</div>
+        <div class="input-prefix"><input type="number" id="sale-price" step="0.01" min="0" placeholder="0.00" oninput="calculate()"></div>
+      </div>
+      <div class="input-group">
+        <label>Shipping charged</label>
+        <div class="hint">Shipping you charge the buyer (0 if free)</div>
+        <div class="input-prefix"><input type="number" id="shipping-charged" step="0.01" min="0" value="0" oninput="calculate()"></div>
+      </div>
+    </div>
+
+    <div class="input-row">
+      <div class="input-group">
+        <label>Item cost (COGS)</label>
+        <div class="hint">Materials, labor, packaging</div>
+        <div class="input-prefix"><input type="number" id="cogs" step="0.01" min="0" value="0" oninput="calculate()"></div>
+      </div>
+      <div class="input-group">
+        <label>Actual shipping cost</label>
+        <div class="hint">What you actually pay to ship</div>
+        <div class="input-prefix"><input type="number" id="shipping-cost" step="0.01" min="0" value="0" oninput="calculate()"></div>
+      </div>
+    </div>
+
+    <div class="toggle-row">
+      <input type="checkbox" id="offsite-ads" onchange="calculate()">
+      <label for="offsite-ads">This sale came through Etsy Offsite Ads</label>
+    </div>
+    <div class="toggle-hint">Mandatory for sellers earning $10K+/year. Etsy charges 15% on attributed sales (12% for $10K+ shops).</div>
+  </div>
+
+  <div class="results" id="results">
+    <hr>
+
+    <div class="label">Fee breakdown</div>
+
+    <div id="fee-lines"></div>
+
+    <div class="profit-box" id="profit-box">
+      <div class="profit-amount" id="profit-amount"></div>
+      <div class="profit-label">your actual profit per sale</div>
+      <div class="profit-margin" id="profit-margin"></div>
+    </div>
+
+    <div class="waterfall" id="waterfall"></div>
+
+    <div class="offsite-note" id="offsite-note" style="display:none">
+      <strong>Without Offsite Ads:</strong> your profit would be <span id="no-offsite-profit"></span> (<span id="no-offsite-margin"></span> margin). The Offsite Ads fee alone costs you <span id="offsite-fee-amount"></span> on this sale.
+    </div>
+
+    <div class="offsite-note" id="offsite-warning" style="display:none">
+      <strong>Heads up:</strong> If you earn over $10K/year on Etsy, you're automatically enrolled in Offsite Ads. On this item, that would add <span id="potential-offsite"></span> to your fees per sale, dropping your profit to <span id="potential-profit"></span>. <label for="offsite-ads" style="color:var(--accent);cursor:pointer;text-decoration:underline">Check the box above to see the impact.</label>
+    </div>
+
+    <div class="share-row">
+      <button class="share-btn" onclick="copyResults()">Copy results</button>
+      <button class="share-btn" onclick="shareLink()">Share link</button>
+      <span class="share-copied" id="copied-msg">Copied</span>
+    </div>
+  </div>
+
+  <div class="cta-box">
+    <h2>Know your margins. Now find out which listings to fix.</h2>
+    <p>ShopPulse diagnoses your shop, ranks what to fix by impact, and tracks whether changes actually helped. The fee calculator is step one — the diagnosis is step two.</p>
+  </div>
+
+  <div class="foot">
+    <p><a href="index.html">ShopPulse</a> — we tell you what to fix, not what to sell.</p>
+    <p style="margin-top:6px">Fee calculations based on Etsy's published fee structure as of 2026. Verify current rates on Etsy's fee page. This tool does not store any data.</p>
+  </div>
+
+</div>
+
+<script>
+function $(id) { return document.getElementById(id); }
+function num(id) { return parseFloat($(id).value) || 0; }
+function fmt(n) { return '$' + n.toFixed(2); }
+function pct(n) { return n.toFixed(1) + '%'; }
+
+function calculate() {
+  const price = num('sale-price');
+  if (price <= 0) { $('results').classList.remove('visible'); return; }
+
+  const shipping = num('shipping-charged');
+  const cogs = num('cogs');
+  const shipCost = num('shipping-cost');
+  const offsite = $('offsite-ads').checked;
+
+  // Etsy fees
+  const listingFee = 0.20;
+  const autoRenew = 0.20;
+  const transactionFee = (price + shipping) * 0.065;
+  const processingFee = (price + shipping) * 0.03 + 0.25;
+  const offsiteFee = offsite ? price * 0.15 : 0;
+  const totalFees = listingFee + autoRenew + transactionFee + processingFee + offsiteFee;
+  const feeRate = totalFees / price * 100;
+
+  const grossRevenue = price + shipping;
+  const totalCosts = cogs + shipCost;
+  const netProfit = grossRevenue - totalFees - totalCosts;
+  const margin = grossRevenue > 0 ? (netProfit / grossRevenue * 100) : 0;
+
+  // Fee lines
+  let lines = '';
+  lines += feeLine('Listing fee', listingFee, '$0.20 per listing');
+  lines += feeLine('Auto-renew fee', autoRenew, '$0.20 when item sells');
+  lines += feeLine('Transaction fee (6.5%)', transactionFee);
+  lines += feeLine('Payment processing (~3% + $0.25)', processingFee);
+  if (offsite) lines += feeLine('Offsite Ads fee (15%)', offsiteFee);
+  lines += `<div class="fee-line fee-total"><span class="fee-name">Total Etsy fees</span><span class="fee-val">${fmt(totalFees)}</span></div>`;
+  lines += `<div class="fee-line fee-rate"><span class="fee-name">Effective fee rate</span><span class="fee-val">${pct(feeRate)}</span></div>`;
+  if (totalCosts > 0) {
+    lines += `<div class="fee-line" style="margin-top:12px"><span class="fee-name">Your costs (COGS + shipping)</span><span class="fee-val">${fmt(totalCosts)}</span></div>`;
+  }
+  $('fee-lines').innerHTML = lines;
+
+  // Profit box
+  const box = $('profit-box');
+  box.className = 'profit-box ' + (netProfit > 1 ? 'positive' : (netProfit < -1 ? 'negative' : 'break-even'));
+  $('profit-amount').textContent = fmt(netProfit);
+  $('profit-margin').textContent = pct(margin) + ' profit margin';
+
+  // Waterfall chart
+  const maxVal = grossRevenue;
+  function barPct(v) { return Math.max(0, Math.min(100, v / maxVal * 100)); }
+  let wf = '';
+  wf += wfRow('Revenue', grossRevenue, barPct(grossRevenue), 'revenue');
+  wf += wfRow('Etsy fees', totalFees, barPct(totalFees), 'fees');
+  if (totalCosts > 0) wf += wfRow('Your costs', totalCosts, barPct(totalCosts), 'costs');
+  wf += wfRow('Profit', Math.abs(netProfit), barPct(Math.abs(netProfit)), netProfit >= 0 ? 'profit' : 'loss');
+  $('waterfall').innerHTML = wf;
+
+  // Offsite ads comparison
+  if (offsite) {
+    $('offsite-note').style.display = 'block';
+    $('offsite-warning').style.display = 'none';
+    const noOffsiteProfit = grossRevenue - (totalFees - offsiteFee) - totalCosts;
+    const noOffsiteMargin = grossRevenue > 0 ? (noOffsiteProfit / grossRevenue * 100) : 0;
+    $('no-offsite-profit').textContent = fmt(noOffsiteProfit);
+    $('no-offsite-margin').textContent = pct(noOffsiteMargin);
+    $('offsite-fee-amount').textContent = fmt(offsiteFee);
+  } else {
+    $('offsite-note').style.display = 'none';
+    $('offsite-warning').style.display = 'block';
+    const potentialOffsiteFee = price * 0.15;
+    const potentialProfit = netProfit - potentialOffsiteFee;
+    $('potential-offsite').textContent = fmt(potentialOffsiteFee);
+    $('potential-profit').textContent = fmt(potentialProfit);
+  }
+
+  $('results').classList.add('visible');
+}
+
+function feeLine(name, val, note) {
+  const noteHtml = note ? ` <span style="font-size:.72rem;color:var(--light)">${note}</span>` : '';
+  return `<div class="fee-line"><span class="fee-name">${name}${noteHtml}</span><span class="fee-val">${fmt(val)}</span></div>`;
+}
+
+function wfRow(label, val, widthPct, type) {
+  return `<div class="wf-bar-row"><span class="wf-label">${label}</span><div class="wf-bar-track"><div class="wf-bar wf-bar-${type}" style="width:${widthPct}%"></div></div><span class="wf-val">${fmt(val)}</span></div>`;
+}
+
+function copyResults() {
+  const price = num('sale-price');
+  const shipping = num('shipping-charged');
+  const cogs = num('cogs');
+  const shipCost = num('shipping-cost');
+  const offsite = $('offsite-ads').checked;
+
+  const listingFee = 0.20;
+  const autoRenew = 0.20;
+  const transactionFee = (price + shipping) * 0.065;
+  const processingFee = (price + shipping) * 0.03 + 0.25;
+  const offsiteFee = offsite ? price * 0.15 : 0;
+  const totalFees = listingFee + autoRenew + transactionFee + processingFee + offsiteFee;
+  const grossRevenue = price + shipping;
+  const totalCosts = cogs + shipCost;
+  const netProfit = grossRevenue - totalFees - totalCosts;
+  const margin = grossRevenue > 0 ? (netProfit / grossRevenue * 100) : 0;
+
+  const text = `Etsy Fee Breakdown (ShopPulse Calculator)
+Sale price: ${fmt(price)}
+Shipping charged: ${fmt(shipping)}
+---
+Listing fee: ${fmt(listingFee)}
+Auto-renew: ${fmt(autoRenew)}
+Transaction (6.5%): ${fmt(transactionFee)}
+Processing (~3%+$0.25): ${fmt(processingFee)}
+${offsite ? 'Offsite Ads (15%): ' + fmt(offsiteFee) + '\n' : ''}Total Etsy fees: ${fmt(totalFees)} (${pct(totalFees / price * 100)} of sale price)
+${totalCosts > 0 ? 'Your costs: ' + fmt(totalCosts) + '\n' : ''}---
+Profit: ${fmt(netProfit)} (${pct(margin)} margin)`;
+
+  navigator.clipboard.writeText(text).then(() => {
+    $('copied-msg').style.display = 'inline';
+    setTimeout(() => { $('copied-msg').style.display = 'none'; }, 2000);
+  });
+}
+
+function shareLink() {
+  const params = new URLSearchParams({
+    p: num('sale-price'),
+    s: num('shipping-charged'),
+    c: num('cogs'),
+    sc: num('shipping-cost'),
+    o: $('offsite-ads').checked ? '1' : '0',
+  });
+  const url = window.location.origin + window.location.pathname + '?' + params.toString();
+  navigator.clipboard.writeText(url).then(() => {
+    $('copied-msg').style.display = 'inline';
+    $('copied-msg').textContent = 'Link copied';
+    setTimeout(() => { $('copied-msg').style.display = 'none'; $('copied-msg').textContent = 'Copied'; }, 2000);
+  });
+}
+
+// Load from URL params
+window.addEventListener('DOMContentLoaded', () => {
+  const params = new URLSearchParams(window.location.search);
+  if (params.has('p')) {
+    $('sale-price').value = params.get('p');
+    if (params.has('s')) $('shipping-charged').value = params.get('s');
+    if (params.has('c')) $('cogs').value = params.get('c');
+    if (params.has('sc')) $('shipping-cost').value = params.get('sc');
+    if (params.get('o') === '1') $('offsite-ads').checked = true;
+    calculate();
+  }
+});
+</script>
+
+</body>
+</html>

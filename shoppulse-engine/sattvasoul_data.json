@@ -1,0 +1,83 @@
+{
+  "niche_preset": "custom_portraits",
+  "shop": {
+    "name": "SattvaSoulIndia",
+    "star_rating": 5.0,
+    "review_count": 1,
+    "total_sales": 1,
+    "admirers": 4,
+    "item_count": 8,
+    "age_on_etsy": "8 months",
+    "location": "Rishikesh, India",
+    "has_about_section": true,
+    "has_shop_policies": true,
+    "avg_processing_days": 28
+  },
+  "listings": [
+    {
+      "price": 111.25,
+      "original_price": 430.87,
+      "on_sale": true,
+      "sale_percentage": 15,
+      "free_shipping": true,
+      "title": "Custom Original Oil Painting from Pho..."
+    },
+    {
+      "price": 168.62,
+      "original_price": 198,
+      "on_sale": true,
+      "sale_percentage": 15,
+      "free_shipping": true,
+      "title": "Custom Sculpture From Photo | Hand ..."
+    },
+    {
+      "price": 93.68,
+      "original_price": 140.24,
+      "on_sale": true,
+      "sale_percentage": 15,
+      "free_shipping": true,
+      "title": "Custom Graphite Portrait Drawing | Ha..."
+    },
+    {
+      "price": 111.25,
+      "original_price": 430.87,
+      "on_sale": true,
+      "sale_percentage": 15,
+      "free_shipping": true,
+      "title": "Custom Oil Painting from Photo, Hand ..."
+    },
+    {
+      "price": 111.25,
+      "original_price": 430.87,
+      "on_sale": true,
+      "sale_percentage": 15,
+      "free_shipping": true,
+      "title": "Custom Oil Painting from Photo | Hand..."
+    },
+    {
+      "price": 111.25,
+      "original_price": 430.87,
+      "on_sale": true,
+      "sale_percentage": 15,
+      "free_shipping": true,
+      "title": "Custom Oil Painting from Photo | Fram..."
+    },
+    {
+      "price": 111.25,
+      "original_price": 430.87,
+      "on_sale": true,
+      "sale_percentage": 15,
+      "free_shipping": true,
+      "title": "Customized Oil Painting from Photo | ..."
+    },
+    {
+      "price": 111.25,
+      "original_price": 430.87,
+      "on_sale": true,
+      "sale_percentage": 15,
+      "free_shipping": true,
+      "title": "Custom Pet Portrait Painting Canvas | ..."
+    }
+  ],
+  "niche_context": {}
+}

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ShopPulse — Weekly Action Plans for Etsy Sellers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAFAF8;
+    --fg: #1A1A1A;
+    --accent: #D35400;
+    --accent-light: #FDF2E9;
+    --muted: #6B7280;
+    --border: #E5E5E3;
+    --card-bg: #FFFFFF;
+    --radius: 12px;
+  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(250,250,248,.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+  }
+  .nav-inner {
+    max-width: 960px; margin: auto;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+  }
+  .logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.35rem; color: var(--fg);
+    text-decoration: none; letter-spacing: -0.02em;
+  }
+  .logo span { color: var(--accent); }
+  nav a.cta-sm {
+    font-size: .85rem; font-weight: 600;
+    color: var(--accent); text-decoration: none;
+    border: 1.5px solid var(--accent);
+    padding: .4rem 1rem; border-radius: 6px;
+    transition: all .2s;
+  }
+  nav a.cta-sm:hover { background: var(--accent); color: #fff; }
+
+  /* ── HERO ── */
+  .hero {
+    max-width: 960px; margin: 0 auto;
+    padding: 5rem 2rem 3.5rem;
+    text-align: center;
+  }
+  .hero .badge {
+    display: inline-block;
+    font-size: .75rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: .08em;
+    color: var(--accent); background: var(--accent-light);
+    padding: .35rem .9rem; border-radius: 20px;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+    line-height: 1.15; letter-spacing: -0.02em;
+    max-width: 680px; margin: 0 auto 1.25rem;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--accent);
+  }
+  .hero p {
+    font-size: 1.1rem; color: var(--muted);
+    max-width: 540px; margin: 0 auto 2rem;
+  }
+  .hero .cta-primary {
+    display: inline-block;
+    background: var(--accent); color: #fff;
+    font-weight: 600; font-size: 1rem;
+    padding: .85rem 2rem; border-radius: 8px;
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(211,84,0,.2);
+    transition: transform .15s, box-shadow .15s;
+  }
+  .hero .cta-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(211,84,0,.25);
+  }
+  .hero .sub-cta {
+    display: block; margin-top: .75rem;
+    font-size: .82rem; color: var(--muted);
+  }
+
+  /* ── HOW IT WORKS ── */
+  .section { max-width: 960px; margin: 0 auto; padding: 3rem 2rem; }
+  .section-label {
+    font-size: .72rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .1em;
+    color: var(--accent); margin-bottom: .6rem;
+  }
+  .section h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.9rem; letter-spacing: -0.01em;
+    margin-bottom: 2rem;
+  }
+
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+  .step {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    position: relative;
+    transition: box-shadow .2s;
+  }
+  .step:hover { box-shadow: 0 4px 20px rgba(0,0,0,.05); }
+  .step-num {
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--accent-light); color: var(--accent);
+    font-weight: 700; font-size: .85rem;
+    border-radius: 50%; margin-bottom: 1rem;
+  }
+  .step h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: .5rem; }
+  .step p { font-size: .9rem; color: var(--muted); line-height: 1.55; }
+
+  /* ── WHAT WE DON'T DO ── */
+  .contrast-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  .contrast-card {
+    border-radius: var(--radius);
+    padding: 1.5rem; border: 1px solid var(--border);
+  }
+  .contrast-card.no { background: #FEF5F5; border-color: #F5C6C6; }
+  .contrast-card.yes { background: #F0FAF0; border-color: #B8E0B8; }
+  .contrast-card h3 { font-size: .95rem; font-weight: 700; margin-bottom: .65rem; }
+  .contrast-card ul { list-style: none; }
+  .contrast-card li {
+    font-size: .88rem; color: var(--muted);
+    padding: .3rem 0; padding-left: 1.4rem; position: relative;
+  }
+  .contrast-card.no li::before { content: '✕'; position: absolute; left: 0; color: #C0392B; font-weight: 700; }
+  .contrast-card.yes li::before { content: '✓'; position: absolute; left: 0; color: #27AE60; font-weight: 700; }
+  @media (max-width: 600px) { .contrast-grid { grid-template-columns: 1fr; } }
+
+  /* ── WAITLIST ── */
+  .waitlist-section {
+    text-align: center;
+    padding: 4rem 2rem;
+    margin: 2rem auto;
+    max-width: 960px;
+    border-top: 1px solid var(--border);
+  }
+  .waitlist-section h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.7rem; margin-bottom: .75rem;
+  }
+  .waitlist-section p { color: var(--muted); margin-bottom: 1.5rem; max-width: 460px; margin-left: auto; margin-right: auto; }
+  .waitlist-form {
+    display: flex; gap: .5rem;
+    max-width: 420px; margin: 0 auto;
+  }
+  .waitlist-form input {
+    flex: 1; padding: .75rem 1rem;
+    border: 1.5px solid var(--border); border-radius: 8px;
+    font-family: inherit; font-size: .95rem;
+    outline: none; transition: border-color .2s;
+  }
+  .waitlist-form input:focus { border-color: var(--accent); }
+  .waitlist-form button {
+    background: var(--accent); color: #fff; border: none;
+    padding: .75rem 1.5rem; border-radius: 8px;
+    font-family: inherit; font-size: .95rem; font-weight: 600;
+    cursor: pointer; transition: opacity .15s;
+  }
+  .waitlist-form button:hover { opacity: .9; }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center; padding: 2rem;
+    font-size: .78rem; color: var(--muted);
+    border-top: 1px solid var(--border);
+  }
+  footer a { color: var(--muted); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  .hero .badge { animation: fadeUp .5s ease both; }
+  .hero h1 { animation: fadeUp .5s ease .1s both; }
+  .hero p { animation: fadeUp .5s ease .2s both; }
+  .hero .cta-primary { animation: fadeUp .5s ease .3s both; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo">Shop<span>Pulse</span></a>
+    <a href="#waitlist" class="cta-sm">Join Waitlist</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="badge">Coming Soon — Early Access</div>
+  <h1>Your Etsy shop's <em>top 3 actions</em> this week</h1>
+  <p>ShopPulse connects to your shop, diagnoses what's holding you back, and tells you exactly what to fix — ranked by impact.</p>
+  <a href="#waitlist" class="cta-primary">Get Early Access</a>
+  <span class="sub-cta">Free for early design partners</span>
+</section>
+
+<section class="section">
+  <div class="section-label">How it works</div>
+  <h2>From data to decisions in minutes</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>Connect your shop</h3>
+      <p>Authorize ShopPulse via Etsy's official OAuth. We read your listings, stats, and shop data — nothing is scraped or stored without your permission.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>Get your diagnosis</h3>
+      <p>We analyze every listing against your competitive niche. Visibility gaps, conversion issues, pricing mismatches, content quality — each flagged with specific evidence.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>Follow your action plan</h3>
+      <p>Each week, you get 3 prioritized actions ranked by estimated impact. Not "improve your SEO" — specific changes to specific listings with clear reasoning.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <h3>Track what works</h3>
+      <p>ShopPulse monitors what happens after you act. Over time, recommendations get smarter based on what actually moves the needle for <em>your</em> shop.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-label">What makes this different</div>
+  <h2>Not another research dashboard</h2>
+  <div class="contrast-grid">
+    <div class="contrast-card no">
+      <h3>What we don't do</h3>
+      <ul>
+        <li>Dump raw keyword data for you to interpret</li>
+        <li>Show estimated sales numbers with unknown accuracy</li>
+        <li>Grade your listings without saying what to fix first</li>
+        <li>Scrape Etsy pages or violate platform terms</li>
+        <li>Pretend we know things we don't</li>
+      </ul>
+    </div>
+    <div class="contrast-card yes">
+      <h3>What we do instead</h3>
+      <ul>
+        <li>Rank your fixes by impact, not alphabetical order</li>
+        <li>Show reasoning and evidence for every recommendation</li>
+        <li>Track whether changes actually helped or hurt</li>
+        <li>Learn what works for your specific shop over time</li>
+        <li>Say "we don't know" when we don't know</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="waitlist-section" id="waitlist">
+  <h2>Join the early access list</h2>
+  <p>We're working with a small group of Etsy sellers to refine the experience. Spots are limited.</p>
+  <form class="waitlist-form" id="waitlist-form" action="https://formspree.io/f/mvzwdqlk" method="POST">
+    <input type="email" name="email" placeholder="your@email.com" required>
+    <button type="submit">Join</button>
+  </form>
+  <p id="confirm-msg" style="display:none; color:#27AE60; margin-top:1rem; font-weight:600;">You're on the list — we'll be in touch soon.</p>
+</section>
+
+<footer>
+  <p>The term 'Etsy' is a trademark of Etsy, Inc. This application uses the Etsy API but is not endorsed or certified by Etsy, Inc.</p>
+  <p style="margin-top:.5rem;">&copy; 2026 ShopPulse. <a href="mailto:hello@shoppulse.io">Contact</a></p>
+</footer>
+
+<script>
+document.getElementById('waitlist-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const form = e.target;
+  const msg = document.getElementById('confirm-msg');
+  try {
+    const response = await fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    });
+    if (response.ok) {
+      msg.style.display = 'block';
+      form.reset();
+    } else {
+      msg.style.display = 'block';
+      msg.style.color = '#C0392B';
+      msg.textContent = 'Something went wrong. Please try again.';
+    }
+  } catch (err) {
+    msg.style.display = 'block';
+    msg.style.color = '#C0392B';
+    msg.textContent = 'Something went wrong. Please try again.';
+  }
+});
+</script>
+
+</body>
+</html>

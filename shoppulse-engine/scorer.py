@@ -1639,8 +1639,44 @@ def score_shop(data):
     # Re-sort after adding shop-level gaps
     all_gaps.sort(key=lambda g: g["priority_score"], reverse=True)
 
+    # --- Fix #3: Ensure top actions are distinct ---
+    # The top 3 shown actions should have different action text
+    distinct_top = []
+    seen_text = set()
+    for g in all_gaps:
+        action_key = g.get("action", "")[:80]  # first 80 chars as dedup key
+        if action_key not in seen_text:
+            seen_text.add(action_key)
+            distinct_top.append(g)
+    # Replace all_gaps with distinct-first ordering:
+    # distinct ones first (in priority order), then the rest
+    distinct_set = set(id(g) for g in distinct_top)
+    rest = [g for g in all_gaps if id(g) not in distinct_set]
+    all_gaps = distinct_top + rest
+
     # --- Cross-listing pattern detection ---
     patterns = detect_cross_listing_patterns(enriched_listings, niche)
+
+    # --- Data completeness check ---
+    total_shop_listings = shop.get("item_count") or shop.get("listing_active_count")
+    analyzed_count = len(enriched_listings)
+    completeness = None
+    if total_shop_listings and total_shop_listings > 0:
+        completeness = round(analyzed_count / total_shop_listings * 100)
+
+    # --- Shop maturity signals ---
+    total_sales = shop.get("total_sales", 0) or health.get("total_orders", 0)
+    review_count = shop.get("review_count", 0)
+    star_rating = shop.get("star_rating")
+    star_seller = shop.get("star_seller", False)
+
+    maturity = "new"
+    if total_sales >= 5000 or review_count >= 1000:
+        maturity = "established"
+    elif total_sales >= 1000 or review_count >= 200:
+        maturity = "growing"
+    elif total_sales >= 100 or review_count >= 20:
+        maturity = "early"
 
     return {
         "shop_health": health,
@@ -1653,6 +1689,19 @@ def score_shop(data):
             "conversion_count": conv_count,
             "both_count": both_count,
             "healthy_count": healthy_count,
+        },
+        "data_completeness": {
+            "listings_analyzed": analyzed_count,
+            "total_shop_listings": total_shop_listings,
+            "completeness_pct": completeness,
+            "is_partial": completeness is not None and completeness < 50,
+        },
+        "shop_maturity": {
+            "level": maturity,
+            "total_sales": total_sales,
+            "review_count": review_count,
+            "star_rating": star_rating,
+            "star_seller": star_seller,
         },
         "listings": enriched_listings,
         "search_terms": search_terms,

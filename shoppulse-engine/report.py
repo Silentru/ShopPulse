@@ -24,12 +24,44 @@ def health_word(s):
     if s >= 25: return "struggling"
     return "critical"
 
-def compute_health(gaps, count):
+def compute_health(gaps, count, maturity=None):
+    """Health score 0-100 with shop maturity adjustment.
+
+    Established shops with strong fundamentals get a floor based on their
+    sales/reviews — the score reflects optimization opportunities, not
+    overall shop health.
+    """
     if not gaps or count == 0: return 100
     t = sum(g.get("severity", 0) for g in gaps)
     raw = round(100 - (t / (count * 10)) * 100)
-    # Floor at 15 for any shop with active listings — 0 makes the tool look broken
-    return max(15, raw) if count > 0 else max(0, raw)
+
+    # Apply maturity floor — a 7K-sale shop can't be a 35
+    if maturity:
+        level = maturity.get("level", "new")
+        total_sales = maturity.get("total_sales", 0)
+        reviews = maturity.get("review_count", 0)
+        rating = maturity.get("star_rating")
+
+        # Positive signal bonuses
+        bonus = 0
+        if total_sales >= 5000: bonus += 20
+        elif total_sales >= 1000: bonus += 12
+        elif total_sales >= 100: bonus += 5
+        if reviews >= 1000: bonus += 10
+        elif reviews >= 200: bonus += 6
+        elif reviews >= 50: bonus += 3
+        if rating and rating >= 4.8: bonus += 5
+
+        raw = min(100, raw + bonus)
+
+        # Hard floors by maturity
+        floors = {"established": 60, "growing": 45, "early": 25, "new": 15}
+        floor = floors.get(level, 15)
+        raw = max(floor, raw)
+    else:
+        raw = max(15, raw) if count > 0 else max(0, raw)
+
+    return raw
 
 
 def generate_report(data, shop_name=None):
@@ -38,6 +70,9 @@ def generate_report(data, shop_name=None):
     gaps = data.get("gaps", [])
     patterns = data.get("patterns", [])
     diag = data.get("shop_diagnosis", {})
+    completeness = data.get("data_completeness", {})
+    maturity = data.get("shop_maturity", {})
+    niche = data.get("niche", {})
     today = date.today().strftime("%b %d, %Y")
 
     if not shop_name:
@@ -50,18 +85,59 @@ def generate_report(data, shop_name=None):
     fees = h.get("total_fees_estimate")
     net = h.get("net_after_fees")
     conv = h.get("shop_conversion_rate")
-    score = compute_health(gaps, n)
+    score = compute_health(gaps, n, maturity)
     hw = health_word(score)
     quick_fixes = sum(1 for g in gaps if g.get("difficulty") == "quick fix")
+    mat_level = maturity.get("level", "new")
+    total_sales = maturity.get("total_sales", 0)
+    review_count = maturity.get("review_count", 0)
+    star_rating = maturity.get("star_rating")
 
+    # --- Fix #1: Data completeness warning ---
+    completeness_warning = ""
+    is_partial = completeness.get("is_partial", False)
+    analyzed = completeness.get("listings_analyzed", n)
+    total_listings = completeness.get("total_shop_listings")
+    pct = completeness.get("completeness_pct")
+    if is_partial and total_listings:
+        completeness_warning = (
+            f'<div class="warning">'
+            f'We analyzed {analyzed} of {total_listings} listings ({pct}%). '
+            f'This report covers a sample, not your full catalog. '
+            f'Results may not reflect overall shop health.'
+            f'</div>'
+        )
+
+    # --- Fix #4: Adjust narrative for established shops ---
     problem = diag.get("primary_problem", "")
-    story_map = {
-        "visibility": "Buyers aren't finding your listings. More traffic is the priority before anything else matters.",
-        "conversion": f"You're getting traffic ({views:,} views) but not enough turns into sales ({orders} orders). Something is stopping people from buying.",
-        "both": "Some listings need more traffic, others need to convert better. We figured out which is which.",
-        "healthy": "Your shop is performing well. What follows is fine-tuning, not damage control.",
-    }
+    if mat_level in ("established", "growing") and total_sales >= 1000:
+        story_map = {
+            "visibility": f"Your shop has strong fundamentals with {total_sales:,} sales{' and a ' + str(star_rating) + ' rating' if star_rating else ''}. Among the {analyzed} listings we analyzed, some aren't getting as much traffic as they could. Here's where there's room to optimize.",
+            "conversion": f"With {total_sales:,} sales, your shop is well-established. Some listings are getting views but could convert better. These are optimization opportunities, not fundamental problems.",
+            "both": f"Your shop is doing well overall ({total_sales:,} sales). We found a mix of visibility and conversion opportunities across the listings we analyzed.",
+            "healthy": f"Your shop is performing well — {total_sales:,} sales{', ' + str(star_rating) + ' rating' if star_rating else ''}. What follows is fine-tuning, not fixing something broken.",
+        }
+    else:
+        story_map = {
+            "visibility": "Buyers aren't finding your listings. More traffic is the priority before anything else matters.",
+            "conversion": f"You're getting traffic ({views:,} views) but not enough turns into sales ({orders} orders). Something is stopping people from buying.",
+            "both": "Some listings need more traffic, others need to convert better. We figured out which is which.",
+            "healthy": "Your shop is performing well. What follows is fine-tuning, not damage control.",
+        }
     story = story_map.get(problem, "")
+
+    # --- Fix #5: Niche benchmark reference ---
+    niche_ref = ""
+    niche_name = niche.get("_name", "")  # custom field if set
+    niche_median_price = niche.get("median_price")
+    niche_top10 = niche.get("top10_review_avg")
+    niche_med_reviews = niche.get("median_review_count")
+    if niche_median_price:
+        parts = []
+        parts.append(f"median price {fmt(niche_median_price)}")
+        if niche_med_reviews: parts.append(f"median reviews {niche_med_reviews:,}")
+        if niche_top10: parts.append(f"top 10 avg reviews {niche_top10:,}")
+        niche_ref = f'<p class="niche-ref">Compared against: {", ".join(parts)}</p>'
 
     # Money
     money_html = ""
@@ -201,6 +277,10 @@ def generate_report(data, shop_name=None):
 
   .page {{ max-width: 580px; margin: 0 auto; padding: 64px 24px 96px; }}
 
+  /* ── Warning ── */
+  .warning {{ padding: 14px 16px; margin-bottom: 24px; border-radius: 6px; background: #FEF3C7; border: 1px solid #FDE68A; font-size: .85rem; color: #92400E; line-height: 1.5; }}
+  .niche-ref {{ font-size: .75rem; color: var(--light); margin-top: 8px; }}
+
   /* ── Masthead ── */
   .mast {{ display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 48px; }}
   .mast-logo {{ font-family: 'DM Serif Display', serif; font-size: .9rem; color: var(--light); }}
@@ -322,22 +402,27 @@ def generate_report(data, shop_name=None):
     <div class="mast-date">{today}</div>
   </div>
 
+  {completeness_warning}
+
   <div class="hero-grid">
     <div class="hero-score c-{hw.split()[0]}">{score}</div>
     <div class="hero-right">
       <div class="hero-name">{escape(shop_name)}</div>
-      <div class="hero-hw">{hw}</div>
+      <div class="hero-hw">{hw}{f' — {total_sales:,} sales, {review_count:,} reviews' if total_sales >= 100 else ''}</div>
     </div>
   </div>
 
   <p class="story">{story}</p>
 
   <div class="ticker">
-    {f'<div class="tick"><div class="tick-n">{n}</div><div class="tick-l">Listings</div></div>' if n else ''}
-    {f'<div class="tick"><div class="tick-n">{views:,}</div><div class="tick-l">Views</div></div>' if views else ''}
-    {f'<div class="tick"><div class="tick-n">{orders}</div><div class="tick-l">Orders</div></div>' if orders else ''}
+    {f'<div class="tick"><div class="tick-n">{total_sales:,}</div><div class="tick-l">Total sales</div></div>' if total_sales >= 100 else (f'<div class="tick"><div class="tick-n">{n}</div><div class="tick-l">Listings</div></div>' if n else '')}
+    {f'<div class="tick"><div class="tick-n">{views:,}</div><div class="tick-l">Views (sample)</div></div>' if views else ''}
+    {f'<div class="tick"><div class="tick-n">{orders}</div><div class="tick-l">Orders (sample)</div></div>' if orders else ''}
     {f'<div class="tick"><div class="tick-n">{conv}%</div><div class="tick-l">Conversion</div></div>' if conv is not None else ''}
+    {f'<div class="tick"><div class="tick-n">{star_rating}</div><div class="tick-l">Rating</div></div>' if star_rating else ''}
   </div>
+
+  {niche_ref}
 
   {money_html}
 

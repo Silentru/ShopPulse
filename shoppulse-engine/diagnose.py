@@ -132,7 +132,7 @@ def run_diagnosis(source_path, shop_name, niche_preset="default", output_dir=Non
     # Step 4: Save baseline snapshot for follow-up comparison
     from datetime import date
     today = date.today().isoformat()
-    health_score = report_mod.compute_health(gaps, health.get("listing_count", len(data.get("listings", []))))
+    health_score = report_mod.compute_health(gaps, health.get("listing_count", len(data.get("listings", []))), result.get("shop_maturity"))
 
     baseline = {
         "shop_name": shop_name,

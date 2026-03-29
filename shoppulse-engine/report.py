@@ -27,7 +27,9 @@ def health_word(s):
 def compute_health(gaps, count):
     if not gaps or count == 0: return 100
     t = sum(g.get("severity", 0) for g in gaps)
-    return max(0, round(100 - (t / (count * 10)) * 100))
+    raw = round(100 - (t / (count * 10)) * 100)
+    # Floor at 15 for any shop with active listings — 0 makes the tool look broken
+    return max(15, raw) if count > 0 else max(0, raw)
 
 
 def generate_report(data, shop_name=None):

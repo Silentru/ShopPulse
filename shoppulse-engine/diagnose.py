@@ -129,10 +129,70 @@ def run_diagnosis(source_path, shop_name, niche_preset="default", output_dir=Non
         f.write(html)
     print(f"  Report: {report_path}", file=sys.stderr)
 
+    # Step 4: Save baseline snapshot for follow-up comparison
+    from datetime import date
+    today = date.today().isoformat()
+    health_score = report_mod.compute_health(gaps, health.get("listing_count", len(data.get("listings", []))))
+
+    baseline = {
+        "shop_name": shop_name,
+        "diagnosis_date": today,
+        "niche_preset": niche_preset,
+        "health_score": health_score,
+        "top_3_actions": [
+            {
+                "listing": g.get("listing", ""),
+                "action": g.get("action", ""),
+                "gap_type": g.get("gap_type", ""),
+                "sub_type": g.get("sub_type", ""),
+                "layer": g.get("layer", 1),
+                "severity": g.get("severity", 0),
+            }
+            for g in gaps[:3]
+        ],
+        "listings": [
+            {
+                "title": l.get("title", ""),
+                "price": l.get("price"),
+                "views_at_diagnosis": l.get("views", 0),
+                "orders_at_diagnosis": l.get("orders", 0),
+                "favorites_at_diagnosis": l.get("favorites", 0),
+                "review_count": l.get("review_count", data.get("shop", {}).get("review_count", 0)),
+                "photo_count": l.get("photo_count"),
+                "has_video": l.get("has_video"),
+                "free_shipping": l.get("free_shipping"),
+                "on_sale": l.get("on_sale"),
+                "original_price": l.get("original_price"),
+                "gaps_flagged": list(set(
+                    g["gap_type"] for g in gaps if g.get("listing") == l.get("title", "")
+                )),
+                "top_action": next(
+                    (g["action"] for g in gaps if g.get("listing") == l.get("title", "")),
+                    None
+                ),
+                "action_layer": next(
+                    (g.get("layer", 1) for g in gaps if g.get("listing") == l.get("title", "")),
+                    None
+                ),
+            }
+            for l in data.get("listings", [])
+        ],
+        "shop": {k: v for k, v in health.items() if k in [
+            "total_views", "total_orders", "total_favorites", "listing_count",
+            "shop_conversion_rate", "estimated_revenue", "net_after_fees",
+            "review_count", "total_sales", "star_rating",
+        ]},
+    }
+
+    baseline_path = os.path.join(output_dir, f"baseline_{safe_name}_{today}.json")
+    with open(baseline_path, "w") as f:
+        json.dump(baseline, f, indent=2)
+    print(f"  Baseline: {baseline_path}", file=sys.stderr)
+
     # Summary
     print(f"\n{'=' * 50}", file=sys.stderr)
     print(f"  {shop_name}", file=sys.stderr)
-    print(f"  Health: {report_mod.compute_health(gaps, health.get('listing_count', len(data.get('listings', []))))}/100", file=sys.stderr)
+    print(f"  Health: {health_score}/100", file=sys.stderr)
     print(f"  Listings: {health.get('listing_count', 0)}", file=sys.stderr)
     if health.get("estimated_revenue"):
         print(f"  Revenue: {report_mod.fmt(health['estimated_revenue'])}", file=sys.stderr)
@@ -141,7 +201,7 @@ def run_diagnosis(source_path, shop_name, niche_preset="default", output_dir=Non
     print(f"  Top action: {gaps[0]['action'][:80]}..." if gaps else "  No gaps found", file=sys.stderr)
     print(f"{'=' * 50}\n", file=sys.stderr)
 
-    return report_path, result_path, data_path
+    return report_path, result_path, data_path, baseline_path
 
 
 if __name__ == "__main__":
@@ -180,7 +240,7 @@ if __name__ == "__main__":
         name = base.replace("_", " ").replace("-", " ").title()
         print(f"No --name provided, using: {name}", file=sys.stderr)
 
-    report_path, _, _ = run_diagnosis(source, name, niche)
+    report_path, *_ = run_diagnosis(source, name, niche)
 
     if not no_open:
         if sys.platform == "darwin":

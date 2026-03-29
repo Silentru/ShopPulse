@@ -43,7 +43,7 @@ NICHE_PRESETS = {
         "total_niche_listings": None,
     },
     "custom_art": {
-        "median_price": 85.00,
+        "median_price": 120.00,
         "median_views_per_listing": 120,
         "median_favorites_per_listing": 15,
         "median_orders_per_listing": 3,
@@ -60,7 +60,7 @@ NICHE_PRESETS = {
         "total_niche_listings": None,
     },
     "custom_portraits": {
-        "median_price": 95.00,
+        "median_price": 130.00,
         "median_views_per_listing": 150,
         "median_favorites_per_listing": 20,
         "median_orders_per_listing": 5,
@@ -376,35 +376,42 @@ def suggest_title_restructure(title):
     if not starts_with_filler and len(words) <= 15:
         return None, None
 
-    # Try to find the product type (usually a noun phrase in the first ~6 words)
-    # Simple heuristic: skip leading adjectives, find first capitalized noun-like word
-    # that isn't a common adjective
-    product_words = []
-    descriptor_words = []
-    found_product = False
-
-    for w in words:
-        w_lower = w.lower().rstrip(",-")
-        if not found_product and w_lower in filler_starts:
-            descriptor_words.append(w)
+    # Split into filler prefix and product core
+    # "Beautiful Handmade Custom Dog Portrait Oil Painting from Photo Pet Memorial Gift"
+    # -> filler: [Beautiful, Handmade, Custom]  core: [Dog, Portrait, Oil, Painting, ...]
+    filler_prefix = []
+    core_start = 0
+    for i, w in enumerate(words):
+        if w.lower().rstrip(",-") in filler_starts:
+            filler_prefix.append(w)
+            core_start = i + 1
         else:
-            found_product = True
-            product_words.append(w)
+            break
 
-    if not product_words:
+    if core_start == 0 and len(words) <= 15:
+        return None, None  # No filler prefix and under 15 words — title is fine
+
+    core_words = words[core_start:]
+    if not core_words:
         return None, None
 
-    # Build suggestion: product words first, then key descriptors, trim to ~12 words
-    # Keep the most important product words + a few descriptors
-    core = product_words[:8]
-    extras = [w for w in descriptor_words if w.lower() not in filler_starts[:5]][:3]
-    suggestion_words = core + extras
-    if len(suggestion_words) > 14:
-        suggestion_words = suggestion_words[:14]
+    # Build suggestion: core words first, keep it under 14 words, end on a complete word
+    suggestion_words = core_words[:12]
+
+    # Add one useful descriptor back if we have room (e.g., "Handmade" or "Custom")
+    useful_fillers = [w for w in filler_prefix if w.lower() in ("handmade", "custom", "personalized", "vintage")]
+    if useful_fillers and len(suggestion_words) < 13:
+        suggestion_words.append(useful_fillers[0])
 
     suggestion = " ".join(suggestion_words)
-    original_short = " ".join(words[:5]) + "..." if len(words) > 5 else title
-    explanation = f'Restructure from "{original_short}" to lead with the product type'
+
+    # Clean up: remove trailing punctuation/pipes
+    suggestion = suggestion.rstrip(" |,;-")
+
+    original_preview = " ".join(words[:6])
+    if len(words) > 6:
+        original_preview += "..."
+    explanation = f'Restructure from "{original_preview}" to lead with the product type'
 
     return suggestion, explanation
 
@@ -1517,6 +1524,10 @@ def score_shop(data):
     PRIORITY_BOOST = 1.5
     DEPRIORITY = 0.5
 
+    # If ALL listings have zero views, traffic_share is meaningless — use severity alone
+    total_shop_views = sum(l.get("views", 0) for l in enriched_listings)
+    all_zero_traffic = total_shop_views == 0
+
     listing_diagnoses = []
     all_gaps = []
 
@@ -1550,11 +1561,14 @@ def score_shop(data):
                 gap["primary_problem"] = diagnosis["primary_problem"]
 
                 # Weight priority based on diagnosis
-                # Use traffic_share but guarantee a minimum so zero-view listings
-                # don't get priority 0 (they need the most help)
                 gap_layer = gap.get("layer", 1)
-                effective_share = max(traffic_share, 1.0 / max(len(enriched_listings), 1))
-                base_score = gap["severity"] * effective_share * 10
+                if all_zero_traffic:
+                    # No traffic data — rank purely by severity
+                    base_score = gap["severity"] * 1.5
+                else:
+                    # Use traffic_share with a minimum floor
+                    effective_share = max(traffic_share, 1.0 / max(len(enriched_listings), 1))
+                    base_score = gap["severity"] * effective_share * 10
 
                 if gap_layer == top_layer:
                     gap["priority_score"] = round(base_score * PRIORITY_BOOST, 2)

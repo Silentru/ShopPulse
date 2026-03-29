@@ -1,0 +1,22 @@
+# Generated outputs
+*_result.json
+*_report.html
+diagnosis_result.json
+report.html
+report_*.html
+
+# Generated data (keep example and test data)
+moonlitgemsstudio_data.json
+sattvasoulindia_data.json
+_result.json
+
+# Python
+__pycache__/
+*.pyc
+
+# macOS
+.DS_Store
+
+# PDFs and spreadsheets (tracked separately if needed)
+*.pdf
+*.xlsx

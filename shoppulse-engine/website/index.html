@@ -8,194 +8,83 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #FAFAF8;
-    --fg: #1A1A1A;
-    --accent: #D35400;
-    --accent-light: #FDF2E9;
-    --muted: #6B7280;
-    --border: #E5E5E3;
-    --card-bg: #FFFFFF;
-    --radius: 12px;
+    --bg: #FAFAF8; --fg: #1A1A1A; --accent: #D35400; --accent-light: #FDF2E9;
+    --muted: #6B7280; --border: #E5E5E3; --card-bg: #FFFFFF; --radius: 12px;
+    --green: #1B7A3D; --green-bg: #EEFBF3;
   }
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--fg);
-    line-height: 1.65;
-    -webkit-font-smoothing: antialiased;
-  }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--fg); line-height: 1.65; -webkit-font-smoothing: antialiased; }
 
-  /* ── NAV ── */
-  nav {
-    position: sticky; top: 0; z-index: 100;
-    background: rgba(250,250,248,.85);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-    padding: 0 2rem;
-  }
-  .nav-inner {
-    max-width: 960px; margin: auto;
-    display: flex; align-items: center; justify-content: space-between;
-    height: 60px;
-  }
-  .logo {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.35rem; color: var(--fg);
-    text-decoration: none; letter-spacing: -0.02em;
-  }
+  /* Nav */
+  nav { position: sticky; top: 0; z-index: 100; background: rgba(250,250,248,.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 2rem; }
+  .nav-inner { max-width: 960px; margin: auto; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .logo { font-family: 'DM Serif Display', serif; font-size: 1.35rem; color: var(--fg); text-decoration: none; letter-spacing: -0.02em; }
   .logo span { color: var(--accent); }
-  nav a.cta-sm {
-    font-size: .85rem; font-weight: 600;
-    color: var(--accent); text-decoration: none;
-    border: 1.5px solid var(--accent);
-    padding: .4rem 1rem; border-radius: 6px;
-    transition: all .2s;
-  }
-  nav a.cta-sm:hover { background: var(--accent); color: #fff; }
+  .nav-links { display: flex; align-items: center; gap: 24px; }
+  .nav-links a { font-size: .85rem; font-weight: 500; color: var(--muted); text-decoration: none; }
+  .nav-links a:hover { color: var(--fg); }
+  .nav-links a.active { color: var(--fg); }
+  .nav-links a.cta-sm { font-weight: 600; color: var(--accent); border: 1.5px solid var(--accent); padding: .4rem 1rem; border-radius: 6px; }
+  .nav-links a.cta-sm:hover { background: var(--accent); color: #fff; }
 
-  /* ── HERO ── */
-  .hero {
-    max-width: 960px; margin: 0 auto;
-    padding: 5rem 2rem 3.5rem;
-    text-align: center;
-  }
-  .hero .badge {
-    display: inline-block;
-    font-size: .75rem; font-weight: 600;
-    text-transform: uppercase; letter-spacing: .08em;
-    color: var(--accent); background: var(--accent-light);
-    padding: .35rem .9rem; border-radius: 20px;
-    margin-bottom: 1.5rem;
-  }
-  .hero h1 {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(2.2rem, 5vw, 3.2rem);
-    line-height: 1.15; letter-spacing: -0.02em;
-    max-width: 680px; margin: 0 auto 1.25rem;
-  }
-  .hero h1 em {
-    font-style: normal;
-    color: var(--accent);
-  }
-  .hero p {
-    font-size: 1.1rem; color: var(--muted);
-    max-width: 540px; margin: 0 auto 2rem;
-  }
-  .hero .cta-primary {
-    display: inline-block;
-    background: var(--accent); color: #fff;
-    font-weight: 600; font-size: 1rem;
-    padding: .85rem 2rem; border-radius: 8px;
-    text-decoration: none;
-    box-shadow: 0 2px 8px rgba(211,84,0,.2);
-    transition: transform .15s, box-shadow .15s;
-  }
-  .hero .cta-primary:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 16px rgba(211,84,0,.25);
-  }
-  .hero .sub-cta {
-    display: block; margin-top: .75rem;
-    font-size: .82rem; color: var(--muted);
-  }
+  /* Hero */
+  .hero { max-width: 960px; margin: 0 auto; padding: 5rem 2rem 3.5rem; text-align: center; }
+  .hero .badge { display: inline-block; font-size: .75rem; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--accent); background: var(--accent-light); padding: .35rem .9rem; border-radius: 20px; margin-bottom: 1.5rem; }
+  .hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2.2rem, 5vw, 3.2rem); line-height: 1.15; letter-spacing: -0.02em; max-width: 680px; margin: 0 auto 1.25rem; }
+  .hero h1 em { font-style: normal; color: var(--accent); }
+  .hero p { font-size: 1.1rem; color: var(--muted); max-width: 540px; margin: 0 auto 2rem; }
+  .hero .cta-primary { display: inline-block; background: var(--accent); color: #fff; font-weight: 600; font-size: 1rem; padding: .85rem 2rem; border-radius: 8px; text-decoration: none; box-shadow: 0 2px 8px rgba(211,84,0,.2); transition: transform .15s, box-shadow .15s; }
+  .hero .cta-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(211,84,0,.25); }
+  .hero .sub-cta { display: block; margin-top: .75rem; font-size: .82rem; color: var(--muted); }
 
-  /* ── HOW IT WORKS ── */
+  /* Tools banner */
+  .tools-banner { max-width: 960px; margin: 0 auto; padding: 0 2rem 3rem; }
+  .tools-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .tool-card { padding: 1.5rem; border-radius: var(--radius); border: 1px solid var(--border); background: var(--card-bg); text-decoration: none; color: var(--fg); transition: box-shadow .2s, border-color .2s; }
+  .tool-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,.05); border-color: var(--accent); }
+  .tool-label { font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--accent); margin-bottom: .4rem; }
+  .tool-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: .4rem; }
+  .tool-card p { font-size: .88rem; color: var(--muted); line-height: 1.5; }
+  .tool-free { display: inline-block; font-size: .7rem; font-weight: 600; background: var(--green-bg); color: var(--green); padding: 2px 8px; border-radius: 4px; margin-top: .5rem; }
+  @media (max-width: 600px) { .tools-grid { grid-template-columns: 1fr; } }
+
+  /* Sections */
   .section { max-width: 960px; margin: 0 auto; padding: 3rem 2rem; }
-  .section-label {
-    font-size: .72rem; font-weight: 700;
-    text-transform: uppercase; letter-spacing: .1em;
-    color: var(--accent); margin-bottom: .6rem;
-  }
-  .section h2 {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.9rem; letter-spacing: -0.01em;
-    margin-bottom: 2rem;
-  }
+  .section-label { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--accent); margin-bottom: .6rem; }
+  .section h2 { font-family: 'DM Serif Display', serif; font-size: 1.9rem; letter-spacing: -0.01em; margin-bottom: 2rem; }
 
   .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
-  .step {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1.75rem;
-    position: relative;
-    transition: box-shadow .2s;
-  }
+  .step { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.75rem; transition: box-shadow .2s; }
   .step:hover { box-shadow: 0 4px 20px rgba(0,0,0,.05); }
-  .step-num {
-    width: 32px; height: 32px;
-    display: flex; align-items: center; justify-content: center;
-    background: var(--accent-light); color: var(--accent);
-    font-weight: 700; font-size: .85rem;
-    border-radius: 50%; margin-bottom: 1rem;
-  }
+  .step-num { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; background: var(--accent-light); color: var(--accent); font-weight: 700; font-size: .85rem; border-radius: 50%; margin-bottom: 1rem; }
   .step h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: .5rem; }
   .step p { font-size: .9rem; color: var(--muted); line-height: 1.55; }
 
-  /* ── WHAT WE DON'T DO ── */
-  .contrast-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
-    margin-top: 1.5rem;
-  }
-  .contrast-card {
-    border-radius: var(--radius);
-    padding: 1.5rem; border: 1px solid var(--border);
-  }
+  .contrast-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.5rem; }
+  .contrast-card { border-radius: var(--radius); padding: 1.5rem; border: 1px solid var(--border); }
   .contrast-card.no { background: #FEF5F5; border-color: #F5C6C6; }
   .contrast-card.yes { background: #F0FAF0; border-color: #B8E0B8; }
   .contrast-card h3 { font-size: .95rem; font-weight: 700; margin-bottom: .65rem; }
   .contrast-card ul { list-style: none; }
-  .contrast-card li {
-    font-size: .88rem; color: var(--muted);
-    padding: .3rem 0; padding-left: 1.4rem; position: relative;
-  }
-  .contrast-card.no li::before { content: '✕'; position: absolute; left: 0; color: #C0392B; font-weight: 700; }
-  .contrast-card.yes li::before { content: '✓'; position: absolute; left: 0; color: #27AE60; font-weight: 700; }
+  .contrast-card li { font-size: .88rem; color: var(--muted); padding: .3rem 0; padding-left: 1.4rem; position: relative; }
+  .contrast-card.no li::before { content: "\2715"; position: absolute; left: 0; color: #C0392B; font-weight: 700; }
+  .contrast-card.yes li::before { content: "\2713"; position: absolute; left: 0; color: #27AE60; font-weight: 700; }
   @media (max-width: 600px) { .contrast-grid { grid-template-columns: 1fr; } }
 
-  /* ── WAITLIST ── */
-  .waitlist-section {
-    text-align: center;
-    padding: 4rem 2rem;
-    margin: 2rem auto;
-    max-width: 960px;
-    border-top: 1px solid var(--border);
-  }
-  .waitlist-section h2 {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.7rem; margin-bottom: .75rem;
-  }
+  /* Waitlist */
+  .waitlist-section { text-align: center; padding: 4rem 2rem; margin: 2rem auto; max-width: 960px; border-top: 1px solid var(--border); }
+  .waitlist-section h2 { font-family: 'DM Serif Display', serif; font-size: 1.7rem; margin-bottom: .75rem; }
   .waitlist-section p { color: var(--muted); margin-bottom: 1.5rem; max-width: 460px; margin-left: auto; margin-right: auto; }
-  .waitlist-form {
-    display: flex; gap: .5rem;
-    max-width: 420px; margin: 0 auto;
-  }
-  .waitlist-form input {
-    flex: 1; padding: .75rem 1rem;
-    border: 1.5px solid var(--border); border-radius: 8px;
-    font-family: inherit; font-size: .95rem;
-    outline: none; transition: border-color .2s;
-  }
+  .waitlist-form { display: flex; gap: .5rem; max-width: 420px; margin: 0 auto; }
+  .waitlist-form input { flex: 1; padding: .75rem 1rem; border: 1.5px solid var(--border); border-radius: 8px; font-family: inherit; font-size: .95rem; outline: none; }
   .waitlist-form input:focus { border-color: var(--accent); }
-  .waitlist-form button {
-    background: var(--accent); color: #fff; border: none;
-    padding: .75rem 1.5rem; border-radius: 8px;
-    font-family: inherit; font-size: .95rem; font-weight: 600;
-    cursor: pointer; transition: opacity .15s;
-  }
+  .waitlist-form button { background: var(--accent); color: #fff; border: none; padding: .75rem 1.5rem; border-radius: 8px; font-family: inherit; font-size: .95rem; font-weight: 600; cursor: pointer; }
   .waitlist-form button:hover { opacity: .9; }
 
-  /* ── FOOTER ── */
-  footer {
-    text-align: center; padding: 2rem;
-    font-size: .78rem; color: var(--muted);
-    border-top: 1px solid var(--border);
-  }
+  footer { text-align: center; padding: 2rem; font-size: .78rem; color: var(--muted); border-top: 1px solid var(--border); }
   footer a { color: var(--muted); }
 
-  /* ── ANIMATIONS ── */
   @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
   .hero .badge { animation: fadeUp .5s ease both; }
   .hero h1 { animation: fadeUp .5s ease .1s both; }
@@ -207,8 +96,12 @@
 
 <nav>
   <div class="nav-inner">
-    <a href="#" class="logo">Shop<span>Pulse</span></a>
-    <a href="#waitlist" class="cta-sm">Join Waitlist</a>
+    <a href="index.html" class="logo">Shop<span>Pulse</span></a>
+    <div class="nav-links">
+      <a href="calculator.html">Fee Calculator</a>
+      <a href="diagnosis.html">Shop Diagnosis</a>
+      <a href="#waitlist" class="cta-sm">Join Waitlist</a>
+    </div>
   </div>
 </nav>
 
@@ -216,9 +109,26 @@
   <div class="badge">Coming Soon — Early Access</div>
   <h1>Your Etsy shop's <em>top 3 actions</em> this week</h1>
   <p>ShopPulse connects to your shop, diagnoses what's holding you back, and tells you exactly what to fix — ranked by impact.</p>
-  <a href="#waitlist" class="cta-primary">Get Early Access</a>
-  <span class="sub-cta">Free for early design partners</span>
+  <a href="#tools" class="cta-primary">Try our free tools</a>
+  <span class="sub-cta">No signup required</span>
 </section>
+
+<div class="tools-banner" id="tools">
+  <div class="tools-grid">
+    <a href="calculator.html" class="tool-card">
+      <div class="tool-label">Free tool</div>
+      <h3>Etsy Fee Calculator</h3>
+      <p>See exactly what Etsy takes from every sale. Listing fees, transaction fees, payment processing, Offsite Ads — know your real profit.</p>
+      <div class="tool-free">Free — no signup</div>
+    </a>
+    <a href="diagnosis.html" class="tool-card">
+      <div class="tool-label">Free diagnosis</div>
+      <h3>Shop Diagnosis</h3>
+      <p>Get a personalized report for your Etsy shop. We analyze your listings, find the gaps, and tell you what to fix first.</p>
+      <div class="tool-free">Free for design partners</div>
+    </a>
+  </div>
+</div>
 
 <section class="section">
   <div class="section-label">How it works</div>
@@ -226,23 +136,23 @@
   <div class="steps">
     <div class="step">
       <div class="step-num">1</div>
-      <h3>Connect your shop</h3>
-      <p>Authorize ShopPulse via Etsy's official OAuth. We read your listings, stats, and shop data — nothing is scraped or stored without your permission.</p>
+      <h3>Know your real margins</h3>
+      <p>Use our free fee calculator to see what Etsy actually takes. Most sellers underestimate their fees by 30-40%.</p>
     </div>
     <div class="step">
       <div class="step-num">2</div>
       <h3>Get your diagnosis</h3>
-      <p>We analyze every listing against your competitive niche. Visibility gaps, conversion issues, pricing mismatches, content quality — each flagged with specific evidence.</p>
+      <p>We analyze every listing against your competitive niche. Visibility, conversion, pricing, trust, content — each checked with specific evidence.</p>
     </div>
     <div class="step">
       <div class="step-num">3</div>
       <h3>Follow your action plan</h3>
-      <p>Each week, you get 3 prioritized actions ranked by estimated impact. Not "improve your SEO" — specific changes to specific listings with clear reasoning.</p>
+      <p>Each week, 3 prioritized actions ranked by impact. Not "improve your SEO" — specific changes to specific listings with clear reasoning.</p>
     </div>
     <div class="step">
       <div class="step-num">4</div>
       <h3>Track what works</h3>
-      <p>ShopPulse monitors what happens after you act. Over time, recommendations get smarter based on what actually moves the needle for <em>your</em> shop.</p>
+      <p>ShopPulse monitors what happens after you act. If a fix didn't work, we escalate to the next layer instead of repeating the same advice.</p>
     </div>
   </div>
 </section>
@@ -295,24 +205,9 @@ document.getElementById('waitlist-form').addEventListener('submit', async functi
   const form = e.target;
   const msg = document.getElementById('confirm-msg');
   try {
-    const response = await fetch(form.action, {
-      method: 'POST',
-      body: new FormData(form),
-      headers: { 'Accept': 'application/json' }
-    });
-    if (response.ok) {
-      msg.style.display = 'block';
-      form.reset();
-    } else {
-      msg.style.display = 'block';
-      msg.style.color = '#C0392B';
-      msg.textContent = 'Something went wrong. Please try again.';
-    }
-  } catch (err) {
-    msg.style.display = 'block';
-    msg.style.color = '#C0392B';
-    msg.textContent = 'Something went wrong. Please try again.';
-  }
+    const response = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } });
+    if (response.ok) { msg.style.display = 'block'; form.style.display = 'none'; }
+  } catch (err) { /* silent */ }
 });
 </script>
 

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Shop Diagnosis — ShopPulse</title>
+<meta name="description" content="Get a free personalized diagnosis for your Etsy shop. We analyze your listings, find the gaps, and tell you exactly what to fix — ranked by impact.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAFAF8; --fg: #1A1A1A; --accent: #D35400; --accent-light: #FDF2E9;
+    --muted: #6B7280; --light: #9CA3AF; --border: #E5E5E3;
+    --green: #1B7A3D; --green-bg: #EEFBF3; --amber: #92400E; --amber-bg: #FEF3C7;
+  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--fg); line-height: 1.65; -webkit-font-smoothing: antialiased; }
+
+  nav { position: sticky; top: 0; z-index: 100; background: rgba(250,250,248,.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 2rem; }
+  .nav-inner { max-width: 960px; margin: auto; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .logo { font-family: 'DM Serif Display', serif; font-size: 1.35rem; color: var(--fg); text-decoration: none; letter-spacing: -0.02em; }
+  .logo span { color: var(--accent); }
+  .nav-links { display: flex; align-items: center; gap: 24px; }
+  .nav-links a { font-size: .85rem; font-weight: 500; color: var(--muted); text-decoration: none; }
+  .nav-links a:hover { color: var(--fg); }
+  .nav-links a.active { color: var(--fg); }
+
+  .page { max-width: 640px; margin: 0 auto; padding: 48px 24px 96px; }
+  .label { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--accent); margin-bottom: .5rem; }
+  h1 { font-family: 'DM Serif Display', serif; font-size: 2rem; font-weight: 400; letter-spacing: -0.03em; line-height: 1.2; margin-bottom: 8px; }
+  h2 { font-family: 'DM Serif Display', serif; font-size: 1.3rem; font-weight: 400; margin: 40px 0 12px; }
+  .intro { font-size: .95rem; color: var(--muted); margin-bottom: 32px; }
+  hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+
+  .check-list { list-style: none; margin: 16px 0; }
+  .check-list li { font-size: .9rem; padding: 6px 0 6px 24px; position: relative; color: var(--fg); }
+  .check-list li::before { content: "\2713"; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+
+  .gap-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 16px 0; }
+  .gap-item { font-size: .85rem; padding: 10px 12px; background: var(--accent-light); border-radius: 6px; }
+  .gap-item strong { display: block; font-size: .78rem; color: var(--accent); margin-bottom: 2px; }
+
+  .example-box { margin: 24px 0; padding: 20px; background: #fff; border: 1px solid var(--border); border-radius: 8px; }
+  .example-label { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--light); margin-bottom: 8px; }
+  .example-finding { font-size: .9rem; font-weight: 500; margin-bottom: 4px; }
+  .example-evidence { font-size: .82rem; color: var(--muted); }
+
+  .how-steps { counter-reset: step; margin: 16px 0; }
+  .how-step { display: flex; gap: 14px; margin-bottom: 20px; }
+  .how-num { width: 32px; height: 32px; border-radius: 50%; background: var(--accent-light); color: var(--accent); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: .85rem; flex-shrink: 0; }
+  .how-body h3 { font-size: .95rem; font-weight: 600; margin-bottom: 4px; }
+  .how-body p { font-size: .88rem; color: var(--muted); }
+
+  .cta-section { text-align: center; padding: 40px; background: #232347; border-radius: 8px; color: #fff; margin: 40px 0; }
+  .cta-section h2 { font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: #fff; margin: 0 0 8px; }
+  .cta-section p { font-size: .88rem; color: #a0a0c0; max-width: 440px; margin: 0 auto 20px; }
+  .cta-section .cta-btn { display: inline-block; background: var(--accent); color: #fff; font-weight: 600; font-size: .95rem; padding: .75rem 2rem; border-radius: 8px; text-decoration: none; }
+  .cta-section .cta-btn:hover { opacity: .9; }
+  .cta-section .cta-note { font-size: .78rem; color: #8888aa; margin-top: 8px; }
+
+  .foot { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border); font-size: .78rem; color: var(--light); }
+  .foot a { color: var(--accent); text-decoration: none; }
+
+  @media (max-width: 480px) { .gap-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo">Shop<span>Pulse</span></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="calculator.html">Fee Calculator</a>
+      <a href="diagnosis.html" class="active">Shop Diagnosis</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page">
+
+  <div class="label">Free for design partners</div>
+  <h1>Get your shop diagnosed</h1>
+  <p class="intro">We analyze your Etsy shop against niche benchmarks and produce a personalized report with prioritized actions. Not generic advice — specific findings for your specific listings.</p>
+
+  <h2>What we check</h2>
+  <div class="gap-grid">
+    <div class="gap-item"><strong>Visibility</strong>Are buyers finding your listings?</div>
+    <div class="gap-item"><strong>Conversion</strong>Are browsers actually buying?</div>
+    <div class="gap-item"><strong>Pricing</strong>Is your pricing helping or hurting?</div>
+    <div class="gap-item"><strong>Trust</strong>Do new buyers trust your shop?</div>
+    <div class="gap-item"><strong>Content</strong>Do your photos and descriptions sell?</div>
+    <div class="gap-item"><strong>Competitiveness</strong>Can you compete in your niche?</div>
+  </div>
+
+  <h2>What you get</h2>
+  <ul class="check-list">
+    <li>Health score (0-100) benchmarked against your niche</li>
+    <li>Per-listing profit breakdown with real Etsy fee calculations</li>
+    <li>Visibility vs conversion diagnosis — which problem comes first</li>
+    <li>3 prioritized actions with timelines and measurement plans</li>
+    <li>Cross-listing pattern analysis — what your best sellers have in common</li>
+    <li>Shop-level issues other tools miss (fake pricing, duplicate listings)</li>
+    <li>Escalation path — what to try next if the first fix doesn't work</li>
+  </ul>
+
+  <h2>Real example</h2>
+  <p style="font-size:.88rem;color:var(--muted);margin-bottom:16px">From a real diagnosis we ran on a custom portrait shop:</p>
+
+  <div class="example-box">
+    <div class="example-label">Finding #1 — Severity 7/10</div>
+    <div class="example-finding">6 of 8 listings show inflated original prices</div>
+    <div class="example-evidence">"Custom Original Oil Painting" listed at $111.25 with crossed-out $430.87. Experienced Etsy buyers recognize this pattern — it signals a scam or low-quality seller.</div>
+  </div>
+  <div class="example-box">
+    <div class="example-label">Finding #2 — Severity 6/10</div>
+    <div class="example-finding">4 of 8 listings look nearly interchangeable</div>
+    <div class="example-evidence">All at the same price of $111.25. Etsy deprioritizes shops with duplicate-looking listings, and buyers who see the same product repeated assume the shop lacks variety.</div>
+  </div>
+  <div class="example-box">
+    <div class="example-label">Finding #3 — Severity 5/10</div>
+    <div class="example-finding">All 8 listings permanently on sale</div>
+    <div class="example-evidence">When everything is always on sale, nothing is actually on sale. This undermines trust — especially for a shop with 1 review.</div>
+  </div>
+
+  <hr>
+
+  <h2>How to get your diagnosis</h2>
+  <div class="how-steps">
+    <div class="how-step">
+      <div class="how-num">1</div>
+      <div class="how-body">
+        <h3>Screenshot your shop</h3>
+        <p>Take a screenshot of your Etsy shop page showing your listings. That's all we need to start — no login, no API connection.</p>
+      </div>
+    </div>
+    <div class="how-step">
+      <div class="how-num">2</div>
+      <div class="how-body">
+        <h3>Share it with us</h3>
+        <p>Send your screenshot to us via the form below or email. We'll extract the data and run your diagnosis within 24 hours.</p>
+      </div>
+    </div>
+    <div class="how-step">
+      <div class="how-num">3</div>
+      <div class="how-body">
+        <h3>Get your report</h3>
+        <p>You'll receive a personalized HTML report with your health score, fee breakdown, and prioritized action plan. We'll walk you through it if you want.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-section">
+    <h2>Get your free diagnosis</h2>
+    <p>We're looking for 5-10 design partners to test ShopPulse with. You get a free, no-strings diagnosis. We learn what works.</p>
+    <a href="mailto:sattvasoulin@gmail.com?subject=ShopPulse%20Diagnosis%20Request&body=Hi%2C%20I'd%20like%20a%20free%20shop%20diagnosis.%20My%20Etsy%20shop%20URL%20is%3A%20" class="cta-btn">Request a diagnosis</a>
+    <div class="cta-note">Or send a screenshot to your email with your shop URL</div>
+  </div>
+
+  <h2>For sellers who want to self-serve</h2>
+  <p style="font-size:.88rem;color:var(--muted);margin-bottom:12px">Know your way around a terminal? Our scorer runs locally on your machine with no data sent anywhere.</p>
+  <div class="example-box" style="font-family:monospace;font-size:.82rem;line-height:1.8">
+    python3 screenshot_extractor.py shop_screenshot.png > data.json<br>
+    python3 scorer.py data.json -o results.json<br>
+    python3 report.py results.json -o report.html --name "YourShop"
+  </div>
+
+  <div class="foot">
+    <p><a href="index.html">ShopPulse</a> — we tell you what to fix, not what to sell.</p>
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -159,9 +159,21 @@ HTML_PAGE = """<!DOCTYPE html>
 
   <hr>
 
-  <button class="niche-toggle" onclick="toggleNiche()">Niche benchmarks (optional — click to customize)</button>
+  <div class="field" style="margin-bottom:16px">
+    <label>Niche preset</label>
+    <select id="niche_preset" style="width:100%;padding:8px 12px;border:1.5px solid var(--border);border-radius:6px;font-family:inherit;font-size:.9rem">
+      <option value="default">General (default)</option>
+      <option value="custom_art">Custom Art</option>
+      <option value="custom_portraits">Custom Portraits</option>
+      <option value="jewelry">Jewelry</option>
+      <option value="handmade_gifts">Handmade Gifts</option>
+      <option value="crystals">Crystals / Healing Stones</option>
+    </select>
+  </div>
+
+  <button class="niche-toggle" onclick="toggleNiche()">Custom benchmarks (advanced — click to override)</button>
   <div class="niche-fields" id="niche-fields">
-    <p class="sub">Defaults are for a general Etsy niche. Adjust if you know the seller's specific niche.</p>
+    <p class="sub">Override individual benchmarks if you know the seller's specific niche numbers.</p>
     <div class="row">
       <div class="field"><label>Median price</label><input type="number" id="niche_price" step="0.01" value="45.00"></div>
       <div class="field"><label>Median views/listing</label><input type="number" id="niche_views" value="150"></div>
@@ -259,6 +271,7 @@ function toggleNiche() {
 
 function buildData() {
   const shop = { name: val('shop_name') };
+  const niche_preset = val('niche_preset');
   const rc = numVal('review_count'); if (rc !== null) shop.review_count = rc;
   const ts = numVal('total_sales'); if (ts !== null) shop.total_sales = ts;
   const ad = numVal('admirers'); if (ad !== null) shop.admirers = ad;
@@ -284,6 +297,7 @@ function buildData() {
 
   return {
     shop,
+    niche_preset,
     listings: cleanListings,
     niche_context: {
       median_price: numVal('niche_price') || 45,

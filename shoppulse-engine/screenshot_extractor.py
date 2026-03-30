@@ -627,6 +627,11 @@ def extract_shop_page(text):
         if "bestseller" in nearby or "best seller" in nearby:
             listing["bestseller"] = True
 
+        # "In cart" demand signal: "4 people have this in their cart" / "Over 20 people..."
+        cart_match = re.search(r"(?:over\s+)?(\d+)\s*people\s*have\s*this\s*in\s*their\s*cart", nearby)
+        if cart_match:
+            listing["in_cart"] = int(cart_match.group(1))
+
         # Title — look backwards for nearest text that looks like a listing title
         title = None
         for j in range(price_idx - 1, max(-1, price_idx - 6), -1):

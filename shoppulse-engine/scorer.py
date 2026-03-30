@@ -281,26 +281,45 @@ def price_position(price, niche_median, niche_25th=None, niche_75th=None,
 # ---------------------------------------------------------------------------
 
 def compute_listing_metrics(listing, niche, shop=None):
-    """Compute derived metrics for a single listing including profit analytics."""
-    views = listing.get("views", 0)
-    orders = listing.get("orders", 0)
-    favorites = listing.get("favorites", 0)
+    """Compute derived metrics for a single listing including profit analytics.
+
+    IMPORTANT: views, orders, favorites may be None (not available from public data).
+    Only compute derived metrics when the source data is actually present.
+    """
+    views = listing.get("views")      # None = not available, 0 = confirmed zero
+    orders = listing.get("orders")
+    favorites = listing.get("favorites")
     price = listing.get("price")
     shipping_charged = listing.get("shipping_charged", 0)
+    in_cart = listing.get("in_cart")   # demand signal from public page
 
     m = {}
-    m["conversion_rate"] = round((orders / views) * 100, 2) if views > 0 else None
-    m["fav_to_order_ratio"] = round(orders / favorites, 3) if favorites > 0 else None
-    m["revenue_estimate"] = round(orders * price, 2) if price and orders else None
+    m["has_traffic_data"] = views is not None
+    m["has_order_data"] = orders is not None
 
-    # Percentile estimates vs niche
+    if views is not None and views > 0 and orders is not None:
+        m["conversion_rate"] = round((orders / views) * 100, 2)
+    if favorites is not None and favorites > 0 and orders is not None:
+        m["fav_to_order_ratio"] = round(orders / favorites, 3)
+    if price and orders is not None and orders > 0:
+        m["revenue_estimate"] = round(orders * price, 2)
+
+    # Niche comparisons — only when we have the data
     niche_views = niche.get("median_views_per_listing", 400)
     niche_orders = niche.get("median_orders_per_listing", 8)
     niche_price = niche.get("median_price", 25)
 
-    m["views_vs_niche"] = round(views / niche_views, 2) if niche_views > 0 else None
-    m["orders_vs_niche"] = round(orders / niche_orders, 2) if niche_orders > 0 else None
-    m["price_vs_niche"] = round(price / niche_price, 2) if price and niche_price > 0 else None
+    if views is not None and niche_views > 0:
+        m["views_vs_niche"] = round(views / niche_views, 2)
+    if orders is not None and niche_orders > 0:
+        m["orders_vs_niche"] = round(orders / niche_orders, 2)
+    if price and niche_price > 0:
+        m["price_vs_niche"] = round(price / niche_price, 2)
+
+    # In-cart demand signal
+    if in_cart is not None:
+        m["in_cart"] = in_cart
+        m["has_demand_signal"] = True
 
     # --- Profit analytics ---
     if price:
@@ -320,7 +339,7 @@ def compute_listing_metrics(listing, niche, shop=None):
         m["per_sale"] = per_sale
 
         # Scale to total orders
-        if orders > 0:
+        if orders is not None and orders > 0:
             m["total_fees"] = round(per_sale["fees"]["total_fees"] * orders, 2)
             m["total_revenue"] = round(per_sale["gross_revenue"] * orders, 2)
             m["total_net_after_fees"] = round(per_sale["net_after_fees"] * orders, 2)
@@ -417,9 +436,13 @@ def suggest_title_restructure(title):
 
 
 def score_visibility(listing, shop, niche, metrics):
-    """Layer 1. Additive severity from CLAUDE.md spec."""
+    """Layer 1. Additive severity from CLAUDE.md spec.
+
+    Views checks are SKIPPED if views data is not available (None).
+    Tag and title checks still run on public data.
+    """
     gaps = []
-    views = listing.get("views", 0)
+    views = listing.get("views")  # None = not available
     title = listing.get("title", "")
     short = short_title(title)
     niche_avg = niche.get("median_views_per_listing", 400)
@@ -429,12 +452,12 @@ def score_visibility(listing, shop, niche, metrics):
     severity = 0
     evidence_parts = []
 
-    # Views checks
-    if niche_avg > 0 and views < niche_avg * 0.3:
+    # Views checks — ONLY when we have real traffic data
+    if views is not None and niche_avg > 0 and views < niche_avg * 0.3:
         severity += 3
         pct = round((1 - views / niche_avg) * 100)
         evidence_parts.append(f'{views} views — {pct}% below the niche average of {niche_avg}')
-    elif niche_avg > 0 and views < niche_avg * 0.6:
+    elif views is not None and niche_avg > 0 and views < niche_avg * 0.6:
         severity += 1
         evidence_parts.append(f'{views} views — below the niche average of {niche_avg}')
 
@@ -455,7 +478,7 @@ def score_visibility(listing, shop, niche, metrics):
             action_parts.append(f'Fill all 13 tag slots — you\'re using {tag_count}')
         if tags_matching is not None and tag_count and tags_matching < tag_count * 0.5:
             action_parts.append('Replace low-performing tags with terms from Etsy autocomplete suggestions')
-        if views < niche_avg * 0.6:
+        if views is not None and views < niche_avg * 0.6:
             action_parts.append('Check Etsy Search Analytics and replace any tags with zero impressions')
         action = '. '.join(action_parts) + '.' if action_parts else 'Review your tags and title for search relevance.'
         gaps.append({
@@ -532,16 +555,23 @@ def score_visibility(listing, shop, niche, metrics):
 
 
 def score_conversion(listing, shop, niche, metrics):
-    """Layer 2. Uses shop average for comparison per spec."""
+    """Layer 2. Uses shop average for comparison per spec.
+
+    SKIPPED entirely if views or orders data is not available (None).
+    Conversion analysis requires both traffic AND sales data.
+    """
     gaps = []
-    views = listing.get("views", 0)
-    orders = listing.get("orders", 0)
-    favorites = listing.get("favorites", 0)
+    views = listing.get("views")      # None = not available
+    orders = listing.get("orders")
+    favorites = listing.get("favorites")
     price = listing.get("price")
     title = listing.get("title", "")
     short = short_title(title)
 
-    # Skip if not enough data
+    # Skip if traffic/order data not available
+    if views is None or orders is None:
+        return gaps
+    # Skip if not enough data to diagnose
     if views < 20:
         return gaps
 
@@ -557,12 +587,12 @@ def score_conversion(listing, shop, niche, metrics):
         evidence_parts.append(f'{conv_rate}% conversion — less than half your shop average of {shop_conv}%')
 
     # Favorites with zero orders
-    if favorites > 10 and orders == 0:
+    if favorites is not None and favorites > 10 and orders == 0:
         severity += 3
         evidence_parts.append(f'{favorites} favorites but zero orders — people love it but won\'t buy')
 
     # Favorites way outpacing orders
-    if orders > 0 and favorites > orders * 10:
+    if favorites is not None and orders > 0 and favorites > orders * 10:
         severity += 2
         evidence_parts.append(f'{favorites} favorites vs {orders} orders (ratio: {favorites // orders}:1)')
 
@@ -882,14 +912,31 @@ def diagnose_listing(listing, niche):
       - views >= niche_avg * 0.6 AND conversion below shop/niche avg: conversion problem
       - views >= niche_avg * 0.6 AND conversion OK: healthy (check competitive)
     """
-    views = listing.get("views", 0)
-    orders = listing.get("orders", 0)
-    favorites = listing.get("favorites", 0)
+    views = listing.get("views")       # None = not available
+    orders = listing.get("orders")
+    favorites = listing.get("favorites")
+    in_cart = listing.get("in_cart")
     niche_views = niche.get("median_views_per_listing", 400)
     niche_conv = niche.get("median_conversion_rate", 2.0)
 
-    conv_rate = (orders / views * 100) if views > 0 else 0
     title = short_title(listing.get("title", ""), 40)
+
+    # If we don't have traffic data, we can't diagnose visibility vs conversion
+    if views is None:
+        note = f'"{title}" — no traffic data available. '
+        if in_cart and in_cart >= 10:
+            note += f'{in_cart}+ people have this in their cart, indicating strong demand.'
+        else:
+            note += 'Share your Etsy Stats for visibility and conversion analysis.'
+        return {
+            "primary_problem": "unknown",
+            "diagnosis_note": note,
+            "priority_layers": [1, 2, 3],
+            "skip_conversion": True,
+            "has_traffic_data": False,
+        }
+
+    conv_rate = (orders / views * 100) if views > 0 and orders is not None else 0
 
     if views < 20:
         return {
@@ -965,13 +1012,21 @@ def analyze_shop_health(shop, listings, niche):
     """Compute shop-level health metrics and competitive position."""
     health = {}
 
-    total_views = sum(l.get("views", 0) for l in listings)
-    total_orders = sum(l.get("orders", 0) for l in listings)
-    total_favorites = sum(l.get("favorites", 0) for l in listings)
+    # Only sum traffic data if it's actually present (not None)
+    views_available = any(l.get("views") is not None for l in listings)
+    orders_available = any(l.get("orders") is not None for l in listings)
+
+    total_views = sum(l.get("views", 0) for l in listings if l.get("views") is not None) if views_available else 0
+    total_orders = sum(l.get("orders", 0) for l in listings if l.get("orders") is not None) if orders_available else 0
+    total_favorites = sum(l.get("favorites", 0) for l in listings if l.get("favorites") is not None)
     prices = [l["price"] for l in listings if l.get("price")]
 
-    health["total_views"] = total_views
-    health["total_orders"] = total_orders
+    health["has_traffic_data"] = views_available
+    health["has_order_data"] = orders_available
+    if views_available:
+        health["total_views"] = total_views
+    if orders_available:
+        health["total_orders"] = total_orders
     health["total_favorites"] = total_favorites
     health["listing_count"] = len(listings)
 
@@ -1599,8 +1654,13 @@ def score_shop(data):
     conv_count = sum(1 for d in listing_diagnoses if d["primary_problem"] == "conversion")
     both_count = sum(1 for d in listing_diagnoses if d["primary_problem"] == "both")
     healthy_count = sum(1 for d in listing_diagnoses if d["primary_problem"] == "healthy")
+    unknown_count = sum(1 for d in listing_diagnoses if d["primary_problem"] == "unknown")
 
-    if vis_count > conv_count:
+    if unknown_count == len(listings):
+        # No traffic data at all — can only diagnose from public signals
+        shop_diag = "unknown"
+        shop_diag_note = f'Visibility and conversion analysis requires your Etsy Stats data. This report covers pricing, content, trust, and competitiveness based on your public shop page.'
+    elif vis_count > conv_count:
         shop_diag = "visibility"
         shop_diag_note = f'{vis_count} of {len(listings)} listings have a visibility problem — buyers aren\'t finding them. Priority: get found before optimizing conversion.'
     elif conv_count > vis_count:

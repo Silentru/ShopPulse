@@ -108,23 +108,50 @@ def generate_report(data, shop_name=None):
             f'</div>'
         )
 
-    # --- Fix #4: Adjust narrative for established shops ---
+    # --- Data availability section ---
+    has_traffic = h.get("has_traffic_data", False)
+    data_section = ""
+    if not has_traffic:
+        confirmed = []
+        if total_sales: confirmed.append(f"{total_sales:,} total sales")
+        if review_count: confirmed.append(f"{review_count:,} reviews")
+        if star_rating: confirmed.append(f"{star_rating} star rating")
+        confirmed.append(f"{analyzed} listing titles and prices")
+        missing = ["per-listing views", "per-listing orders", "conversion rates", "traffic sources", "search terms"]
+        data_section = (
+            f'<div class="data-avail">'
+            f'<div class="data-confirmed"><strong>What we can see:</strong> {", ".join(confirmed)}</div>'
+            f'<div class="data-missing"><strong>What we need for the full picture:</strong> {", ".join(missing)}</div>'
+            f'<div class="data-ask">Share your Etsy Stats dashboard screenshots for visibility and conversion analysis. '
+            f'Go to Shop Manager &gt; Stats, screenshot the overview, and send it to us.</div>'
+            f'</div>'
+        )
+
+    # --- Adjust narrative for data availability and shop maturity ---
     problem = diag.get("primary_problem", "")
-    if mat_level in ("established", "growing") and total_sales >= 1000:
+    # "unknown" = no traffic data, so we can only analyze public signals
+    if not has_traffic:
+        if mat_level in ("established", "growing") and total_sales >= 1000:
+            story = f"Your shop has strong fundamentals — {total_sales:,} sales{', ' + str(star_rating) + ' rating' if star_rating else ''}. Based on your public listings, here's what we can see. Share your Stats screenshots for the full picture."
+        else:
+            story = f"This analysis is based on your public shop page — titles, prices, and shop stats. For visibility and conversion analysis, we need your Etsy Stats dashboard screenshots."
+    elif mat_level in ("established", "growing") and total_sales >= 1000:
         story_map = {
             "visibility": f"Your shop has strong fundamentals with {total_sales:,} sales{' and a ' + str(star_rating) + ' rating' if star_rating else ''}. Among the {analyzed} listings we analyzed, some aren't getting as much traffic as they could. Here's where there's room to optimize.",
             "conversion": f"With {total_sales:,} sales, your shop is well-established. Some listings are getting views but could convert better. These are optimization opportunities, not fundamental problems.",
             "both": f"Your shop is doing well overall ({total_sales:,} sales). We found a mix of visibility and conversion opportunities across the listings we analyzed.",
             "healthy": f"Your shop is performing well — {total_sales:,} sales{', ' + str(star_rating) + ' rating' if star_rating else ''}. What follows is fine-tuning, not fixing something broken.",
         }
+        story = story_map.get(problem, "")
     else:
         story_map = {
             "visibility": "Buyers aren't finding your listings. More traffic is the priority before anything else matters.",
             "conversion": f"You're getting traffic ({views:,} views) but not enough turns into sales ({orders} orders). Something is stopping people from buying.",
             "both": "Some listings need more traffic, others need to convert better. We figured out which is which.",
             "healthy": "Your shop is performing well. What follows is fine-tuning, not damage control.",
+            "unknown": "This analysis is based on your public shop page. Share your Stats screenshots for visibility and conversion analysis.",
         }
-    story = story_map.get(problem, "")
+        story = story_map.get(problem, "")
 
     # --- Fix #5: Niche benchmark reference ---
     niche_ref = ""
@@ -279,6 +306,10 @@ def generate_report(data, shop_name=None):
 
   /* ── Warning ── */
   .warning {{ padding: 14px 16px; margin-bottom: 24px; border-radius: 6px; background: #FEF3C7; border: 1px solid #FDE68A; font-size: .85rem; color: #92400E; line-height: 1.5; }}
+  .data-avail {{ padding: 16px; margin: 20px 0; border-radius: 6px; background: #EFF6FF; border: 1px solid #BFDBFE; font-size: .85rem; line-height: 1.6; }}
+  .data-confirmed {{ color: #1B7A3D; margin-bottom: 6px; }}
+  .data-missing {{ color: #92400E; margin-bottom: 8px; }}
+  .data-ask {{ color: #1D4ED8; font-weight: 500; }}
   .niche-ref {{ font-size: .75rem; color: var(--light); margin-top: 8px; }}
 
   /* ── Masthead ── */
@@ -408,7 +439,7 @@ def generate_report(data, shop_name=None):
     <div class="hero-score c-{hw.split()[0]}">{score}</div>
     <div class="hero-right">
       <div class="hero-name">{escape(shop_name)}</div>
-      <div class="hero-hw">{hw}{f' — {total_sales:,} sales, {review_count:,} reviews' if total_sales >= 100 else ''}</div>
+      <div class="hero-hw">{hw}{f' — {total_sales:,} sales, {review_count:,} reviews' if total_sales >= 100 else ''}{' (based on public data)' if not has_traffic else ''}</div>
     </div>
   </div>
 
@@ -423,6 +454,8 @@ def generate_report(data, shop_name=None):
   </div>
 
   {niche_ref}
+
+  {data_section}
 
   {money_html}
 

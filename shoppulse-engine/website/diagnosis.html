@@ -58,6 +58,13 @@
   .cta-section .cta-btn:hover { opacity: .9; }
   .cta-section .cta-note { font-size: .78rem; color: #8888aa; margin-top: 8px; }
 
+  .diag-form { display: flex; flex-direction: column; gap: .5rem; max-width: 360px; margin: 0 auto; }
+  .diag-form input { padding: .7rem 1rem; border: 1.5px solid rgba(255,255,255,.2); border-radius: 6px; font-family: inherit; font-size: .9rem; background: rgba(255,255,255,.1); color: #fff; outline: none; }
+  .diag-form input::placeholder { color: #8888aa; }
+  .diag-form input:focus { border-color: var(--accent); }
+  .diag-form button { background: var(--accent); color: #fff; border: none; padding: .7rem 1.5rem; border-radius: 6px; font-family: inherit; font-size: .95rem; font-weight: 600; cursor: pointer; }
+  .diag-form button:hover { opacity: .9; }
+
   .foot { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border); font-size: .78rem; color: var(--light); }
   .foot a { color: var(--accent); text-decoration: none; }
 
@@ -153,8 +160,14 @@
   <div class="cta-section">
     <h2>Get your free diagnosis</h2>
     <p>We're looking for 5-10 design partners to test ShopPulse with. You get a free, no-strings diagnosis. We learn what works.</p>
-    <a href="mailto:sattvasoulin@gmail.com?subject=ShopPulse%20Diagnosis%20Request&body=Hi%2C%20I'd%20like%20a%20free%20shop%20diagnosis.%20My%20Etsy%20shop%20URL%20is%3A%20" class="cta-btn">Request a diagnosis</a>
-    <div class="cta-note">Or send a screenshot to your email with your shop URL</div>
+    <form class="diag-form" id="diag-form" action="https://formspree.io/f/mvzwdqlk" method="POST">
+      <input type="email" name="email" placeholder="your@email.com" required>
+      <input type="text" name="shop_url" placeholder="Your Etsy shop URL" required>
+      <input type="hidden" name="_subject" value="ShopPulse Diagnosis Request">
+      <button type="submit">Request a diagnosis</button>
+    </form>
+    <p id="diag-confirm" style="display:none;color:#27AE60;margin-top:1rem;font-weight:600;font-size:.9rem">Got it — we'll send your diagnosis within 24 hours.</p>
+    <div class="cta-note">We'll analyze your public shop page and send you a personalized report</div>
   </div>
 
   <h2>For sellers who want to self-serve</h2>
@@ -170,6 +183,18 @@
   </div>
 
 </div>
+
+<script>
+document.getElementById('diag-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const form = e.target;
+  const msg = document.getElementById('diag-confirm');
+  try {
+    const response = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } });
+    if (response.ok) { msg.style.display = 'block'; form.style.display = 'none'; }
+  } catch (err) { /* silent */ }
+});
+</script>
 
 </body>
 </html>

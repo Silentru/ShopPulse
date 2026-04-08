@@ -26,68 +26,95 @@
   .nav-links a.active { color: var(--fg); }
 
   .page { max-width: 580px; margin: 0 auto; padding: 48px 24px 96px; }
-
   .label { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--accent); margin-bottom: .5rem; }
   h1 { font-family: 'DM Serif Display', serif; font-size: 2rem; font-weight: 400; letter-spacing: -0.03em; line-height: 1.2; margin-bottom: 8px; }
   .intro { font-size: .95rem; color: var(--muted); margin-bottom: 32px; max-width: 480px; }
 
   /* Form */
-  .form-section { margin-bottom: 32px; }
   .field { margin-bottom: 14px; }
   .field label { display: block; font-size: .82rem; font-weight: 600; margin-bottom: 4px; }
   .field .hint { font-size: .72rem; color: var(--light); margin-bottom: 4px; }
-  .field input, .field select, .field textarea {
-    width: 100%; padding: 9px 12px; border: 1.5px solid var(--border); border-radius: 6px;
-    font-family: inherit; font-size: .9rem; background: #fff;
-  }
-  .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--accent); }
-  .field textarea { min-height: 50px; resize: vertical; }
+  .field input, .field select, .field textarea { width: 100%; padding: 9px 12px; border: 1.5px solid var(--border); border-radius: 6px; font-family: inherit; font-size: .9rem; background: #fff; }
+  .field input:focus, .field select:focus { outline: none; border-color: var(--accent); }
   .row { display: flex; gap: 10px; }
   .row .field { flex: 1; }
   .check { display: flex; align-items: center; gap: 8px; font-size: .85rem; margin-bottom: 8px; }
   .check input { width: auto; }
-
   .btn { display: inline-block; padding: 10px 24px; border: none; border-radius: 6px; font-family: inherit; font-size: .9rem; font-weight: 600; cursor: pointer; }
   .btn-primary { background: var(--accent); color: #fff; width: 100%; }
   .btn-primary:hover { opacity: .9; }
+
+  /* Upload */
+  .upload-box { border: 2px dashed var(--border); border-radius: 8px; padding: 24px; text-align: center; cursor: pointer; margin-bottom: 20px; transition: border-color .2s; }
+  .upload-box:hover { border-color: var(--accent); }
+  .upload-box.over { border-color: var(--accent); background: var(--accent-light); }
+  .upload-box p { font-size: .85rem; color: var(--muted); }
+  .upload-box input { display: none; }
+  .upload-status { font-size: .82rem; margin-bottom: 12px; padding: 8px 12px; border-radius: 6px; }
+  .upload-ok { background: var(--green-bg); color: var(--green); }
+  .upload-err { background: #FEF2F2; color: var(--red); }
+  .upload-wait { background: var(--accent-light); color: var(--accent); }
+  .or-divider { text-align: center; font-size: .78rem; color: var(--light); margin: 16px 0; }
 
   /* Results */
   .results { display: none; margin-top: 32px; }
   .results.visible { display: block; }
 
-  .result-score { display: flex; align-items: baseline; gap: 12px; margin-bottom: 16px; }
-  .result-score .num { font-family: 'DM Serif Display', serif; font-size: 3.5rem; line-height: .85; }
+  .r-score { display: flex; align-items: baseline; gap: 12px; margin-bottom: 16px; }
+  .r-score .num { font-family: 'DM Serif Display', serif; font-size: 3.5rem; line-height: .85; }
   .num.good { color: var(--green); }
   .num.ok { color: var(--accent); }
   .num.bad { color: var(--red); }
-  .result-score .word { font-size: .85rem; color: var(--muted); }
+  .r-score .word { font-size: .85rem; color: var(--muted); }
 
-  .result-action { padding: 20px 0; border-top: 2px solid var(--fg); margin-top: 20px; }
-  .result-action .act-label { font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; color: var(--accent); margin-bottom: 8px; }
-  .result-action .act-text { font-size: .95rem; font-weight: 500; line-height: 1.5; margin-bottom: 8px; }
-  .result-action .act-why { font-size: .82rem; color: var(--muted); line-height: 1.5; margin-bottom: 8px; }
-  .result-action .act-measure { font-size: .82rem; color: var(--muted); padding: 10px 12px; background: var(--accent-light); border-radius: 6px; line-height: 1.5; }
-  .result-action .act-measure strong { color: var(--fg); }
+  /* Title analysis */
+  .title-analysis { padding: 14px 0; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+  .title-original { font-size: .85rem; color: var(--muted); margin-bottom: 6px; }
+  .title-original .hi { background: #FEF3C7; padding: 1px 3px; border-radius: 2px; }
+  .title-issues { font-size: .82rem; margin-bottom: 6px; }
+  .title-issues li { margin-bottom: 3px; padding-left: 16px; position: relative; color: var(--amber); }
+  .title-issues li::before { content: "!"; position: absolute; left: 0; font-weight: 700; }
+  .title-suggest { font-size: .88rem; padding: 10px 12px; background: var(--green-bg); border-radius: 6px; }
+  .title-suggest strong { color: var(--green); }
+  .title-ok { font-size: .82rem; color: var(--green); }
 
-  .result-gaps { margin-top: 20px; }
-  .gap-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: .85rem; border-bottom: 1px solid var(--border); }
+  /* Gaps */
+  .gap-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; font-size: .85rem; border-bottom: 1px solid var(--border); }
   .gap-row:last-child { border-bottom: none; }
   .gap-name { color: var(--muted); }
-  .gap-status { font-weight: 600; }
+  .gap-status { font-weight: 600; font-size: .8rem; }
   .gap-ok { color: var(--green); }
   .gap-issue { color: var(--amber); }
   .gap-problem { color: var(--red); }
   .gap-unknown { color: var(--light); }
+  .gap-detail { font-size: .75rem; color: var(--light); }
 
-  .result-next { margin-top: 24px; padding: 20px; text-align: center; background: #232347; border-radius: 8px; color: #fff; }
-  .result-next h3 { font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: #fff; margin-bottom: 6px; }
-  .result-next p { font-size: .82rem; color: #a0a0c0; margin-bottom: 12px; }
-  .result-next .cta-link { color: var(--accent); text-decoration: none; font-weight: 600; font-size: .88rem; }
+  /* Actions */
+  .action-block { padding: 20px 0; border-top: 2px solid var(--fg); margin-top: 20px; }
+  .act-label { font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; color: var(--accent); margin-bottom: 8px; }
+  .act-text { font-size: .95rem; font-weight: 500; line-height: 1.5; margin-bottom: 8px; }
+  .act-why { font-size: .82rem; color: var(--muted); line-height: 1.5; margin-bottom: 10px; }
+  .act-box { font-size: .82rem; padding: 10px 12px; border-radius: 6px; line-height: 1.5; margin-bottom: 8px; }
+  .act-box strong { color: var(--fg); }
+  .act-measure { background: var(--accent-light); }
+  .act-escalation { background: #F5F5F5; color: var(--light); font-style: italic; }
 
-  .result-fees { margin-top: 20px; padding: 14px 0; border-top: 1px solid var(--border); }
+  .also-found { margin-top: 16px; }
+  .also-found .af-label { font-size: .72rem; font-weight: 600; color: var(--muted); margin-bottom: 6px; }
+  .also-found li { font-size: .82rem; color: var(--muted); margin-bottom: 4px; padding-left: 14px; position: relative; }
+  .also-found li::before { content: "-"; position: absolute; left: 0; }
+
+  /* Fee */
+  .r-fees { margin-top: 16px; padding: 14px 0; border-top: 1px solid var(--border); }
   .fee-line { display: flex; justify-content: space-between; font-size: .85rem; padding: 3px 0; font-variant-numeric: tabular-nums; }
   .fee-line.total { border-top: 2px solid var(--fg); padding-top: 8px; margin-top: 4px; font-weight: 700; }
-  .fee-line .warn { color: var(--amber); }
+  .warn { color: var(--amber); }
+
+  /* CTA */
+  .r-next { margin-top: 24px; padding: 20px; text-align: center; background: #232347; border-radius: 8px; color: #fff; }
+  .r-next h3 { font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: #fff; margin-bottom: 6px; }
+  .r-next p { font-size: .82rem; color: #a0a0c0; margin-bottom: 10px; }
+  .r-next a { color: var(--accent); text-decoration: none; font-weight: 600; font-size: .88rem; }
 
   .foot { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border); font-size: .75rem; color: var(--light); }
   .foot a { color: var(--accent); text-decoration: none; }
@@ -102,8 +129,9 @@
     <a href="index.html" class="logo">Shop<span>Pulse</span></a>
     <div class="nav-links">
       <a href="index.html">Home</a>
-      <a href="calculator.html">Fee Calculator</a>
       <a href="pulse-check.html" class="active">Pulse Check</a>
+      <a href="calculator.html">Fee Calculator</a>
+      <a href="diagnosis.html">Shop Diagnosis</a>
     </div>
   </div>
 </nav>
@@ -112,123 +140,218 @@
 
   <div class="label">Free tool</div>
   <h1>Pulse Check</h1>
-  <p class="intro">Enter one listing. Get the #1 thing to fix. Know what metric should move. Come back in 14 days to see if it worked.</p>
+  <p class="intro">One listing. One action. Track it for 14 days. See if it worked.</p>
 
-  <div class="form-section">
+  <!-- Screenshot upload -->
+  <div class="upload-box" id="upload-box">
+    <p>Drop a screenshot of your Etsy listing here, or click to upload</p>
+    <input type="file" id="file-input" accept="image/*">
+  </div>
+  <div id="upload-msg"></div>
+
+  <div class="or-divider">or enter the details manually</div>
+
+  <!-- Manual form -->
+  <div class="field">
+    <label>Listing title</label>
+    <input type="text" id="title" placeholder="Paste the full title from your Etsy listing">
+  </div>
+
+  <div class="row">
     <div class="field">
-      <label>Listing title</label>
-      <div class="hint">Copy the full title from your Etsy listing</div>
-      <input type="text" id="title" placeholder="e.g. Handmade Ceramic Mug Pottery Coffee Cup">
+      <label>Price ($)</label>
+      <input type="number" id="price" step="0.01" min="0" placeholder="0.00">
     </div>
-
-    <div class="row">
-      <div class="field">
-        <label>Price ($)</label>
-        <input type="number" id="price" step="0.01" min="0" placeholder="0.00">
-      </div>
-      <div class="field">
-        <label>Niche</label>
-        <select id="niche">
-          <option value="default">General</option>
-          <option value="jewelry">Jewelry</option>
-          <option value="custom_art">Custom Art</option>
-          <option value="custom_portraits">Custom Portraits</option>
-          <option value="handmade_gifts">Handmade / Home</option>
-          <option value="crystals">Crystals</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="field">
-        <label>Photos</label>
-        <input type="number" id="photos" min="0" max="10" placeholder="0-10">
-      </div>
-      <div class="field">
-        <label>Has video?</label>
-        <select id="video">
-          <option value="">Don't know</option>
-          <option value="yes">Yes</option>
-          <option value="no">No</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="field">
-        <label>Views (last 30 days)</label>
-        <div class="hint">From your Stats dashboard. Leave blank if unsure.</div>
-        <input type="number" id="views" min="0" placeholder="Optional">
-      </div>
-      <div class="field">
-        <label>Orders (last 30 days)</label>
-        <input type="number" id="orders" min="0" placeholder="Optional">
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="field">
-        <label>Favorites</label>
-        <input type="number" id="favorites" min="0" placeholder="Optional">
-      </div>
-      <div class="field">
-        <label>Shop reviews (total)</label>
-        <input type="number" id="reviews" min="0" placeholder="Optional">
-      </div>
-    </div>
-
     <div class="field">
-      <label>Description word count (estimate)</label>
-      <div class="hint">Short = under 50 words, medium = 50-150, detailed = 150+</div>
-      <select id="desc_length">
-        <option value="">Don't know</option>
-        <option value="30">Short (under 50 words)</option>
-        <option value="100">Medium (50-150 words)</option>
-        <option value="200">Detailed (150+ words)</option>
+      <label>Niche</label>
+      <select id="niche">
+        <option value="default">General</option>
+        <option value="jewelry">Jewelry</option>
+        <option value="custom_art">Custom Art</option>
+        <option value="custom_portraits">Custom Portraits</option>
+        <option value="handmade_gifts">Handmade / Home</option>
+        <option value="crystals">Crystals</option>
       </select>
     </div>
-
-    <div class="check"><input type="checkbox" id="free_ship"> Free shipping</div>
-    <div class="check"><input type="checkbox" id="on_sale"> Currently on sale</div>
-
-    <div class="field">
-      <label>Materials cost ($)</label>
-      <div class="hint">What this item costs you to make (materials + labor). Optional.</div>
-      <input type="number" id="cogs" step="0.01" min="0" placeholder="Optional">
-    </div>
-
-    <button class="btn btn-primary" onclick="runCheck()">Run Pulse Check</button>
   </div>
+
+  <div class="row">
+    <div class="field">
+      <label>Photos</label>
+      <input type="number" id="photos" min="0" max="10" placeholder="0-10">
+    </div>
+    <div class="field">
+      <label>Has video?</label>
+      <select id="video"><option value="">Don't know</option><option value="yes">Yes</option><option value="no">No</option></select>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="field">
+      <label>Views (last 30 days)</label>
+      <div class="hint">From your Stats dashboard. Leave blank if unsure.</div>
+      <input type="number" id="views" min="0" placeholder="Optional">
+    </div>
+    <div class="field">
+      <label>Orders (last 30 days)</label>
+      <input type="number" id="orders" min="0" placeholder="Optional">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="field">
+      <label>Favorites</label>
+      <input type="number" id="favorites" min="0" placeholder="Optional">
+    </div>
+    <div class="field">
+      <label>Shop reviews (total)</label>
+      <input type="number" id="reviews" min="0" placeholder="Optional">
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Tags used</label>
+    <div class="hint">How many of the 13 tag slots are filled?</div>
+    <input type="number" id="tags" min="0" max="13" placeholder="0-13">
+  </div>
+
+  <div class="field">
+    <label>Description length</label>
+    <select id="desc_length">
+      <option value="">Don't know</option>
+      <option value="30">Very short (under 50 words)</option>
+      <option value="80">Short (50-100 words)</option>
+      <option value="150">Medium (100-200 words)</option>
+      <option value="250">Detailed (200+ words)</option>
+    </select>
+  </div>
+
+  <div class="check"><input type="checkbox" id="free_ship"> Free shipping</div>
+  <div class="check"><input type="checkbox" id="on_sale"> Currently on sale</div>
+
+  <div class="field">
+    <label>Materials + labor cost ($)</label>
+    <div class="hint">What this item costs you to make. Optional.</div>
+    <input type="number" id="cogs" step="0.01" min="0" placeholder="Optional">
+  </div>
+
+  <button class="btn btn-primary" onclick="runCheck()">Run Pulse Check</button>
 
   <div class="results" id="results"></div>
 
   <div class="foot">
     <p><a href="index.html">ShopPulse</a> — we tell you what to fix, not what to sell.</p>
-    <p style="margin-top:6px">Pulse Check runs entirely in your browser. No data is sent anywhere.</p>
+    <p style="margin-top:6px">Runs in your browser. No data sent anywhere.</p>
   </div>
 
 </div>
 
 <script>
 const NICHES = {
-  default: { median_price: 30, median_views: 300, median_photos: 5, median_desc: 150, median_reviews: 500, top10_reviews: 5000, free_ship_pct: 0.6 },
-  jewelry: { median_price: 35, median_views: 300, median_photos: 6, median_desc: 160, median_reviews: 800, top10_reviews: 20000, free_ship_pct: 0.65 },
-  custom_art: { median_price: 120, median_views: 120, median_photos: 7, median_desc: 200, median_reviews: 400, top10_reviews: 10000, free_ship_pct: 0.5 },
-  custom_portraits: { median_price: 130, median_views: 150, median_photos: 8, median_desc: 220, median_reviews: 500, top10_reviews: 12000, free_ship_pct: 0.55 },
-  handmade_gifts: { median_price: 30, median_views: 250, median_photos: 6, median_desc: 170, median_reviews: 600, top10_reviews: 15000, free_ship_pct: 0.55 },
-  crystals: { median_price: 25, median_views: 400, median_photos: 5, median_desc: 150, median_reviews: 500, top10_reviews: 5000, free_ship_pct: 0.6 },
+  default:          { median_price: 30,  median_views: 300, median_photos: 5, median_desc: 150, median_reviews: 500,  top10_reviews: 5000,  free_ship_pct: 0.6,  median_conv: 2.0 },
+  jewelry:          { median_price: 35,  median_views: 300, median_photos: 6, median_desc: 160, median_reviews: 800,  top10_reviews: 20000, free_ship_pct: 0.65, median_conv: 2.0 },
+  custom_art:       { median_price: 120, median_views: 120, median_photos: 7, median_desc: 200, median_reviews: 400,  top10_reviews: 10000, free_ship_pct: 0.5,  median_conv: 2.5 },
+  custom_portraits: { median_price: 130, median_views: 150, median_photos: 8, median_desc: 220, median_reviews: 500,  top10_reviews: 12000, free_ship_pct: 0.55, median_conv: 2.5 },
+  handmade_gifts:   { median_price: 30,  median_views: 250, median_photos: 6, median_desc: 170, median_reviews: 600,  top10_reviews: 15000, free_ship_pct: 0.55, median_conv: 2.0 },
+  crystals:         { median_price: 25,  median_views: 400, median_photos: 5, median_desc: 150, median_reviews: 500,  top10_reviews: 5000,  free_ship_pct: 0.6,  median_conv: 2.0 },
 };
+
+const FILLER_WORDS = ['beautiful','handmade','custom','unique','vintage','lovely','gorgeous','stunning','elegant','cute','pretty','perfect','amazing','wonderful','special','personalized'];
 
 function $(id) { return document.getElementById(id); }
 function num(id) { const v = $(id).value; return v === '' ? null : Number(v); }
 function fmt(n) { return '$' + n.toFixed(2); }
 
+// --- Screenshot upload ---
+const uploadBox = $('upload-box');
+const fileInput = $('file-input');
+uploadBox.addEventListener('click', () => fileInput.click());
+uploadBox.addEventListener('dragover', e => { e.preventDefault(); uploadBox.classList.add('over'); });
+uploadBox.addEventListener('dragleave', () => uploadBox.classList.remove('over'));
+uploadBox.addEventListener('drop', e => { e.preventDefault(); uploadBox.classList.remove('over'); handleUpload(e.dataTransfer.files[0]); });
+fileInput.addEventListener('change', e => { if (e.target.files[0]) handleUpload(e.target.files[0]); });
+
+async function handleUpload(file) {
+  $('upload-msg').innerHTML = '<div class="upload-status upload-wait">Processing screenshot...</div>';
+  const formData = new FormData();
+  formData.append('file', file);
+  try {
+    const resp = await fetch('http://localhost:8765/upload', { method: 'POST', body: formData });
+    const result = await resp.json();
+    if (result.error) throw new Error(result.error);
+    let filled = 0;
+    if (result.data) {
+      for (const item of result.data) {
+        const listings = item.listings || [];
+        const shop = item.shop || {};
+        if (listings.length > 0) {
+          const l = listings[0];
+          if (l.title && !$('title').value) { $('title').value = l.title; filled++; }
+          if (l.price && !$('price').value) { $('price').value = l.price; filled++; }
+          if (l.free_shipping) { $('free_ship').checked = true; filled++; }
+          if (l.on_sale) { $('on_sale').checked = true; filled++; }
+        }
+        if (shop.review_count != null && !$('reviews').value) { $('reviews').value = shop.review_count; filled++; }
+      }
+    }
+    if (filled > 0) {
+      $('upload-msg').innerHTML = `<div class="upload-status upload-ok">Extracted ${filled} fields from screenshot. Review and fill in the rest, then run Pulse Check.</div>`;
+    } else {
+      $('upload-msg').innerHTML = '<div class="upload-status upload-err">Could not extract listing data. Try a clearer screenshot or enter details manually.</div>';
+    }
+  } catch (e) {
+    if (e.message.includes('Failed to fetch')) {
+      $('upload-msg').innerHTML = '<div class="upload-status upload-err">Screenshot extraction requires the local tool running (python3 collector.py). Enter details manually instead.</div>';
+    } else {
+      $('upload-msg').innerHTML = `<div class="upload-status upload-err">${e.message}</div>`;
+    }
+  }
+}
+
+// --- Title analysis ---
+function analyzeTitle(title) {
+  const words = title.split(/\s+/);
+  const issues = [];
+  let suggestion = null;
+
+  // Length
+  if (words.length > 15) issues.push(`${words.length} words — Etsy recommends under 15`);
+
+  // Filler start
+  const first = words[0].toLowerCase().replace(/[^a-z]/g, '');
+  if (FILLER_WORDS.includes(first)) {
+    issues.push(`Starts with "${words[0]}" — lead with the product type instead`);
+    // Build suggestion: skip fillers, keep product words
+    let coreStart = 0;
+    for (let i = 0; i < words.length; i++) {
+      if (FILLER_WORDS.includes(words[i].toLowerCase().replace(/[^a-z]/g, ''))) coreStart = i + 1;
+      else break;
+    }
+    const core = words.slice(coreStart, coreStart + 10);
+    const useful = words.slice(0, coreStart).filter(w => ['handmade','custom','personalized','vintage'].includes(w.toLowerCase()));
+    if (core.length > 0) suggestion = [...core, ...useful].join(' ');
+  }
+
+  // Truncated (from OCR)
+  if (title.endsWith('...') || title.endsWith('..')) issues.push('Title appears truncated — make sure you pasted the full title');
+
+  // Highlight filler words in original
+  const highlighted = words.map(w => {
+    if (FILLER_WORDS.includes(w.toLowerCase().replace(/[^a-z]/g, ''))) return `<span class="hi">${w}</span>`;
+    return w;
+  }).join(' ');
+
+  return { issues, suggestion, highlighted, wordCount: words.length };
+}
+
+// --- Main check ---
 function runCheck() {
   const title = $('title').value.trim();
   const price = num('price');
   if (!title || !price) { alert('Enter at least a title and price.'); return; }
 
-  const niche = NICHES[$('niche').value] || NICHES.default;
+  const nicheKey = $('niche').value;
+  const niche = NICHES[nicheKey] || NICHES.default;
   const photos = num('photos');
   const video = $('video').value;
   const views = num('views');
@@ -236,208 +359,223 @@ function runCheck() {
   const favorites = num('favorites');
   const reviews = num('reviews');
   const desc = num('desc_length');
+  const tags = num('tags');
   const freeShip = $('free_ship').checked;
   const onSale = $('on_sale').checked;
   const cogs = num('cogs');
+  const dev = (price - niche.median_price) / niche.median_price;
 
-  // Score each dimension
+  // Collect ALL issues across all dimensions
+  const allIssues = [];
   const checks = [];
 
-  // Content
-  let contentScore = 100;
-  let contentIssues = [];
-  if (photos !== null) {
-    if (photos < 3) { contentScore -= 40; contentIssues.push(`${photos} photos (minimum 5 recommended)`); }
-    else if (photos < niche.median_photos) { contentScore -= 15; contentIssues.push(`${photos} photos (niche avg: ${niche.median_photos})`); }
-  }
-  if (video === 'no') { contentScore -= 10; contentIssues.push('No video (videos auto-play in search)'); }
-  if (desc !== null && desc < 50) { contentScore -= 25; contentIssues.push('Very short description'); }
-  else if (desc !== null && desc < 100) { contentScore -= 10; contentIssues.push('Description could be longer'); }
-  const words = title.split(/\s+/).length;
-  if (words > 15) { contentScore -= 15; contentIssues.push(`Title is ${words} words (Etsy recommends under 15)`); }
-  checks.push({ name: 'Content', score: Math.max(0, contentScore), issues: contentIssues });
+  // --- CONTENT ---
+  let cs = 100; const ci = [];
+  if (photos !== null && photos < 3) { cs -= 40; ci.push({ s: 40, t: `Only ${photos} photo${photos!==1?'s':''} — add at least ${niche.median_photos - photos} more (hand-held, detail, packaging, lifestyle)`, dim: 'content' }); }
+  else if (photos !== null && photos < niche.median_photos) { cs -= 15; ci.push({ s: 15, t: `${photos} photos — niche average is ${niche.median_photos}`, dim: 'content' }); }
+  if (video === 'no') { cs -= 12; ci.push({ s: 12, t: 'No video — videos auto-play in search and boost engagement', dim: 'content' }); }
+  if (desc !== null && desc < 50) { cs -= 25; ci.push({ s: 25, t: 'Very short description — add dimensions, materials, care instructions, gift-worthiness', dim: 'content' }); }
+  else if (desc !== null && desc < 100) { cs -= 10; ci.push({ s: 10, t: 'Description could be more detailed — buyers who read it are close to buying', dim: 'content' }); }
+  if (tags !== null && tags < 13) { cs -= Math.min(25, (13 - tags) * 4); ci.push({ s: (13-tags)*4, t: `Only ${tags} of 13 tag slots filled — ${13-tags} empty slots are missed search opportunities`, dim: 'visibility' }); }
+  checks.push({ name: 'Content', score: Math.max(0, cs) });
+  allIssues.push(...ci);
 
-  // Pricing
-  let pricingScore = 100;
-  let pricingIssues = [];
-  const dev = (price - niche.median_price) / niche.median_price;
-  if (dev < -0.3) { pricingScore -= 35; pricingIssues.push(`${fmt(price)} is ${Math.abs(Math.round(dev*100))}% below niche median ${fmt(niche.median_price)}`); }
-  if (dev > 0.4 && (reviews === null || reviews < 20)) { pricingScore -= 35; pricingIssues.push(`${fmt(price)} is ${Math.round(dev*100)}% above median with limited reviews`); }
-  if (onSale) { pricingScore -= 20; pricingIssues.push('Permanent sale signals desperation'); }
-  if (!freeShip && niche.free_ship_pct > 0.5) { pricingScore -= 15; pricingIssues.push(`${Math.round(niche.free_ship_pct*100)}% of niche offers free shipping`); }
-  checks.push({ name: 'Pricing', score: Math.max(0, pricingScore), issues: pricingIssues });
+  // --- PRICING ---
+  let ps = 100; const pi = [];
+  if (dev < -0.3) { ps -= 35; pi.push({ s: 35, t: `${fmt(price)} is ${Math.abs(Math.round(dev*100))}% below the niche median of ${fmt(niche.median_price)} — may signal low quality to buyers`, dim: 'pricing' }); }
+  if (dev > 0.4 && (reviews === null || reviews < 20)) { ps -= 35; pi.push({ s: 35, t: `${fmt(price)} is ${Math.round(dev*100)}% above median — hard to justify with ${reviews !== null ? reviews : 'few'} reviews`, dim: 'pricing' }); }
+  if (onSale) { ps -= 20; pi.push({ s: 20, t: 'Permanent sale undermines trust — set your real price as the regular price', dim: 'pricing' }); }
+  if (!freeShip && niche.free_ship_pct > 0.5) { ps -= 15; pi.push({ s: 15, t: `No free shipping — ${Math.round(niche.free_ship_pct*100)}% of this niche offers it, and Etsy boosts those listings`, dim: 'pricing' }); }
+  checks.push({ name: 'Pricing', score: Math.max(0, ps) });
+  allIssues.push(...pi);
 
-  // Trust
-  let trustScore = 100;
-  let trustIssues = [];
+  // --- TRUST ---
+  let ts = 100; const ti = [];
   if (reviews !== null) {
-    if (reviews === 0) { trustScore -= 40; trustIssues.push('Zero reviews — biggest trust barrier'); }
-    else if (reviews < 10 && niche.median_reviews > 50) { trustScore -= 25; trustIssues.push(`${reviews} reviews vs niche median ${niche.median_reviews}`); }
-    else if (reviews < niche.median_reviews * 0.3) { trustScore -= 15; trustIssues.push(`${reviews} reviews (niche median: ${niche.median_reviews})`); }
+    if (reviews === 0) { ts -= 40; ti.push({ s: 40, t: 'Zero reviews — the single biggest trust barrier for new buyers', dim: 'trust' }); }
+    else if (reviews < 10 && niche.median_reviews > 50) { ts -= 25; ti.push({ s: 25, t: `${reviews} reviews vs niche median of ${niche.median_reviews}`, dim: 'trust' }); }
+    else if (reviews < niche.median_reviews * 0.3) { ts -= 15; ti.push({ s: 15, t: `${reviews} reviews — below the niche average`, dim: 'trust' }); }
   }
-  checks.push({ name: 'Trust', score: Math.max(0, trustScore), issues: trustIssues });
+  checks.push({ name: 'Trust', score: Math.max(0, ts) });
+  allIssues.push(...ti);
 
-  // Visibility (only if we have views data)
-  let visScore = null;
-  let visIssues = [];
+  // --- VISIBILITY ---
+  let vs = null; const vi = [];
   if (views !== null) {
-    visScore = 100;
-    if (views < niche.median_views * 0.3) { visScore -= 40; visIssues.push(`${views} views — well below niche avg ${niche.median_views}`); }
-    else if (views < niche.median_views * 0.6) { visScore -= 20; visIssues.push(`${views} views — below niche avg ${niche.median_views}`); }
+    vs = 100;
+    if (views < niche.median_views * 0.3) { vs -= 40; vi.push({ s: 40, t: `${views} views — ${Math.round((1-views/niche.median_views)*100)}% below niche average of ${niche.median_views}`, dim: 'visibility' }); }
+    else if (views < niche.median_views * 0.6) { vs -= 20; vi.push({ s: 20, t: `${views} views — below niche average of ${niche.median_views}`, dim: 'visibility' }); }
   }
-  checks.push({ name: 'Visibility', score: visScore, issues: visIssues });
+  checks.push({ name: 'Visibility', score: vs });
+  allIssues.push(...vi);
 
-  // Conversion (only if we have views AND orders)
-  let convScore = null;
-  let convIssues = [];
+  // --- CONVERSION ---
+  let cvs = null; const cvi = [];
   if (views !== null && orders !== null && views > 20) {
-    convScore = 100;
+    cvs = 100;
     const cr = (orders / views) * 100;
-    if (cr < 1.0) { convScore -= 40; convIssues.push(`${cr.toFixed(1)}% conversion — below healthy range`); }
-    else if (cr < 2.0) { convScore -= 15; convIssues.push(`${cr.toFixed(1)}% conversion — room to improve`); }
-    if (favorites !== null && favorites > 10 && orders === 0) { convScore -= 30; convIssues.push(`${favorites} favorites but 0 orders`); }
-    if (favorites !== null && orders > 0 && favorites > orders * 10) { convScore -= 20; convIssues.push(`${favorites} favorites vs ${orders} orders — something blocking checkout`); }
+    if (cr < 1.0) { cvs -= 40; cvi.push({ s: 40, t: `${cr.toFixed(1)}% conversion rate — well below healthy range (niche avg: ${niche.median_conv}%)`, dim: 'conversion' }); }
+    else if (cr < niche.median_conv) { cvs -= 15; cvi.push({ s: 15, t: `${cr.toFixed(1)}% conversion — below niche average of ${niche.median_conv}%`, dim: 'conversion' }); }
+    if (favorites !== null && favorites > 10 && orders === 0) { cvs -= 35; cvi.push({ s: 35, t: `${favorites} favorites but 0 orders — people want this but something blocks checkout`, dim: 'conversion' }); }
+    else if (favorites !== null && orders > 0 && favorites > orders * 8) { cvs -= 20; cvi.push({ s: 20, t: `${favorites} favorites vs ${orders} orders — high interest, low conversion`, dim: 'conversion' }); }
   }
-  checks.push({ name: 'Conversion', score: convScore, issues: convIssues });
+  checks.push({ name: 'Conversion', score: cvs });
+  allIssues.push(...cvi);
 
-  // Find the worst scored dimension (that we have data for)
+  // Sort all issues by severity
+  allIssues.sort((a, b) => b.s - a.s);
+
+  // Overall score
   const scored = checks.filter(c => c.score !== null);
-  scored.sort((a, b) => a.score - b.score);
-
-  const worst = scored[0];
   const overall = scored.length > 0 ? Math.round(scored.reduce((s, c) => s + c.score, 0) / scored.length) : 50;
   const cls = overall >= 70 ? 'good' : (overall >= 40 ? 'ok' : 'bad');
   const word = overall >= 70 ? 'Looking good' : (overall >= 40 ? 'Room to improve' : 'Needs attention');
 
-  // Build the #1 action
-  let action = '';
-  let why = '';
-  let measure = '';
-
-  if (worst.name === 'Content') {
-    if (photos !== null && photos < 3) {
-      action = `Add ${Math.max(5, niche.median_photos) - photos} more photos to this listing. Include: scale/hand-held shot, close-up detail, packaging, and lifestyle context.`;
-      why = `With only ${photos} photo${photos !== 1 ? 's' : ''}, buyers can't see enough to trust the purchase. Etsy gives you 10 slots.`;
-      measure = `<strong>Track:</strong> listing views over 14 days. Photo improvements typically show in 7-14 days as Etsy's algorithm responds to better engagement signals.`;
-    } else if (video === 'no') {
-      action = 'Add a video to this listing. Even 10-15 seconds of the item rotating works — videos auto-play in search results.';
-      why = 'Listings with video get significantly more engagement in Etsy search. It\'s the highest-impact single content change.';
-      measure = `<strong>Track:</strong> listing views and favorites over 14 days.`;
-    } else if (words > 15) {
-      action = `Trim your title from ${words} to under 15 words. Lead with the product type, not adjectives.`;
-      why = 'Etsy\'s Feb 2026 guidance recommends under 15 words, product-type-first. The algorithm weighs the first few words most heavily.';
-      measure = `<strong>Track:</strong> search impressions in your Search Visibility page within 24 hours. Views within 7-14 days.`;
-    } else if (desc !== null && desc < 100) {
-      action = 'Expand your description. Add: exact dimensions, materials, care instructions, what makes it unique, and who it\'s a good gift for.';
-      why = 'Buyers who scroll to the description are close to buying. A detailed description removes the last doubts.';
-      measure = `<strong>Track:</strong> conversion rate (orders/views) over 14 days.`;
-    } else {
-      action = 'Review your listing photos — are the first two images compelling? Add a lifestyle context shot and a scale reference.';
-      why = 'The first two photos determine whether a buyer clicks in search results.';
-      measure = `<strong>Track:</strong> click-through rate from search (Search Visibility page) and listing views.`;
-    }
-  } else if (worst.name === 'Pricing') {
-    if (onSale) {
-      action = 'Remove the permanent sale. Set your real price as the regular price.';
-      why = 'When a listing is always on sale, buyers know the "original" price isn\'t real. It undermines trust rather than creating urgency.';
-      measure = `<strong>Track:</strong> favorites-to-orders ratio over 14 days. If it improves, the fake discount was a barrier.`;
-    } else if (dev < -0.3) {
-      const target = Math.round(niche.median_price * 0.85 * 100) / 100;
-      action = `Test raising your price to ${fmt(target)}. Your current ${fmt(price)} is significantly below the niche median.`;
-      why = `Underpricing signals low quality. Buyers comparing your listing against ${fmt(niche.median_price)} competitors may skip it because the price feels "too good to be true."`;
-      measure = `<strong>Track:</strong> orders and revenue over 14 days. Even if orders dip slightly, revenue may increase.`;
-    } else if (!freeShip) {
-      action = 'Build shipping into your price and enable free shipping. Etsy gives a search ranking boost to free-shipping listings.';
-      why = `${Math.round(niche.free_ship_pct*100)}% of your niche offers free shipping. Buyers filter for it.`;
-      measure = `<strong>Track:</strong> listing views (search ranking signal) and orders over 14 days.`;
-    } else {
-      const target = Math.round(niche.median_price * 1.15 * 100) / 100;
-      action = `Your price is high for your review count. Test ${fmt(target)} or invest in building reviews to justify the premium.`;
-      why = `At ${fmt(price)}, buyers expect more trust signals (reviews, detailed photos). Without them, they'll choose a cheaper competitor.`;
-      measure = `<strong>Track:</strong> orders over 14 days. If they increase, the lower price removed a barrier.`;
-    }
-  } else if (worst.name === 'Trust') {
-    if (reviews === 0) {
-      action = 'Every sale matters right now. Follow up 2-3 days after delivery with a genuine thank-you message.';
-      why = 'Zero reviews is the single biggest trust barrier. Buyers choose shops with reviews over shops without, even if your listing is better.';
-      measure = `<strong>Track:</strong> review count. Your goal is to get from 0 to 5 reviews — that\'s the threshold where trust starts building.`;
-    } else {
-      action = 'Fill out your shop policies, About section, and reduce processing time if possible. Every trust signal helps.';
-      why = `With ${reviews} reviews against a niche where competitors have hundreds, every additional trust signal matters.`;
-      measure = `<strong>Track:</strong> conversion rate over 3-4 weeks. Trust improvements are slower to measure than content changes.`;
-    }
-  } else if (worst.name === 'Visibility' && views !== null) {
-    action = 'Check your Etsy Search Analytics. Replace any tags with zero impressions using Etsy autocomplete suggestions.';
-    why = `${views} views is below the niche average. Your tags may not match what buyers are searching for.`;
-    measure = `<strong>Track:</strong> impressions and views in Search Visibility. Tag changes reflect within 24 hours. Meaningful signal in 7-14 days.`;
-  } else if (worst.name === 'Conversion' && convIssues.length > 0) {
-    if (favorites !== null && favorites > 10 && orders === 0) {
-      action = `${favorites} people favorited this but nobody bought. Check: is the price right? Is shipping too expensive? Is processing time too long?`;
-      why = 'Favorites without orders means people want this item but something stops them at checkout.';
-    } else {
-      action = 'Your listing gets views but not enough sales. Check your first two photos, price, and shipping cost.';
-      why = `A ${views > 0 && orders !== null ? ((orders/views)*100).toFixed(1) : '?'}% conversion rate means the listing is visible but not compelling enough to buy.`;
-    }
-    measure = `<strong>Track:</strong> orders-to-views ratio over 14 days. Also track favorites-to-orders — if that improves, you removed a barrier.`;
+  // Title analysis
+  const ta = analyzeTitle(title);
+  let titleHtml = '';
+  if (ta.issues.length > 0 || ta.suggestion) {
+    titleHtml = `<div class="title-analysis">
+      <div class="title-original">${ta.highlighted}</div>
+      ${ta.issues.length > 0 ? '<ul class="title-issues">' + ta.issues.map(i => `<li>${i}</li>`).join('') + '</ul>' : ''}
+      ${ta.suggestion ? `<div class="title-suggest"><strong>Try:</strong> ${ta.suggestion}</div>` : ''}
+    </div>`;
+  } else {
+    titleHtml = `<div class="title-analysis"><p class="title-ok">Title structure looks good — ${ta.wordCount} words, product-type first.</p></div>`;
   }
 
-  if (!action) {
-    action = 'Your listing looks solid on the dimensions we can check. Share your Stats screenshots for a deeper analysis.';
-    why = 'Based on the data you provided, no critical issues stand out. Traffic and conversion data would unlock more specific recommendations.';
-    measure = '';
+  // #1 action — pick the highest severity issue
+  const top = allIssues[0];
+  let action = '', why = '', measureText = '', escalation = '';
+
+  if (top) {
+    action = top.t;
+    // Build specific "why" and "measure" based on the dimension
+    if (top.dim === 'content') {
+      if (top.t.includes('photo')) {
+        why = `Buyers need to see what they're getting. Each additional photo reduces purchase anxiety. Your top competitors in this niche use ${niche.median_photos}+ photos.`;
+        measureText = `Track this listing's views and favorites over 14 days. Photo changes reflect within 24 hours.`;
+      } else if (top.t.includes('video')) {
+        why = 'Etsy auto-plays videos in search results, which dramatically increases click-through. A 10-15 second clip of the item is enough.';
+        measureText = 'Track listing views over 14 days. Video impact usually shows within the first week.';
+      } else if (top.t.includes('description')) {
+        why = 'Buyers who scroll to the description are close to purchasing. A detailed description with dimensions, materials, and use cases removes their last hesitations.';
+        measureText = 'Track your conversion rate (orders divided by views) over 14 days.';
+      } else if (top.t.includes('tag')) {
+        why = 'Each empty tag slot is a search term you\'re not appearing for. Fill all 13 using phrases from Etsy\'s autocomplete suggestions.';
+        measureText = 'Check Search Visibility within 24 hours — impressions should increase. Track views over 7-14 days.';
+      } else {
+        why = 'Content quality directly affects both search ranking and conversion. Etsy\'s algorithm favors listings that get more engagement.';
+        measureText = 'Track views and favorites over 14 days.';
+      }
+      escalation = 'If views don\'t improve in 2-3 weeks, we\'ll check pricing and trust signals next.';
+    } else if (top.dim === 'pricing') {
+      if (top.t.includes('below')) {
+        const target = fmt(Math.round(niche.median_price * 0.85 * 100) / 100);
+        why = `Buyers comparing listings in your niche see ${fmt(niche.median_price)} as normal. At ${fmt(price)}, your listing may feel suspicious — "why is this so cheap?"`;
+        action += ` Consider testing ${target}.`;
+        measureText = 'Track orders AND revenue over 14 days. Even if orders dip, revenue may increase.';
+      } else if (top.t.includes('above')) {
+        why = `Premium pricing works when backed by reviews and detailed photos. With ${reviews !== null ? reviews + ' reviews' : 'limited reviews'}, buyers will choose a cheaper competitor.`;
+        measureText = 'Track orders over 14 days. If they increase after a price adjustment, the old price was a barrier.';
+      } else if (top.t.includes('sale')) {
+        why = 'Permanent sales train buyers to never pay full price and make your "original" price look fake. Real urgency comes from limited-time events.';
+        measureText = 'Track favorites-to-orders ratio over 14 days. Removing fake discounts often improves trust signals.';
+      } else {
+        why = `In this niche, ${Math.round(niche.free_ship_pct * 100)}% of sellers offer free shipping. Etsy explicitly boosts free-shipping listings in search. Build shipping cost into your price.`;
+        measureText = 'Track listing views (search ranking signal) and orders over 14 days.';
+      }
+      escalation = 'If pricing changes don\'t move orders in 3-4 weeks, we\'ll look at competitive positioning.';
+    } else if (top.dim === 'trust') {
+      if (reviews === 0) {
+        why = 'Buyers almost never purchase from shops with zero reviews. Every single review you earn has outsized impact at this stage.';
+        action = 'Focus everything on getting your first 5 reviews. Follow up 2-3 days after delivery with a genuine thank-you message. Consider offering a lower-priced item to generate volume.';
+      } else {
+        why = `With ${reviews} reviews against competitors with hundreds, every trust signal counts — completed About section, clear policies, fast processing time.`;
+      }
+      measureText = 'Track your review count. Getting from 0 to 5 is the most impactful milestone.';
+      escalation = 'Trust builds slowly. Give this 3-4 weeks before reassessing.';
+    } else if (top.dim === 'visibility') {
+      why = `${views} monthly views means buyers aren't finding this listing in search. The most common cause is tags that don't match what buyers actually type.`;
+      action += ' Go to your Search Visibility page and look for tags with zero impressions — replace those first.';
+      measureText = 'Check Search Visibility within 24 hours of tag changes. Track views over 7-14 days.';
+      escalation = 'If tags don\'t improve views in 2-3 weeks, the issue may be deeper — niche saturation or title structure.';
+    } else if (top.dim === 'conversion') {
+      if (favorites !== null && favorites > 10 && orders === 0) {
+        why = `${favorites} people saved this listing — they want it. But something stops them at checkout. The most common barriers: price too high, shipping cost surprise, processing time too long.`;
+        action = `Investigate what's blocking the ${favorites} people who favorited this from buying. Check: is the total price (item + shipping) competitive? Is your processing time under 7 days? Do you have enough reviews to build trust?`;
+      } else {
+        const cr = views > 0 ? ((orders/views)*100).toFixed(1) : '?';
+        why = `A ${cr}% conversion rate means your listing is visible but not compelling enough. This niche averages ${niche.median_conv}%.`;
+      }
+      measureText = 'Track orders-to-views ratio over 14 days. Also watch favorites-to-orders — if that ratio improves, you removed a friction point.';
+      escalation = 'If conversion doesn\'t improve after testing, we\'ll look at competitive positioning.';
+    }
+  } else {
+    action = 'No critical issues found with the data provided. For a deeper analysis, share your Stats screenshots.';
+    why = 'The fields you filled in look healthy. Views, orders, and favorites data would unlock visibility and conversion analysis.';
   }
 
-  // Fee calculation
+  // Fee calc
   let feeHtml = '';
-  if (price) {
-    const listingFee = 0.20;
-    const autoRenew = 0.20;
-    const txn = price * 0.065;
-    const proc = price * 0.03 + 0.25;
-    const total = listingFee + autoRenew + txn + proc;
-    const net = price - total;
-    const margin = cogs !== null ? price - total - cogs : null;
-    feeHtml = `
-      <div class="result-fees">
-        <div class="fee-line"><span>Sale price</span><span>${fmt(price)}</span></div>
-        <div class="fee-line"><span>Etsy fees</span><span class="warn">-${fmt(total)}</span></div>
-        ${cogs !== null ? `<div class="fee-line"><span>Your costs</span><span class="warn">-${fmt(cogs)}</span></div>` : ''}
-        <div class="fee-line total"><span>${cogs !== null ? 'Your profit' : 'After fees'}</span><span>${fmt(cogs !== null ? margin : net)}</span></div>
-      </div>`;
-  }
+  const listingFee = 0.20, autoRenew = 0.20;
+  const txn = price * 0.065, proc = price * 0.03 + 0.25;
+  const totalFees = listingFee + autoRenew + txn + proc;
+  const netAfter = price - totalFees;
+  const profit = cogs !== null ? netAfter - cogs : null;
+  const margin = profit !== null && price > 0 ? (profit / price * 100).toFixed(1) : null;
+  feeHtml = `<div class="r-fees">
+    <div class="fee-line"><span>Sale price</span><span>${fmt(price)}</span></div>
+    <div class="fee-line"><span>Etsy fees (${(totalFees/price*100).toFixed(1)}%)</span><span class="warn">-${fmt(totalFees)}</span></div>
+    ${cogs !== null ? `<div class="fee-line"><span>Your costs</span><span class="warn">-${fmt(cogs)}</span></div>` : ''}
+    <div class="fee-line total"><span>${profit !== null ? 'Profit per sale' : 'After fees'}</span><span>${fmt(profit !== null ? profit : netAfter)}${margin !== null ? ` (${margin}%)` : ''}</span></div>
+  </div>`;
 
   // Gap summary
   let gapsHtml = '';
   for (const c of checks) {
-    let status, cls2;
-    if (c.score === null) { status = 'No data'; cls2 = 'gap-unknown'; }
+    let status, cls2, detail = '';
+    if (c.score === null) { status = 'Need data'; cls2 = 'gap-unknown'; detail = 'Share your Stats'; }
     else if (c.score >= 80) { status = 'OK'; cls2 = 'gap-ok'; }
     else if (c.score >= 50) { status = 'Improvable'; cls2 = 'gap-issue'; }
     else { status = 'Problem'; cls2 = 'gap-problem'; }
-    gapsHtml += `<div class="gap-row"><span class="gap-name">${c.name}</span><span class="gap-status ${cls2}">${status}</span></div>`;
+    gapsHtml += `<div class="gap-row"><span class="gap-name">${c.name}</span><span class="gap-status ${cls2}">${status}${detail ? ' <span class="gap-detail">(' + detail + ')</span>' : ''}</span></div>`;
   }
 
+  // "Also found" — secondary issues
+  let alsoHtml = '';
+  if (allIssues.length > 1) {
+    const secondary = allIssues.slice(1, 5);
+    alsoHtml = `<div class="also-found"><div class="af-label">Also found</div><ul>${secondary.map(i => `<li>${i.t}</li>`).join('')}</ul></div>`;
+  }
+
+  // Render
   $('results').innerHTML = `
-    <div class="result-score">
+    <div class="r-score">
       <div class="num ${cls}">${overall}</div>
-      <div><div class="word">${word}</div><div style="font-size:.75rem;color:var(--light)">listing score</div></div>
+      <div><div class="word">${word}</div><div style="font-size:.72rem;color:var(--light)">listing score</div></div>
     </div>
 
-    <div class="result-gaps">${gapsHtml}</div>
+    ${titleHtml}
+
+    <div style="margin-bottom:16px">${gapsHtml}</div>
 
     ${feeHtml}
 
-    <div class="result-action">
-      <div class="act-label">#1 thing to fix</div>
+    <div class="action-block">
+      <div class="act-label">#1 thing to change</div>
       <p class="act-text">${action}</p>
       <p class="act-why">${why}</p>
-      ${measure ? `<div class="act-measure">${measure}</div>` : ''}
+      ${measureText ? `<div class="act-box act-measure"><strong>What to track:</strong> ${measureText}</div>` : ''}
+      ${escalation ? `<div class="act-box act-escalation">${escalation}</div>` : ''}
     </div>
 
-    <div class="result-next">
+    ${alsoHtml}
+
+    <div class="r-next">
       <h3>Want the full picture?</h3>
-      <p>Pulse Check covers one listing. ShopPulse diagnoses your whole shop, ranks every fix by impact, and tracks what actually works.</p>
-      <a href="diagnosis.html" class="cta-link">Get a full diagnosis</a>
+      <p>Pulse Check covers one listing. ShopPulse diagnoses your whole shop, ranks every fix by impact, and tracks what works over time.</p>
+      <a href="diagnosis.html">Get a full shop diagnosis</a>
     </div>
   `;
   $('results').classList.add('visible');

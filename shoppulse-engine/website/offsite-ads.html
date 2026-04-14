@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Etsy Offsite Ads Tracker — ShopPulse</title>
+<meta name="description" content="Free tool: see how close you are to Etsy's mandatory offsite ads threshold, what it means for your margins, and what to do about it.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAFAF8; --fg: #1A1A1A; --fg2: #374151; --muted: #6B7280; --light: #9CA3AF;
+    --border: #E8E8E4; --card: #FFFFFF;
+    --brand: #2D7D6F; --brand-light: #E8F5F1;
+    --safe: #4CAF7A; --safe-bg: #EEFBF3;
+    --caution: #E8A838; --caution-bg: #FEF7E6;
+    --urgent: #D45454; --urgent-bg: #FEF2F2;
+    --accent: #D35400; --accent-light: #FDF2E9;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--fg); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+  /* Nav */
+  .top-bar { border-bottom: 1px solid var(--border); padding: 0 24px; background: var(--card); }
+  .top-inner { max-width: 960px; margin: auto; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+  .brand { font-family: 'DM Serif Display', serif; font-size: 1.2rem; color: var(--fg); text-decoration: none; }
+  .brand span { color: var(--brand); }
+  .top-links { display: flex; gap: 20px; align-items: center; }
+  .top-links a { font-size: .82rem; color: var(--muted); text-decoration: none; font-weight: 500; }
+  .top-links a:hover { color: var(--fg); }
+  .top-links a.active { color: var(--fg); }
+
+  .page { max-width: 720px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  /* Typography */
+  h1 { font-family: 'DM Serif Display', serif; font-size: 1.8rem; font-weight: 400; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 6px; }
+  h2 { font-family: 'DM Serif Display', serif; font-size: 1.25rem; font-weight: 400; margin-bottom: 4px; }
+  .sub { font-size: .9rem; color: var(--muted); margin-bottom: 28px; max-width: 540px; }
+  .section-label { font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--brand); margin-bottom: 12px; }
+
+  /* Cards */
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 24px; margin-bottom: 20px; }
+
+  /* Inputs */
+  .field { margin-bottom: 16px; }
+  .field label { display: flex; align-items: center; gap: 6px; font-size: .82rem; font-weight: 600; margin-bottom: 5px; color: var(--fg2); }
+  .field .hint { font-size: .72rem; color: var(--light); margin-bottom: 5px; }
+  .field input, .field select {
+    width: 100%; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 6px;
+    font-family: inherit; font-size: .9rem; background: var(--card); color: var(--fg);
+    font-variant-numeric: tabular-nums;
+  }
+  .field input:focus, .field select:focus { outline: none; border-color: var(--brand); }
+  .input-prefix { position: relative; }
+  .input-prefix input { padding-left: 22px; }
+  .input-prefix::before { content: '$'; position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: .9rem; }
+  .row { display: flex; gap: 12px; }
+  .row .field { flex: 1; }
+  .slider-field { margin-bottom: 16px; }
+  .slider-field label { display: flex; align-items: center; gap: 6px; font-size: .82rem; font-weight: 600; margin-bottom: 5px; color: var(--fg2); }
+  .slider-row { display: flex; align-items: center; gap: 12px; }
+  .slider-row input[type="range"] { flex: 1; accent-color: var(--brand); }
+  .slider-val { font-size: .9rem; font-weight: 600; min-width: 36px; text-align: right; font-variant-numeric: tabular-nums; }
+
+  /* Tooltip */
+  .tip { display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; border-radius: 50%; background: var(--border); color: var(--muted); font-size: .65rem; font-weight: 700; cursor: help; position: relative; }
+  .tip:hover .tip-text { display: block; }
+  .tip-text { display: none; position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); width: 240px; padding: 10px 12px; background: var(--fg); color: #fff; font-size: .75rem; font-weight: 400; line-height: 1.5; border-radius: 6px; z-index: 10; }
+
+  /* Progress bar */
+  .progress-wrap { margin: 20px 0; }
+  .progress-labels { display: flex; justify-content: space-between; font-size: .72rem; color: var(--muted); margin-bottom: 6px; }
+  .progress-track { height: 28px; background: #f0f0ec; border-radius: 14px; overflow: hidden; position: relative; }
+  .progress-fill { height: 100%; border-radius: 14px; transition: width .5s ease, background .3s; }
+  .progress-fill.safe { background: var(--safe); }
+  .progress-fill.caution { background: var(--caution); }
+  .progress-fill.urgent { background: var(--urgent); }
+  .progress-marker { position: absolute; top: 0; height: 100%; display: flex; align-items: center; font-size: .7rem; font-weight: 700; color: #fff; padding: 0 10px; pointer-events: none; }
+
+  /* Stat boxes */
+  .stat-row { display: flex; gap: 12px; margin: 20px 0; }
+  .stat-box { flex: 1; padding: 14px; border-radius: 8px; text-align: center; }
+  .stat-box .sv { font-size: 1.4rem; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.2; }
+  .stat-box .sl { font-size: .72rem; color: var(--muted); margin-top: 2px; }
+  .stat-safe { background: var(--safe-bg); }
+  .stat-safe .sv { color: var(--safe); }
+  .stat-caution { background: var(--caution-bg); }
+  .stat-caution .sv { color: var(--caution); }
+  .stat-urgent { background: var(--urgent-bg); }
+  .stat-urgent .sv { color: var(--urgent); }
+  .stat-neutral { background: #F3F4F6; }
+
+  /* Explainer */
+  .explainer { font-size: .85rem; color: var(--fg2); line-height: 1.6; padding: 16px; border-radius: 8px; margin: 16px 0; }
+  .explainer.safe { background: var(--safe-bg); border-left: 3px solid var(--safe); }
+  .explainer.caution { background: var(--caution-bg); border-left: 3px solid var(--caution); }
+  .explainer.urgent { background: var(--urgent-bg); border-left: 3px solid var(--urgent); }
+  .explainer.over { background: #F3F4F6; border-left: 3px solid var(--muted); }
+
+  /* Comparison table */
+  .compare { width: 100%; border-collapse: collapse; font-size: .85rem; margin: 16px 0; }
+  .compare th { text-align: left; font-size: .7rem; text-transform: uppercase; letter-spacing: .05em; color: var(--light); padding: 8px 10px; border-bottom: 2px solid var(--border); font-weight: 500; }
+  .compare td { padding: 8px 10px; border-bottom: 1px solid var(--border); font-variant-numeric: tabular-nums; }
+  .compare tr:last-child td { border-bottom: none; }
+  .compare .row-total { font-weight: 700; border-top: 2px solid var(--fg); }
+  .compare .row-total td { padding-top: 10px; }
+  .compare .diff { color: var(--urgent); font-weight: 600; }
+  .compare .label-col { color: var(--muted); width: 200px; }
+
+  /* Impact highlight */
+  .impact-box { display: flex; gap: 12px; margin: 20px 0; }
+  .impact-item { flex: 1; padding: 16px; border-radius: 8px; text-align: center; }
+  .impact-item .iv { font-size: 1.5rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .impact-item .il { font-size: .72rem; color: var(--muted); margin-top: 2px; }
+  .impact-loss { background: var(--urgent-bg); }
+  .impact-loss .iv { color: var(--urgent); }
+  .impact-annual { background: var(--caution-bg); }
+  .impact-annual .iv { color: var(--caution); }
+
+  /* Decision helper */
+  .decision { font-size: .88rem; color: var(--fg2); line-height: 1.65; }
+  .decision strong { color: var(--fg); }
+
+  /* CTA */
+  .cta-box { margin-top: 32px; padding: 28px; text-align: center; background: var(--fg); border-radius: 10px; color: #fff; }
+  .cta-box h3 { font-family: 'DM Serif Display', serif; font-size: 1.15rem; color: #fff; margin-bottom: 6px; }
+  .cta-box p { font-size: .85rem; color: #a0a8b4; margin-bottom: 16px; max-width: 400px; margin-left: auto; margin-right: auto; }
+  .cta-form { display: flex; gap: 8px; max-width: 360px; margin: 0 auto; }
+  .cta-form input { flex: 1; padding: 9px 12px; border: 1.5px solid rgba(255,255,255,.15); border-radius: 6px; background: rgba(255,255,255,.08); color: #fff; font-family: inherit; font-size: .88rem; }
+  .cta-form input::placeholder { color: #666; }
+  .cta-form input:focus { outline: none; border-color: var(--brand); }
+  .cta-form button { padding: 9px 18px; background: var(--brand); color: #fff; border: none; border-radius: 6px; font-family: inherit; font-size: .88rem; font-weight: 600; cursor: pointer; white-space: nowrap; }
+  .cta-form button:hover { opacity: .9; }
+  .cta-confirm { display: none; font-size: .88rem; color: var(--safe); margin-top: 8px; }
+
+  /* Footer */
+  .foot { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border); font-size: .72rem; color: var(--light); }
+  .foot a { color: var(--brand); text-decoration: none; }
+
+  .divider { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+  .hidden { display: none; }
+
+  @media (max-width: 600px) {
+    .row { flex-direction: column; }
+    .stat-row { flex-direction: column; }
+    .impact-box { flex-direction: column; }
+    .cta-form { flex-direction: column; }
+    .compare .label-col { width: 120px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="top-inner">
+    <a href="index.html" class="brand">Shop<span>Pulse</span></a>
+    <div class="top-links">
+      <a href="offsite-ads.html" class="active">Offsite Ads Tracker</a>
+      <a href="calculator.html">Fee Calculator</a>
+      <a href="pulse-check.html">Pulse Check</a>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+  <h1>Offsite Ads Tracker</h1>
+  <p class="sub">See how close you are to Etsy's mandatory offsite ads threshold, what crossing it means for your margins, and what your options are.</p>
+
+  <!-- ============ SECTION 1: THRESHOLD ============ -->
+  <div class="card">
+    <div class="section-label">Threshold tracker</div>
+    <h2>How close are you to $10,000?</h2>
+    <p style="font-size:.82rem;color:var(--muted);margin-bottom:16px">Etsy makes offsite ads mandatory and permanent once your trailing 365-day revenue hits $10,000.</p>
+
+    <div class="field">
+      <label>Your revenue in the last 365 days
+        <span class="tip">?<span class="tip-text">Find this in your Etsy Shop Manager under Finances → Payment account. It's your total gross sales for the last 12 months.</span></span>
+      </label>
+      <div class="input-prefix"><input type="number" id="revenue" step="0.01" min="0" placeholder="0.00" oninput="updateThreshold()"></div>
+    </div>
+
+    <div class="field">
+      <label>Average monthly revenue
+        <span class="tip">?<span class="tip-text">Your typical monthly sales. If it varies a lot, use the average of your last 3 months.</span></span>
+      </label>
+      <div class="input-prefix"><input type="number" id="monthly" step="0.01" min="0" placeholder="0.00" oninput="updateThreshold()"></div>
+    </div>
+
+    <div class="field">
+      <label>Current offsite ads status</label>
+      <select id="ads-status" onchange="updateThreshold()">
+        <option value="not_enrolled">Not enrolled</option>
+        <option value="opted_in">Opted in voluntarily (under $10K)</option>
+        <option value="mandatory">Mandatory (over $10K)</option>
+        <option value="unsure">Not sure</option>
+      </select>
+    </div>
+
+    <div id="threshold-results" class="hidden">
+      <div class="progress-wrap">
+        <div class="progress-labels"><span>$0</span><span>$10,000</span></div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+      </div>
+
+      <div class="stat-row" id="stat-row"></div>
+      <div id="threshold-explainer"></div>
+    </div>
+  </div>
+
+  <!-- ============ SECTION 2: MARGIN MODELER ============ -->
+  <div class="card">
+    <div class="section-label">Margin impact modeler</div>
+    <h2>What offsite ads actually cost you</h2>
+    <p style="font-size:.82rem;color:var(--muted);margin-bottom:16px">See the real per-sale impact — not just the headline fee percentage.</p>
+
+    <div class="row">
+      <div class="field">
+        <label>Listing price</label>
+        <div class="input-prefix"><input type="number" id="item-price" step="0.01" min="0" placeholder="0.00" oninput="updateMargin()"></div>
+      </div>
+      <div class="field">
+        <label>Shipping charged</label>
+        <div class="input-prefix"><input type="number" id="shipping" step="0.01" min="0" value="0" oninput="updateMargin()"></div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label>Your cost to make
+          <span class="tip">?<span class="tip-text">Materials + labor + packaging. What this item costs you before Etsy takes anything.</span></span>
+        </label>
+        <div class="input-prefix"><input type="number" id="cogs" step="0.01" min="0" value="0" oninput="updateMargin()"></div>
+      </div>
+      <div class="field">
+        <label>Country</label>
+        <select id="country" onchange="updateMargin()">
+          <option value="US">United States</option>
+          <option value="CA">Canada</option>
+          <option value="UK">United Kingdom</option>
+          <option value="AU">Australia</option>
+          <option value="EU">EU (most countries)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="slider-field">
+      <label>Offsite ads attribution rate
+        <span class="tip">?<span class="tip-text">What percentage of your sales come through offsite ads? Most sellers see 10-20%. If you're not sure, 15% is a reasonable estimate. You can find this in your Offsite Ads dashboard.</span></span>
+      </label>
+      <div class="slider-row">
+        <input type="range" id="attr-rate" min="0" max="50" value="15" oninput="updateMargin()">
+        <span class="slider-val" id="attr-val">15%</span>
+      </div>
+    </div>
+
+    <div id="margin-results" class="hidden">
+      <table class="compare">
+        <thead>
+          <tr><th class="label-col"></th><th>Without offsite ads</th><th>With mandatory (12%)</th></tr>
+        </thead>
+        <tbody id="compare-body"></tbody>
+      </table>
+
+      <div class="impact-box" id="impact-box"></div>
+    </div>
+  </div>
+
+  <!-- ============ SECTION 3: DECISION HELPER ============ -->
+  <div class="card" id="decision-card" class="hidden">
+    <div class="section-label">What this means for you</div>
+    <div class="decision" id="decision-text"></div>
+  </div>
+
+  <!-- ============ CTA ============ -->
+  <div class="cta-box">
+    <h3>Know your numbers. Grow with confidence.</h3>
+    <p>ShopPulse diagnoses your full Etsy shop — pricing, listings, competitive positioning — and tells you what to fix first, ranked by impact.</p>
+    <form class="cta-form" id="cta-form" action="https://formspree.io/f/mvzwdqlk" method="POST">
+      <input type="email" name="email" placeholder="your@email.com" required>
+      <input type="hidden" name="_subject" value="ShopPulse Waitlist (Offsite Ads Tool)">
+      <button type="submit">Join waitlist</button>
+    </form>
+    <p class="cta-confirm" id="cta-confirm">You're on the list.</p>
+  </div>
+
+  <div class="foot">
+    <p><a href="index.html">ShopPulse</a> — we tell you what to fix, not what to sell.</p>
+    <p style="margin-top:4px">Fee calculations based on Etsy's published rates. Verify at etsy.com/legal/fees. This tool does not store any data.</p>
+  </div>
+
+</div>
+
+<script>
+function $(id) { return document.getElementById(id); }
+function num(id) { const v = $(id).value; return v === '' ? null : parseFloat(v); }
+function fmt(n) { return '$' + Math.abs(n).toFixed(2); }
+function fmtK(n) { return n >= 1000 ? '$' + (n/1000).toFixed(1) + 'K' : '$' + Math.round(n); }
+
+const PROCESSING = {
+  US: { rate: 0.03, flat: 0.25, label: '3.0% + $0.25' },
+  CA: { rate: 0.03, flat: 0.25, label: '3.0% + CA$0.25' },
+  UK: { rate: 0.04, flat: 0.20, label: '4.0% + £0.20' },
+  AU: { rate: 0.03, flat: 0.25, label: '3.0% + AU$0.25' },
+  EU: { rate: 0.04, flat: 0.30, label: '4.0% + €0.30' },
+};
+
+// ====== THRESHOLD TRACKER ======
+function updateThreshold() {
+  const rev = num('revenue');
+  const monthly = num('monthly');
+  const status = $('ads-status').value;
+
+  if (rev === null) { $('threshold-results').classList.add('hidden'); return; }
+  $('threshold-results').classList.remove('hidden');
+
+  const pct = Math.min(100, (rev / 10000) * 100);
+  const remaining = Math.max(0, 10000 - rev);
+  const fill = $('progress-fill');
+  fill.style.width = pct + '%';
+
+  let zone;
+  if (rev >= 10000) zone = 'over';
+  else if (rev >= 9500) zone = 'urgent';
+  else if (rev >= 7000) zone = 'caution';
+  else zone = 'safe';
+
+  fill.className = 'progress-fill ' + (zone === 'over' ? 'urgent' : zone);
+
+  // Projected crossing
+  let daysLeft = null, crossDate = '';
+  if (monthly !== null && monthly > 0 && remaining > 0) {
+    const monthsLeft = remaining / monthly;
+    daysLeft = Math.round(monthsLeft * 30);
+    const d = new Date();
+    d.setDate(d.getDate() + daysLeft);
+    crossDate = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  }
+
+  // Stats
+  let statCls = zone === 'over' ? 'stat-neutral' : (zone === 'urgent' ? 'stat-urgent' : (zone === 'caution' ? 'stat-caution' : 'stat-safe'));
+  let statsHtml = '';
+  if (zone === 'over') {
+    statsHtml = `
+      <div class="stat-box stat-neutral"><div class="sv">${fmtK(rev)}</div><div class="sl">trailing 365-day revenue</div></div>
+      <div class="stat-box stat-neutral"><div class="sv">Mandatory</div><div class="sl">offsite ads status</div></div>
+      <div class="stat-box stat-neutral"><div class="sv">12%</div><div class="sl">fee on ad-attributed sales</div></div>`;
+  } else {
+    statsHtml = `
+      <div class="stat-box ${statCls}"><div class="sv">${fmt(remaining)}</div><div class="sl">until mandatory threshold</div></div>`;
+    if (daysLeft !== null) {
+      statsHtml += `<div class="stat-box ${statCls}"><div class="sv">${daysLeft} days</div><div class="sl">at current pace</div></div>`;
+      statsHtml += `<div class="stat-box ${statCls}"><div class="sv">${crossDate}</div><div class="sl">projected crossing</div></div>`;
+    }
+  }
+  $('stat-row').innerHTML = statsHtml;
+
+  // Explainer
+  let exp = '', expCls = zone;
+  if (zone === 'over') {
+    exp = `<strong>You're in the mandatory tier.</strong> Your offsite ads fee is 12% on sales attributed to ads (capped at $100 per order). This is permanent — it cannot be turned off. The section below shows exactly how this affects your per-sale margins.`;
+  } else if (zone === 'urgent') {
+    exp = `<strong>You're very close.</strong> At ${fmtK(rev)}, you're ${fmt(remaining)} away from the $10,000 threshold. ${daysLeft !== null ? `At your current pace, you may cross within ${daysLeft} days (around ${crossDate}).` : ''} Once you cross, offsite ads become mandatory and permanent at 12% on ad-attributed sales.`;
+  } else if (zone === 'caution') {
+    exp = `<strong>You're approaching the threshold.</strong> At ${fmtK(rev)}, you have ${fmt(remaining)} of room before offsite ads become mandatory. ${daysLeft !== null ? `At your current pace, that's roughly ${daysLeft} days away.` : ''} Now is a good time to understand how the 12% fee will affect your margins.`;
+    if (status === 'opted_in') exp += ` Since you're currently opted in voluntarily at 15%, crossing the threshold actually lowers your rate to 12%.`;
+  } else {
+    exp = `<strong>You're well below the threshold.</strong> At ${fmtK(rev)}, you have ${fmt(remaining)} of room. ${daysLeft !== null && daysLeft < 365 ? `At your current pace, you'd cross in about ${daysLeft} days.` : 'At your current pace, you\'re not close to crossing.'}`;
+    if (status === 'opted_in') exp += ` You're currently opted in voluntarily at 15%. You can opt out anytime while you're under $10K.`;
+    else if (status === 'not_enrolled') exp += ` You're not enrolled in offsite ads, which means you're not paying the fee on any sales.`;
+  }
+  $('threshold-explainer').innerHTML = `<div class="explainer ${expCls}">${exp}</div>`;
+
+  updateDecision(rev, monthly, daysLeft, status, zone);
+  updateMargin(); // recalc margin with new context
+}
+
+// ====== MARGIN MODELER ======
+function updateMargin() {
+  const price = num('item-price');
+  const shipping = num('shipping') || 0;
+  const cogs = num('cogs') || 0;
+  const country = $('country').value;
+  const attrRate = parseInt($('attr-rate').value) / 100;
+  $('attr-val').textContent = Math.round(attrRate * 100) + '%';
+
+  if (price === null || price <= 0) { $('margin-results').classList.add('hidden'); return; }
+  $('margin-results').classList.remove('hidden');
+
+  const proc = PROCESSING[country] || PROCESSING.US;
+  const saleTotal = price + shipping;
+
+  // Common fees
+  const listingFee = 0.20;
+  const txnFee = saleTotal * 0.065;
+  const procFee = saleTotal * proc.rate + proc.flat;
+  const baseFees = listingFee + txnFee + procFee;
+
+  // Without offsite ads
+  const profitA = saleTotal - baseFees - cogs;
+  const marginA = saleTotal > 0 ? (profitA / saleTotal * 100) : 0;
+
+  // With mandatory offsite ads (12%) — blended across all sales
+  const offsiteFeePerAd = Math.min(price * 0.12, 100); // $100 cap
+  const blendedOffsiteFee = offsiteFeePerAd * attrRate; // average per sale
+  const totalFeesB = baseFees + blendedOffsiteFee;
+  const profitB = saleTotal - totalFeesB - cogs;
+  const marginB = saleTotal > 0 ? (profitB / saleTotal * 100) : 0;
+
+  const diffPerSale = profitA - profitB;
+  const rev = num('revenue') || 0;
+  const monthly = num('monthly') || 0;
+  const annualSales = monthly > 0 && price > 0 ? Math.round((monthly * 12) / price) : 0;
+  const annualImpact = diffPerSale * annualSales;
+
+  $('compare-body').innerHTML = `
+    <tr><td class="label-col">Listing fee</td><td>${fmt(listingFee)}</td><td>${fmt(listingFee)}</td></tr>
+    <tr><td class="label-col">Transaction fee (6.5%)</td><td>${fmt(txnFee)}</td><td>${fmt(txnFee)}</td></tr>
+    <tr><td class="label-col">Processing (${proc.label})</td><td>${fmt(procFee)}</td><td>${fmt(procFee)}</td></tr>
+    <tr><td class="label-col">Offsite ads (12% blended at ${Math.round(attrRate*100)}%)</td><td>$0.00</td><td class="diff">${fmt(blendedOffsiteFee)}</td></tr>
+    <tr><td class="label-col"><strong>Total Etsy fees</strong></td><td><strong>${fmt(baseFees)}</strong></td><td><strong>${fmt(totalFeesB)}</strong></td></tr>
+    ${cogs > 0 ? `<tr><td class="label-col">Your costs</td><td>${fmt(cogs)}</td><td>${fmt(cogs)}</td></tr>` : ''}
+    <tr class="row-total"><td class="label-col">Profit per sale</td><td>${fmt(profitA)}</td><td>${fmt(profitB)}</td></tr>
+    <tr><td class="label-col">Profit margin</td><td>${marginA.toFixed(1)}%</td><td>${marginB.toFixed(1)}%</td></tr>
+  `;
+
+  let impactHtml = `
+    <div class="impact-item impact-loss">
+      <div class="iv">-${fmt(diffPerSale)}</div>
+      <div class="il">per sale with offsite ads</div>
+    </div>`;
+  if (annualSales > 0) {
+    impactHtml += `
+    <div class="impact-item impact-annual">
+      <div class="iv">-${fmtK(annualImpact)}/yr</div>
+      <div class="il">estimated annual impact (${annualSales} sales)</div>
+    </div>`;
+  }
+  $('impact-box').innerHTML = impactHtml;
+}
+
+// ====== DECISION HELPER ======
+function updateDecision(rev, monthly, daysLeft, status, zone) {
+  let text = '';
+
+  if (zone === 'over' || status === 'mandatory') {
+    text = `<strong>You're in the mandatory tier.</strong> The 12% fee on ad-attributed sales is now a permanent part of your cost structure. The good news: it's lower than the 15% voluntary rate, and it's capped at $100 per order. Focus on making sure your pricing accounts for this fee across your product line. The margin modeler above shows the exact per-sale impact so you can adjust.`;
+  } else if (zone === 'urgent') {
+    text = `<strong>You're approaching a permanent decision point.</strong> Once you cross $10,000, there's no going back — offsite ads are mandatory forever. This is worth understanding clearly, not panicking about. Use the margin modeler above to see the actual per-sale cost. For most sellers, the additional sales offsite ads drive more than offset the fee. But if your margins are already thin, it's worth modeling the math before you cross.`;
+    if (status === 'opted_in') text += `<br><br>Since you're already opted in at 15%, crossing actually <strong>lowers</strong> your rate to 12%.`;
+  } else if (zone === 'caution') {
+    text = `<strong>You have time to prepare.</strong> ${daysLeft !== null ? `At your current pace, you're roughly ${daysLeft} days from the threshold.` : ''} This is the right time to understand the margin impact and make sure your pricing is set up to absorb the fee comfortably.`;
+    if (status === 'not_enrolled') text += ` You're currently not enrolled, which means you're not paying any offsite ads fees. Some sellers opt in voluntarily because the ads drive additional sales — but the voluntary rate is 15%, higher than the mandatory 12%.`;
+    if (status === 'opted_in') text += ` You're currently paying 15% on ad-attributed sales. When you cross $10K, that drops to 12% — so the threshold actually saves you money per ad-attributed sale.`;
+  } else {
+    text = `<strong>No action needed right now.</strong> You're well below the mandatory threshold.`;
+    if (status === 'opted_in') text += ` You're voluntarily enrolled at 15%. If the ads are driving profitable sales, keep them on. If not, you can opt out anytime while you're under $10K.`;
+    else if (status === 'not_enrolled') text += ` Some sellers voluntarily opt in because the ads can drive additional sales. But the fee is 15% — higher than the mandatory 12% rate. Use the margin modeler above to see if the math works for your products.`;
+    else text += ` The margin modeler above can help you understand what offsite ads would cost if you decide to opt in, or if you eventually cross the threshold.`;
+  }
+
+  $('decision-text').innerHTML = text;
+  $('decision-card').classList.remove('hidden');
+}
+
+// ====== WAITLIST FORM ======
+$('cta-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  try {
+    const r = await fetch(this.action, { method: 'POST', body: new FormData(this), headers: { 'Accept': 'application/json' } });
+    if (r.ok) { this.style.display = 'none'; $('cta-confirm').style.display = 'block'; }
+  } catch(e) {}
+});
+</script>
+
+</body>
+</html>

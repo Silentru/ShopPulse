@@ -443,6 +443,10 @@ def score_visibility(listing, shop, niche, metrics):
     """
     gaps = []
     views = listing.get("views")  # None = not available
+
+    if views is None:
+        return {"status": "insufficient_data"}
+
     title = listing.get("title", "")
     short = short_title(title)
     niche_avg = niche.get("median_views_per_listing", 400)
@@ -570,10 +574,10 @@ def score_conversion(listing, shop, niche, metrics):
 
     # Skip if traffic/order data not available
     if views is None or orders is None:
-        return gaps
+        return {"status": "insufficient_data"}
     # Skip if not enough data to diagnose
     if views < 20:
-        return gaps
+        return {"status": "insufficient_data"}
 
     conv_rate = metrics.get("conversion_rate")
     shop_conv = shop.get("shop_conversion_rate") or niche.get("median_conversion_rate", 2.0)
@@ -979,7 +983,7 @@ def diagnose_listing(listing, niche):
             "skip_conversion": False,
         }
 
-    if favorites > 10 and orders == 0:
+    if favorites is not None and favorites > 10 and orders == 0:
         return {
             "primary_problem": "conversion",
             "diagnosis_note": f'"{title}" has {views} views and {favorites} favorites but zero orders. People want it — something is blocking the purchase. Check price, shipping, and processing time.',
@@ -1609,6 +1613,8 @@ def score_shop(data):
                 continue
 
             gaps = scorer(listing, shop_with_metrics, niche, metrics)
+            if isinstance(gaps, dict):
+                continue  # {"status": "insufficient_data"} — skip, no real data to score
             for gap in gaps:
                 gap["listing"] = listing_ref
                 gap["listing_index"] = idx

@@ -24,6 +24,7 @@ from pathlib import Path
 
 PORT = 8765
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+WEBSITE_DIR = os.path.join(PROJECT_DIR, "website")
 
 HTML_PAGE = """<!DOCTYPE html>
 <html lang="en">
@@ -459,25 +460,70 @@ renderListings();
 
 
 class CollectorHandler(http.server.BaseHTTPRequestHandler):
+    # MIME types for static assets
+    _MIME = {
+        ".html": "text/html",
+        ".css": "text/css",
+        ".js": "application/javascript",
+        ".json": "application/json",
+        ".png": "image/png",
+        ".jpg": "image/jpeg",
+        ".jpeg": "image/jpeg",
+        ".svg": "image/svg+xml",
+        ".ico": "image/x-icon",
+    }
+
+    def do_OPTIONS(self):
+        """Handle CORS preflight."""
+        self.send_response(200)
+        self._cors_headers()
+        self.end_headers()
+
+    def _cors_headers(self):
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type")
+
     def do_GET(self):
-        if self.path == "/" or self.path == "/index.html":
-            self.send_response(200)
-            self.send_header("Content-Type", "text/html")
-            self.end_headers()
-            self.wfile.write(HTML_PAGE.encode())
-        elif self.path.startswith("/report/"):
-            filename = os.path.basename(self.path[8:])
+        path = self.path.split("?")[0]  # strip query strings
+
+        # /report/<filename> — serve generated HTML reports
+        if path.startswith("/report/"):
+            filename = os.path.basename(path[8:])
             filepath = os.path.join(PROJECT_DIR, filename)
             if os.path.exists(filepath):
                 self.send_response(200)
                 self.send_header("Content-Type", "text/html")
+                self._cors_headers()
                 self.end_headers()
                 with open(filepath, "rb") as f:
                     self.wfile.write(f.read())
             else:
                 self.send_error(404)
-        else:
-            self.send_error(404)
+            return
+
+        # / → redirect to pulse-check.html (the main user-facing page)
+        if path == "/":
+            self.send_response(302)
+            self.send_header("Location", "/pulse-check.html")
+            self.end_headers()
+            return
+
+        # Serve static files from website/
+        safe = path.lstrip("/")
+        filepath = os.path.join(WEBSITE_DIR, safe)
+        if os.path.isfile(filepath):
+            ext = os.path.splitext(filepath)[1].lower()
+            mime = self._MIME.get(ext, "application/octet-stream")
+            self.send_response(200)
+            self.send_header("Content-Type", mime)
+            self._cors_headers()
+            self.end_headers()
+            with open(filepath, "rb") as f:
+                self.wfile.write(f.read())
+            return
+
+        self.send_error(404)
 
     def do_POST(self):
         if self.path == "/generate":
@@ -561,6 +607,7 @@ class CollectorHandler(http.server.BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header("Content-Type", "application/json")
         self.send_header("Content-Length", str(len(body)))
+        self._cors_headers()
         self.end_headers()
         self.wfile.write(body)
 
@@ -571,7 +618,7 @@ class CollectorHandler(http.server.BaseHTTPRequestHandler):
 
 if __name__ == "__main__":
     server = http.server.HTTPServer(("localhost", PORT), CollectorHandler)
-    print(f"ShopPulse Data Collector running at http://localhost:{PORT}")
+    print(f"ShopPulse running at http://localhost:{PORT}")
     print(f"Press Ctrl+C to stop.")
     try:
         server.serve_forever()

@@ -499,62 +499,6 @@ def score_visibility(listing, shop, niche, metrics):
             "measurement": "Compare listing views 14 days before vs 14 days after. Check Search Visibility to confirm impressions increased.",
         })
 
-    # Title structure — product-type-first, under 15 words
-    word_count = len(title.split()) if title else 0
-    suggested, explanation = suggest_title_restructure(title)
-    brand_name = listing.get("brand_name")
-    has_title_issue = False
-    title_evidence = []
-    title_action_parts = []
-
-    if word_count > 15:
-        has_title_issue = True
-        title_evidence.append(f'{word_count} words (Etsy recommends under 15)')
-
-    if brand_name and title.lower().startswith(brand_name.lower()):
-        has_title_issue = True
-        title_evidence.append(f'starts with brand name "{brand_name}" — buyers search for product type, not brand')
-        title_action_parts.append(f'Move "{brand_name}" to the end')
-
-    # Check for filler-word starts even without brand name
-    filler_starts = FILLER_TITLE_WORDS
-    first_word = title.split()[0].lower().rstrip(",") if title else ""
-    if first_word in filler_starts:
-        has_title_issue = True
-        title_evidence.append(f'starts with "{title.split()[0]}" — lead with the product type instead')
-
-    if has_title_issue:
-        sev = 0
-        if word_count > 15:
-            sev += 2
-        if brand_name and title.lower().startswith(brand_name.lower()):
-            sev += 2
-        if first_word in filler_starts:
-            sev += 1
-        sev = clamp(sev) if sev > 0 else 2
-
-        if suggested:
-            title_action_parts.append(f'Suggested restructure: "{suggested}"')
-        else:
-            title_action_parts.append('Lead with the product type. Etsy\'s algorithm weighs the first few words most heavily')
-
-        if word_count > 15:
-            title_action_parts.append(f'Trim from {word_count} to under 15 words')
-
-        gaps.append({
-            "gap_type": "visibility",
-            "sub_type": "title_structure",
-            "severity": sev,
-            "evidence": f'"{short}": ' + '; '.join(title_evidence) + '.',
-            "action": '. '.join(title_action_parts) + '.',
-            "impact": "medium",
-            "confidence": "high",
-            "layer": 1,
-            "difficulty": "quick fix",
-            "timeline": "Title changes reflect in search within 24 hours. Allow 7-14 days to measure impact on impressions and clicks.",
-            "measurement": "Check Search Visibility page — did impressions for this listing increase? Compare click-through rate before vs after.",
-        })
-
     return gaps
 
 
@@ -806,8 +750,62 @@ def score_content(listing, shop, niche, metrics):
             evidence_parts.append(f'{desc_words}-word description — could be more detailed')
             action_parts.append('Add more detail: materials, sizing, care instructions, gift-worthiness')
 
-    # Title issues handled by score_visibility (title_structure gap)
-    # Only flag in content if there are OTHER content issues to report alongside
+    # Title structure — product-type-first, under 15 words
+    # Lives here (not score_visibility) so it runs even when views data is absent.
+    word_count = len(title.split()) if title else 0
+    suggested, explanation = suggest_title_restructure(title)
+    brand_name = listing.get("brand_name")
+    has_title_issue = False
+    title_evidence = []
+    title_action_parts = []
+
+    if word_count > 15:
+        has_title_issue = True
+        title_evidence.append(f'{word_count} words (Etsy recommends under 15)')
+
+    if brand_name and title.lower().startswith(brand_name.lower()):
+        has_title_issue = True
+        title_evidence.append(f'starts with brand name "{brand_name}" — buyers search for product type, not brand')
+        title_action_parts.append(f'Move "{brand_name}" to the end')
+
+    # Check for filler-word starts even without brand name
+    filler_starts = FILLER_TITLE_WORDS
+    first_word = title.split()[0].lower().rstrip(",") if title else ""
+    if first_word in filler_starts:
+        has_title_issue = True
+        title_evidence.append(f'starts with "{title.split()[0]}" — lead with the product type instead')
+
+    if has_title_issue:
+        sev = 0
+        if word_count > 15:
+            sev += 2
+        if brand_name and title.lower().startswith(brand_name.lower()):
+            sev += 2
+        if first_word in filler_starts:
+            sev += 1
+        sev = clamp(sev) if sev > 0 else 2
+
+        if suggested:
+            title_action_parts.append(f'Suggested restructure: "{suggested}"')
+        else:
+            title_action_parts.append('Lead with the product type. Etsy\'s algorithm weighs the first few words most heavily')
+
+        if word_count > 15:
+            title_action_parts.append(f'Trim from {word_count} to under 15 words')
+
+        gaps.append({
+            "gap_type": "content",
+            "sub_type": "title_structure",
+            "severity": sev,
+            "evidence": f'"{short}": ' + '; '.join(title_evidence) + '.',
+            "action": '. '.join(title_action_parts) + '.',
+            "impact": "medium",
+            "confidence": "high",
+            "layer": 1,
+            "difficulty": "quick fix",
+            "timeline": "Title changes reflect in search within 24 hours. Allow 7-14 days to measure impact on impressions and clicks.",
+            "measurement": "Check Search Visibility page — did impressions for this listing increase? Compare click-through rate before vs after.",
+        })
 
     if severity > 0:
         severity = clamp(severity)

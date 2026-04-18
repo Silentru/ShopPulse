@@ -221,30 +221,32 @@ def extract_shop_stats(text):
 
 
 def extract_listing_stats(text):
-    """Extract listing-level stats from an Etsy Listing Stats screenshot."""
+    """Extract listing-level stats from an Etsy Listing Stats screenshot.
+
+    Only extracts visually unambiguous data: titles and prices.
+    Per-listing views, orders, and favorites are NOT extracted — OCR
+    misreads are indistinguishable from real numbers, and the scorer
+    handles None correctly via {"status": "insufficient_data"}.
+    """
     data = {"type": "listing_stats", "listings": []}
 
     lines = [l.strip() for l in text.split("\n") if l.strip()]
 
-    # Collect values into columns
     titles = []
     prices = []
-    views_list = []
-    favorites_list = []
-    orders_list = []
 
-    # Track which column section we're in based on header keywords
     current_section = None
-    header_keywords = {
-        "listing": "titles", "price": "prices", "views": "views",
-        "favorites": "favorites", "favourites": "favorites",
-        "orders": "orders",
-    }
+    header_keywords = {"listing": "titles", "price": "prices"}
 
     for line in lines:
         line_lower = line.lower()
 
-        # Check if this line is a section header
+        # Skip table-level and traffic-metric headers
+        if any(kw in line_lower for kw in ("top listings", "listing stats", "views", "favorites",
+                                            "favourites", "orders", "sales")):
+            continue
+
+        # Check if this line is a column header
         is_header = False
         for keyword, section in header_keywords.items():
             if line_lower == keyword or line_lower == keyword + "s":
@@ -254,63 +256,27 @@ def extract_listing_stats(text):
         if is_header:
             continue
 
-        # Skip table-level headers
-        if "top listings" in line_lower or "listing stats" in line_lower:
-            continue
-
-        # Parse based on what's in the line
-        view_val = find_metric(line, [r"([\d,]+)\s*views?"])
-        fav_val = find_metric(line, [r"([\d,]+)\s*favou?rites?"])
-        order_val = find_metric(line, [r"([\d,]+)\s*(?:orders?|sales?)"])
         price_val = find_metric(line, [r"\$\s*([\d,]+\.?\d*)"])
 
-        # If line has multiple metrics on one row (inline layout), handle directly
-        if sum(x is not None for x in [view_val, fav_val, order_val]) >= 2:
-            listing = {}
-            if view_val is not None:
-                listing["views"] = view_val
-            if fav_val is not None:
-                listing["favorites"] = fav_val
-            if order_val is not None:
-                listing["orders"] = order_val
-            if price_val is not None:
-                listing["price"] = price_val
-            data["listings"].append(listing)
-            continue
-
-        # Columnar layout: assign to the appropriate column
-        if view_val is not None:
-            views_list.append(view_val)
-        elif fav_val is not None:
-            favorites_list.append(fav_val)
-        elif order_val is not None:
-            orders_list.append(order_val)
-        elif price_val is not None and current_section == "prices":
-            prices.append(price_val)
-        elif price_val is not None and not current_section:
+        if price_val is not None and current_section in ("prices", None):
             prices.append(price_val)
         elif len(line) > 15 and not re.match(r"^[\d\s,$%.]+$", line):
-            # Likely a listing title — clean OCR artifacts from the start
             clean_title = re.sub(r"^[^A-Za-z]*", "", line).strip()
             if clean_title:
                 titles.append(clean_title)
 
-    # If we collected columnar data, merge into listings
-    if views_list or favorites_list or orders_list:
-        count = max(len(titles), len(views_list), len(favorites_list), len(orders_list))
-        for i in range(count):
-            listing = {}
-            if i < len(titles):
-                listing["title"] = titles[i]
-            if i < len(prices):
-                listing["price"] = prices[i]
-            if i < len(views_list):
-                listing["views"] = views_list[i]
-            if i < len(favorites_list):
-                listing["favorites"] = favorites_list[i]
-            if i < len(orders_list):
-                listing["orders"] = orders_list[i]
-            data["listings"].append(listing)
+    count = max(len(titles), len(prices))
+    for i in range(count):
+        listing = {
+            "views": None,
+            "orders": None,
+            "favorites": None,
+        }
+        if i < len(titles):
+            listing["title"] = titles[i]
+        if i < len(prices):
+            listing["price"] = prices[i]
+        data["listings"].append(listing)
 
     return data
 

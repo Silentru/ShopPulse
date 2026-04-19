@@ -1,0 +1,89 @@
+{
+  "niche_preset": "handmade_gifts",
+  "shop": {
+    "name": "Crutchfield Pottery",
+    "review_count": 2900,
+    "total_sales": 11000,
+    "item_count": 185,
+    "star_rating": 4.9,
+    "location": "Virginia, United States",
+    "has_about_section": true,
+    "has_shop_policies": true,
+    "avg_processing_days": 42,
+    "star_seller": true,
+    "age_on_etsy": "12 years"
+  },
+  "listings": [
+    {
+      "title": "Pottery Spoon Jar and Spoon Rest Set Choose Your Glaze Ceramic Countertop Set Stoneware Utensil Holder",
+      "price": 72.0,
+      "free_shipping": true
+    },
+    {
+      "title": "Handmade Pottery Spoon Jar Twilight Ceramic Kitchen Crock Hand Thrown Stoneware Utensil Holder",
+      "price": 54.0,
+      "free_shipping": true
+    },
+    {
+      "title": "Set of Four Handmade Pottery Dessert Salad Plates Twilight Stoneware 8 inch Ceramic Luncheon Plates",
+      "price": 116.0,
+      "free_shipping": true
+    },
+    {
+      "title": "Handmade Pottery Set of 4 Pasta Bowls Choose Your Glaze 5-cup Ceramic Bowls",
+      "price": 170.0,
+      "free_shipping": true
+    },
+    {
+      "title": "Pottery Tumblers Set of 4 Choose Your Glaze Ceramic 16-ounce Tumblers Stoneware Cup Set",
+      "price": 120.0,
+      "free_shipping": true
+    },
+    {
+      "title": "Handmade Pottery Stoneware Sugar and Creamer Set in Slate Aqua",
+      "price": 67.5,
+      "free_shipping": true
+    },
+    {
+      "title": "Handled Handmade Pottery Serving Tray Slate Twilight 8x12 Rectangle Bread Tray",
+      "price": 72.5,
+      "free_shipping": true
+    },
+    {
+      "title": "Handmade Pottery Lidded Butter Dish Slate Twilight Glaze",
+      "price": 47.5,
+      "free_shipping": true
+    },
+    {
+      "title": "Handmade Pottery Single Ceramic 4-piece Place Setting Choose Your Glaze",
+      "price": 132.0,
+      "free_shipping": true
+    },
+    {
+      "title": "Handmade Pottery Set of 3 Nesting Bowl Set Raspberry",
+      "price": 149.5,
+      "free_shipping": true
+    },
+    {
+      "title": "Set of 2 Handmade Pottery Mugs Slate Twilight",
+      "price": 74.0,
+      "free_shipping": true
+    },
+    {
+      "title": "Handmade Pottery Bowls Set of Four Raspberry Soup Bowls",
+      "price": 108.0,
+      "free_shipping": true
+    },
+    {
+      "title": "Set of 2 Handmade Pottery Tumblers Choose Your Glaze",
+      "price": 60.0,
+      "free_shipping": true
+    },
+    {
+      "title": "Handmade Pottery Tumbler Slate Single Stoneware Cup",
+      "price": 31.0,
+      "free_shipping": true
+    }
+  ],
+  "niche_context": {}
+}

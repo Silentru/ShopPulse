@@ -1,0 +1,229 @@
+{
+  "shop_name": "Goblinpottery",
+  "diagnosis_date": "2026-03-29",
+  "niche_preset": "handmade_gifts",
+  "health_score": 100,
+  "top_3_actions": [
+    {
+      "listing": "Card Holder Handmade Business Card Holder Market Display",
+      "action": "Add 2 more photos \u2014 lifestyle context and size comparison work well. Record a 10-15 second clip \u2014 even raw phone video of the item rotating works. Add more detail: materials, sizing, care instructions, gift-worthiness.",
+      "gap_type": "content",
+      "sub_type": "content_issues",
+      "layer": 1,
+      "severity": 3
+    },
+    {
+      "listing": "Discounted Sourdough Crock Sourdough Keeper Fermentation",
+      "action": "Remove the sale. If you want a lower price, just set it directly.",
+      "gap_type": "pricing",
+      "sub_type": "pricing_issues",
+      "layer": 2,
+      "severity": 2
+    },
+    {
+      "listing": "Card Holder Handmade Business Card Holder Market Display",
+      "action": "Check Etsy Search Analytics and replace any tags with zero impressions.",
+      "gap_type": "visibility",
+      "sub_type": "low_visibility",
+      "layer": 1,
+      "severity": 1
+    }
+  ],
+  "listings": [
+    {
+      "title": "12 Oz Pottery Mug Handmade Pottery Unique Coffee Mug",
+      "price": 45.0,
+      "views_at_diagnosis": 680,
+      "orders_at_diagnosis": 42,
+      "favorites_at_diagnosis": 95,
+      "review_count": 1800,
+      "photo_count": 7,
+      "has_video": false,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "content"
+      ],
+      "top_action": "Record a 10-15 second clip \u2014 even raw phone video of the item rotating works.",
+      "action_layer": 1
+    },
+    {
+      "title": "Berry Bowl Pottery Bowls Handmade Ceramic Colander Poppy",
+      "price": 55.0,
+      "views_at_diagnosis": 520,
+      "orders_at_diagnosis": 28,
+      "favorites_at_diagnosis": 78,
+      "review_count": 1800,
+      "photo_count": 7,
+      "has_video": false,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "content"
+      ],
+      "top_action": "Record a 10-15 second clip \u2014 even raw phone video of the item rotating works.",
+      "action_layer": 1
+    },
+    {
+      "title": "Fermentation Crock Ready to Ship 2 Quart Ceramic",
+      "price": 65.0,
+      "views_at_diagnosis": 450,
+      "orders_at_diagnosis": 22,
+      "favorites_at_diagnosis": 60,
+      "review_count": 1800,
+      "photo_count": 6,
+      "has_video": false,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "content"
+      ],
+      "top_action": "Record a 10-15 second clip \u2014 even raw phone video of the item rotating works.",
+      "action_layer": 1
+    },
+    {
+      "title": "Dinner Plates Dinnerware Dish Sets Ceramic Plates Rustic",
+      "price": 40.0,
+      "views_at_diagnosis": 380,
+      "orders_at_diagnosis": 18,
+      "favorites_at_diagnosis": 45,
+      "review_count": 1800,
+      "photo_count": 6,
+      "has_video": false,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "content"
+      ],
+      "top_action": "Record a 10-15 second clip \u2014 even raw phone video of the item rotating works.",
+      "action_layer": 1
+    },
+    {
+      "title": "Ramen Bowl Pho Bowl Handmade Bowl Pottery Dinnerwares",
+      "price": 50.0,
+      "views_at_diagnosis": 340,
+      "orders_at_diagnosis": 15,
+      "favorites_at_diagnosis": 52,
+      "review_count": 1800,
+      "photo_count": 6,
+      "has_video": false,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "content"
+      ],
+      "top_action": "Record a 10-15 second clip \u2014 even raw phone video of the item rotating works.",
+      "action_layer": 1
+    },
+    {
+      "title": "Honey Pot Pottery Honey Jar Sugar Bowl Ceramic Turquoise",
+      "price": 35.0,
+      "views_at_diagnosis": 290,
+      "orders_at_diagnosis": 14,
+      "favorites_at_diagnosis": 48,
+      "review_count": 1800,
+      "photo_count": 5,
+      "has_video": false,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "content"
+      ],
+      "top_action": "Add 1 more photos \u2014 lifestyle context and size comparison work well. Record a 10-15 second clip \u2014 even raw phone video of the item rotating works.",
+      "action_layer": 1
+    },
+    {
+      "title": "Handmade Fermentation Crock 1.5 Quart Ceramic With Weights",
+      "price": 60.0,
+      "views_at_diagnosis": 260,
+      "orders_at_diagnosis": 10,
+      "favorites_at_diagnosis": 35,
+      "review_count": 1800,
+      "photo_count": 5,
+      "has_video": false,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "visibility",
+        "content"
+      ],
+      "top_action": "Suggested restructure: \"Fermentation Crock 1.5 Quart Ceramic With Weights Handmade\".",
+      "action_layer": 1
+    },
+    {
+      "title": "Goblin Flower Pots Ceramic Planter Handmade Pottery",
+      "price": 30.0,
+      "views_at_diagnosis": 200,
+      "orders_at_diagnosis": 8,
+      "favorites_at_diagnosis": 32,
+      "review_count": 1800,
+      "photo_count": 5,
+      "has_video": false,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "content"
+      ],
+      "top_action": "Add 1 more photos \u2014 lifestyle context and size comparison work well. Record a 10-15 second clip \u2014 even raw phone video of the item rotating works.",
+      "action_layer": 1
+    },
+    {
+      "title": "Card Holder Handmade Business Card Holder Market Display",
+      "price": 25.0,
+      "views_at_diagnosis": 110,
+      "orders_at_diagnosis": 5,
+      "favorites_at_diagnosis": 15,
+      "review_count": 1800,
+      "photo_count": 4,
+      "has_video": false,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "visibility",
+        "content"
+      ],
+      "top_action": "Add 2 more photos \u2014 lifestyle context and size comparison work well. Record a 10-15 second clip \u2014 even raw phone video of the item rotating works. Add more detail: materials, sizing, care instructions, gift-worthiness.",
+      "action_layer": 1
+    },
+    {
+      "title": "Discounted Sourdough Crock Sourdough Keeper Fermentation",
+      "price": 45.0,
+      "views_at_diagnosis": 180,
+      "orders_at_diagnosis": 6,
+      "favorites_at_diagnosis": 25,
+      "review_count": 1800,
+      "photo_count": 4,
+      "has_video": false,
+      "free_shipping": true,
+      "on_sale": true,
+      "original_price": null,
+      "gaps_flagged": [
+        "pricing",
+        "content"
+      ],
+      "top_action": "Remove the sale. If you want a lower price, just set it directly.",
+      "action_layer": 2
+    }
+  ],
+  "shop": {
+    "total_views": 3410,
+    "total_orders": 168,
+    "total_favorites": 485,
+    "listing_count": 10,
+    "shop_conversion_rate": 4.93,
+    "estimated_revenue": 8055.0,
+    "net_after_fees": 7226.76,
+    "review_count": 1800,
+    "total_sales": 6500,
+    "star_rating": 5.0
+  }
+}

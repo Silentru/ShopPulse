@@ -1,0 +1,328 @@
+{
+  "shop_name": "Lotusofclay",
+  "diagnosis_date": "2026-03-29",
+  "niche_preset": "jewelry",
+  "health_score": 90,
+  "top_3_actions": [
+    {
+      "listing": "Faux Terracotta Earrings Textured Polymer Clay Dangle Southwest Style",
+      "action": "Add 2 more photos \u2014 lifestyle context and size comparison work well. Record a 10-15 second clip \u2014 even raw phone video of the item rotating works. Add more detail: materials, sizing, care instructions, gift-worthiness.",
+      "gap_type": "content",
+      "sub_type": "content_issues",
+      "layer": 1,
+      "severity": 3
+    },
+    {
+      "listing": "Navy Blue Studs White Stud Earrings Geometric Circle Studs Set of 2 Polymer Clay",
+      "action": "Check Etsy Search Analytics and replace any tags with zero impressions.",
+      "gap_type": "visibility",
+      "sub_type": "low_visibility",
+      "layer": 1,
+      "severity": 3
+    },
+    {
+      "listing": "Lavender Tassel Earrings Polymer Clay Purple Statement Jewelry Lightweight",
+      "action": "Add 3 more photos \u2014 lifestyle context and size comparison work well. Record a 10-15 second clip \u2014 even raw phone video of the item rotating works. Add more detail: materials, sizing, care instructions, gift-worthiness.",
+      "gap_type": "content",
+      "sub_type": "content_issues",
+      "layer": 1,
+      "severity": 3
+    }
+  ],
+  "listings": [
+    {
+      "title": "Lotus Dangles Polymer Clay Earrings Available in 12 Colors Lightweight Handmade",
+      "price": 27.0,
+      "views_at_diagnosis": 850,
+      "orders_at_diagnosis": 45,
+      "favorites_at_diagnosis": 120,
+      "review_count": 2200,
+      "photo_count": 8,
+      "has_video": true,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [],
+      "top_action": null,
+      "action_layer": null
+    },
+    {
+      "title": "Birth Flower Earrings Handmade Polymer Clay Nickel Free Hypoallergenic Dangle",
+      "price": 27.0,
+      "views_at_diagnosis": 720,
+      "orders_at_diagnosis": 38,
+      "favorites_at_diagnosis": 95,
+      "review_count": 2200,
+      "photo_count": 7,
+      "has_video": true,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [],
+      "top_action": null,
+      "action_layer": null
+    },
+    {
+      "title": "Coffee Cup Polymer Clay Studs Fall Autumn Coffee Earrings Handmade",
+      "price": 27.0,
+      "views_at_diagnosis": 480,
+      "orders_at_diagnosis": 22,
+      "favorites_at_diagnosis": 65,
+      "review_count": 2200,
+      "photo_count": 6,
+      "has_video": false,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "content"
+      ],
+      "top_action": "Record a 10-15 second clip \u2014 even raw phone video of the item rotating works.",
+      "action_layer": 1
+    },
+    {
+      "title": "Gold Sunflower Dangle Earrings Floral Summer Jewelry Polymer Clay Handmade",
+      "price": 24.0,
+      "views_at_diagnosis": 380,
+      "orders_at_diagnosis": 18,
+      "favorites_at_diagnosis": 52,
+      "review_count": 2200,
+      "photo_count": 6,
+      "has_video": false,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "pricing",
+        "content"
+      ],
+      "top_action": "Test raising to $29.75 \u2014 underpricing signals low quality and leaves money on the table.",
+      "action_layer": 2
+    },
+    {
+      "title": "Bridal Flower Vase Earrings White Polymer Clay Surgical Steel Wedding Jewelry",
+      "price": 25.0,
+      "views_at_diagnosis": 310,
+      "orders_at_diagnosis": 12,
+      "favorites_at_diagnosis": 48,
+      "review_count": 2200,
+      "photo_count": 7,
+      "has_video": false,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "content"
+      ],
+      "top_action": "Record a 10-15 second clip \u2014 even raw phone video of the item rotating works.",
+      "action_layer": 1
+    },
+    {
+      "title": "St Patricks Clover Dangle Earrings Polymer Clay Shamrock Jewelry Green",
+      "price": 22.0,
+      "views_at_diagnosis": 260,
+      "orders_at_diagnosis": 10,
+      "favorites_at_diagnosis": 35,
+      "review_count": 2200,
+      "photo_count": 5,
+      "has_video": false,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "pricing",
+        "content"
+      ],
+      "top_action": "Test raising to $29.75 \u2014 underpricing signals low quality and leaves money on the table.",
+      "action_layer": 2
+    },
+    {
+      "title": "Moon and Sun Mismatched Hoop Earrings Celestial Moon Clay Earrings Gold",
+      "price": 28.0,
+      "views_at_diagnosis": 290,
+      "orders_at_diagnosis": 9,
+      "favorites_at_diagnosis": 42,
+      "review_count": 2200,
+      "photo_count": 5,
+      "has_video": false,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "content"
+      ],
+      "top_action": "Add 1 more photos \u2014 lifestyle context and size comparison work well. Record a 10-15 second clip \u2014 even raw phone video of the item rotating works.",
+      "action_layer": 1
+    },
+    {
+      "title": "Polymer Clay Car Charm Car Diffuser Car Accessory Essential Oil",
+      "price": 18.0,
+      "views_at_diagnosis": 190,
+      "orders_at_diagnosis": 8,
+      "favorites_at_diagnosis": 28,
+      "review_count": 2200,
+      "photo_count": 5,
+      "has_video": false,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "pricing",
+        "content"
+      ],
+      "top_action": "Test raising to $29.75 \u2014 underpricing signals low quality and leaves money on the table.",
+      "action_layer": 2
+    },
+    {
+      "title": "Handmade Polymer Clay Dangle Earrings Lightweight Geometric Jewelry Boho",
+      "price": 24.0,
+      "views_at_diagnosis": 220,
+      "orders_at_diagnosis": 7,
+      "favorites_at_diagnosis": 30,
+      "review_count": 2200,
+      "photo_count": 6,
+      "has_video": false,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "pricing",
+        "visibility",
+        "content"
+      ],
+      "top_action": "Suggested restructure: \"Polymer Clay Dangle Earrings Lightweight Geometric Jewelry Boho Handmade\".",
+      "action_layer": 1
+    },
+    {
+      "title": "Christmas Cookie Stud Earrings Christmas Tree Studs Holiday Polymer Clay",
+      "price": 20.0,
+      "views_at_diagnosis": 150,
+      "orders_at_diagnosis": 6,
+      "favorites_at_diagnosis": 22,
+      "review_count": 2200,
+      "photo_count": 5,
+      "has_video": false,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "pricing",
+        "visibility",
+        "content"
+      ],
+      "top_action": "Add 1 more photos \u2014 lifestyle context and size comparison work well. Record a 10-15 second clip \u2014 even raw phone video of the item rotating works.",
+      "action_layer": 1
+    },
+    {
+      "title": "Faux Terracotta Earrings Textured Polymer Clay Dangle Southwest Style",
+      "price": 25.0,
+      "views_at_diagnosis": 140,
+      "orders_at_diagnosis": 4,
+      "favorites_at_diagnosis": 18,
+      "review_count": 2200,
+      "photo_count": 4,
+      "has_video": false,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "visibility",
+        "content"
+      ],
+      "top_action": "Add 2 more photos \u2014 lifestyle context and size comparison work well. Record a 10-15 second clip \u2014 even raw phone video of the item rotating works. Add more detail: materials, sizing, care instructions, gift-worthiness.",
+      "action_layer": 1
+    },
+    {
+      "title": "Mustard Yellow and Black Clay Earrings Long Drop Terrazzo Geometric Fall",
+      "price": 22.0,
+      "views_at_diagnosis": 95,
+      "orders_at_diagnosis": 3,
+      "favorites_at_diagnosis": 12,
+      "review_count": 2200,
+      "photo_count": 4,
+      "has_video": false,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "pricing",
+        "visibility",
+        "content"
+      ],
+      "top_action": "Add 2 more photos \u2014 lifestyle context and size comparison work well. Record a 10-15 second clip \u2014 even raw phone video of the item rotating works. Add more detail: materials, sizing, care instructions, gift-worthiness.",
+      "action_layer": 1
+    },
+    {
+      "title": "Navy Blue Studs White Stud Earrings Geometric Circle Studs Set of 2 Polymer Clay",
+      "price": 19.0,
+      "views_at_diagnosis": 80,
+      "orders_at_diagnosis": 2,
+      "favorites_at_diagnosis": 10,
+      "review_count": 2200,
+      "photo_count": 4,
+      "has_video": false,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "pricing",
+        "visibility",
+        "content"
+      ],
+      "top_action": "Check Etsy Search Analytics and replace any tags with zero impressions.",
+      "action_layer": 1
+    },
+    {
+      "title": "Lavender Tassel Earrings Polymer Clay Purple Statement Jewelry Lightweight",
+      "price": 26.0,
+      "views_at_diagnosis": 60,
+      "orders_at_diagnosis": 1,
+      "favorites_at_diagnosis": 8,
+      "review_count": 2200,
+      "photo_count": 3,
+      "has_video": false,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "conversion",
+        "visibility",
+        "content"
+      ],
+      "top_action": "Add 3 more photos \u2014 lifestyle context and size comparison work well. Record a 10-15 second clip \u2014 even raw phone video of the item rotating works. Add more detail: materials, sizing, care instructions, gift-worthiness.",
+      "action_layer": 1
+    },
+    {
+      "title": "Heart Earrings Valentines Day Polymer Clay Red Pink Love Jewelry Handmade Gift",
+      "price": 20.0,
+      "views_at_diagnosis": 45,
+      "orders_at_diagnosis": 1,
+      "favorites_at_diagnosis": 5,
+      "review_count": 2200,
+      "photo_count": 4,
+      "has_video": false,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "pricing",
+        "visibility",
+        "content"
+      ],
+      "top_action": "Check Etsy Search Analytics and replace any tags with zero impressions.",
+      "action_layer": 1
+    }
+  ],
+  "shop": {
+    "total_views": 4270,
+    "total_orders": 186,
+    "total_favorites": 590,
+    "listing_count": 15,
+    "shop_conversion_rate": 4.36,
+    "estimated_revenue": 4721.0,
+    "net_after_fees": 4183.46,
+    "review_count": 2200,
+    "total_sales": 7100,
+    "star_rating": 5.0
+  }
+}

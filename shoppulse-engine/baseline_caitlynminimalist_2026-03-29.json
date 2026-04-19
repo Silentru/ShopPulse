@@ -1,0 +1,227 @@
+{
+  "shop_name": "CaitlynMinimalist",
+  "diagnosis_date": "2026-03-29",
+  "niche_preset": "jewelry",
+  "health_score": 100,
+  "top_3_actions": [
+    {
+      "listing": "Diamond Flatback Studs Set Minimalist Earrings Gold",
+      "action": "Test raising to $29.75 \u2014 underpricing signals low quality and leaves money on the table. Remove the sale. If you want a lower price, just set it directly.",
+      "gap_type": "pricing",
+      "sub_type": "pricing_issues",
+      "layer": 2,
+      "severity": 5
+    },
+    {
+      "listing": "Tiny Bubble Name Necklace Personalized Dainty Gold",
+      "action": "Remove the sale. If you want a lower price, just set it directly.",
+      "gap_type": "pricing",
+      "sub_type": "pricing_issues",
+      "layer": 2,
+      "severity": 2
+    },
+    {
+      "listing": "Birthstone Add On Charm Custom Gemstone",
+      "action": "Add 2 more photos \u2014 lifestyle context and size comparison work well. Record a 10-15 second clip \u2014 even raw phone video of the item rotating works. Add more detail: materials, sizing, care instructions, gift-worthiness.",
+      "gap_type": "content",
+      "sub_type": "content_issues",
+      "layer": 1,
+      "severity": 3
+    }
+  ],
+  "listings": [
+    {
+      "title": "Tiny Bubble Name Necklace Personalized Dainty Gold",
+      "price": 39.0,
+      "views_at_diagnosis": 28000,
+      "orders_at_diagnosis": 1850,
+      "favorites_at_diagnosis": 4200,
+      "review_count": 139134,
+      "photo_count": 10,
+      "has_video": true,
+      "free_shipping": true,
+      "on_sale": true,
+      "original_price": 52.0,
+      "gaps_flagged": [
+        "pricing"
+      ],
+      "top_action": "Remove the sale. If you want a lower price, just set it directly.",
+      "action_layer": 2
+    },
+    {
+      "title": "Duo Birthstone Name Necklace Custom Gemstone Personalized",
+      "price": 44.25,
+      "views_at_diagnosis": 22000,
+      "orders_at_diagnosis": 1200,
+      "favorites_at_diagnosis": 3500,
+      "review_count": 139134,
+      "photo_count": 10,
+      "has_video": true,
+      "free_shipping": true,
+      "on_sale": true,
+      "original_price": 59.0,
+      "gaps_flagged": [
+        "pricing"
+      ],
+      "top_action": "Remove the sale. If you want a lower price, just set it directly.",
+      "action_layer": 2
+    },
+    {
+      "title": "North Star Birthstone Necklace Gold Silver Rose Gold",
+      "price": 36.0,
+      "views_at_diagnosis": 18000,
+      "orders_at_diagnosis": 980,
+      "favorites_at_diagnosis": 2800,
+      "review_count": 139134,
+      "photo_count": 9,
+      "has_video": true,
+      "free_shipping": true,
+      "on_sale": true,
+      "original_price": 45.0,
+      "gaps_flagged": [
+        "pricing"
+      ],
+      "top_action": "Remove the sale. If you want a lower price, just set it directly.",
+      "action_layer": 2
+    },
+    {
+      "title": "Initial Heart Locket Necklace Photo Locket Personalized",
+      "price": 37.6,
+      "views_at_diagnosis": 15000,
+      "orders_at_diagnosis": 850,
+      "favorites_at_diagnosis": 2200,
+      "review_count": 139134,
+      "photo_count": 10,
+      "has_video": true,
+      "free_shipping": true,
+      "on_sale": true,
+      "original_price": 47.0,
+      "gaps_flagged": [
+        "pricing"
+      ],
+      "top_action": "Remove the sale. If you want a lower price, just set it directly.",
+      "action_layer": 2
+    },
+    {
+      "title": "Diamond Flatback Studs Set Minimalist Earrings Gold",
+      "price": 20.0,
+      "views_at_diagnosis": 12000,
+      "orders_at_diagnosis": 720,
+      "favorites_at_diagnosis": 1800,
+      "review_count": 139134,
+      "photo_count": 8,
+      "has_video": false,
+      "free_shipping": true,
+      "on_sale": true,
+      "original_price": 25.0,
+      "gaps_flagged": [
+        "pricing",
+        "content"
+      ],
+      "top_action": "Test raising to $29.75 \u2014 underpricing signals low quality and leaves money on the table. Remove the sale. If you want a lower price, just set it directly.",
+      "action_layer": 2
+    },
+    {
+      "title": "Classic Heart Studs Gold Silver Minimalist Earrings",
+      "price": 20.8,
+      "views_at_diagnosis": 10000,
+      "orders_at_diagnosis": 600,
+      "favorites_at_diagnosis": 1500,
+      "review_count": 139134,
+      "photo_count": 8,
+      "has_video": false,
+      "free_shipping": true,
+      "on_sale": true,
+      "original_price": 26.0,
+      "gaps_flagged": [
+        "pricing",
+        "content"
+      ],
+      "top_action": "Test raising to $29.75 \u2014 underpricing signals low quality and leaves money on the table. Remove the sale. If you want a lower price, just set it directly.",
+      "action_layer": 2
+    },
+    {
+      "title": "Summer Pearl Beaded Necklace Statement Jewelry",
+      "price": 50.0,
+      "views_at_diagnosis": 8000,
+      "orders_at_diagnosis": 350,
+      "favorites_at_diagnosis": 1200,
+      "review_count": 139134,
+      "photo_count": 9,
+      "has_video": true,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [],
+      "top_action": null,
+      "action_layer": null
+    },
+    {
+      "title": "Custom Script Birthstone Name Necklace Personalized",
+      "price": 42.0,
+      "views_at_diagnosis": 14000,
+      "orders_at_diagnosis": 680,
+      "favorites_at_diagnosis": 2000,
+      "review_count": 139134,
+      "photo_count": 9,
+      "has_video": true,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "visibility"
+      ],
+      "top_action": "Suggested restructure: \"Script Birthstone Name Necklace Personalized Custom\".",
+      "action_layer": 1
+    },
+    {
+      "title": "Multiple Bubble Letter Necklace Custom Name Gold",
+      "price": 39.0,
+      "views_at_diagnosis": 16000,
+      "orders_at_diagnosis": 900,
+      "favorites_at_diagnosis": 2500,
+      "review_count": 139134,
+      "photo_count": 10,
+      "has_video": true,
+      "free_shipping": true,
+      "on_sale": true,
+      "original_price": 52.0,
+      "gaps_flagged": [
+        "pricing"
+      ],
+      "top_action": "Remove the sale. If you want a lower price, just set it directly.",
+      "action_layer": 2
+    },
+    {
+      "title": "Birthstone Add On Charm Custom Gemstone",
+      "price": 10.0,
+      "views_at_diagnosis": 5000,
+      "orders_at_diagnosis": 2200,
+      "favorites_at_diagnosis": 400,
+      "review_count": 139134,
+      "photo_count": 4,
+      "has_video": false,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "pricing",
+        "content"
+      ],
+      "top_action": "Add 2 more photos \u2014 lifestyle context and size comparison work well. Record a 10-15 second clip \u2014 even raw phone video of the item rotating works. Add more detail: materials, sizing, care instructions, gift-worthiness.",
+      "action_layer": 1
+    }
+  ],
+  "shop": {
+    "total_views": 148000,
+    "total_orders": 10330,
+    "total_favorites": 22100,
+    "listing_count": 10,
+    "shop_conversion_rate": 6.98,
+    "estimated_revenue": 322530.0,
+    "net_after_fees": 282552.9,
+    "review_count": 139134,
+    "total_sales": 2009654,
+    "star_rating": 4.9
+  }
+}

@@ -1,0 +1,208 @@
+{
+  "shop_name": "SattvaSoulIndia",
+  "diagnosis_date": "2026-03-29",
+  "niche_preset": "custom_portraits",
+  "health_score": 15,
+  "top_3_actions": [
+    {
+      "listing": "6 listings affected",
+      "action": "Remove the fake original prices immediately. If your real price is $111.25, list it at $111.25 with no sale. An honest price from a new shop builds more trust than a \"75% off\" sale that nobody believes. If you want to run a real promotion, discount by 10-15% from a genuine original price for a limited time.",
+      "gap_type": "pricing",
+      "sub_type": "inflated_original_price",
+      "layer": 2,
+      "severity": 7
+    },
+    {
+      "listing": "4 similar listings",
+      "action": "Differentiate these 4 listings. Options: different subjects (couple vs pet vs family), different sizes or formats (8x10 vs 16x20, framed vs unframed), different styles (realistic vs impressionist), or bundle them into a single listing with variations. Each listing should have a clearly different first photo so buyers can tell them apart in search results.",
+      "gap_type": "content",
+      "sub_type": "duplicate_listings",
+      "layer": 1,
+      "severity": 6
+    },
+    {
+      "listing": "All listings",
+      "action": "Set your real prices as the regular prices and remove all sales. Save promotions for genuine events (holidays, shop anniversary, clearing old stock). A shop-wide permanent sale is one of the strongest \"this isn't a serious business\" signals on Etsy.",
+      "gap_type": "pricing",
+      "sub_type": "permanent_shop_wide_sale",
+      "layer": 2,
+      "severity": 5
+    }
+  ],
+  "listings": [
+    {
+      "title": "Custom Original Oil Painting from Pho...",
+      "price": 111.25,
+      "views_at_diagnosis": 0,
+      "orders_at_diagnosis": 0,
+      "favorites_at_diagnosis": 0,
+      "review_count": 1,
+      "photo_count": null,
+      "has_video": null,
+      "free_shipping": true,
+      "on_sale": true,
+      "original_price": 430.87,
+      "gaps_flagged": [
+        "visibility",
+        "competitiveness",
+        "trust",
+        "pricing"
+      ],
+      "top_action": "Remove the sale. If you want a lower price, just set it directly.",
+      "action_layer": 2
+    },
+    {
+      "title": "Custom Sculpture From Photo | Hand ...",
+      "price": 168.62,
+      "views_at_diagnosis": 0,
+      "orders_at_diagnosis": 0,
+      "favorites_at_diagnosis": 0,
+      "review_count": 1,
+      "photo_count": null,
+      "has_video": null,
+      "free_shipping": true,
+      "on_sale": true,
+      "original_price": 198,
+      "gaps_flagged": [
+        "visibility",
+        "competitiveness",
+        "trust",
+        "pricing"
+      ],
+      "top_action": "Remove the sale. If you want a lower price, just set it directly.",
+      "action_layer": 2
+    },
+    {
+      "title": "Custom Graphite Portrait Drawing | Ha...",
+      "price": 93.68,
+      "views_at_diagnosis": 0,
+      "orders_at_diagnosis": 0,
+      "favorites_at_diagnosis": 0,
+      "review_count": 1,
+      "photo_count": null,
+      "has_video": null,
+      "free_shipping": true,
+      "on_sale": true,
+      "original_price": 140.24,
+      "gaps_flagged": [
+        "visibility",
+        "competitiveness",
+        "trust",
+        "pricing"
+      ],
+      "top_action": "Remove the sale. If you want a lower price, just set it directly.",
+      "action_layer": 2
+    },
+    {
+      "title": "Custom Oil Painting from Photo, Hand ...",
+      "price": 111.25,
+      "views_at_diagnosis": 0,
+      "orders_at_diagnosis": 0,
+      "favorites_at_diagnosis": 0,
+      "review_count": 1,
+      "photo_count": null,
+      "has_video": null,
+      "free_shipping": true,
+      "on_sale": true,
+      "original_price": 430.87,
+      "gaps_flagged": [
+        "visibility",
+        "competitiveness",
+        "trust",
+        "pricing"
+      ],
+      "top_action": "Remove the sale. If you want a lower price, just set it directly.",
+      "action_layer": 2
+    },
+    {
+      "title": "Custom Oil Painting from Photo | Hand...",
+      "price": 111.25,
+      "views_at_diagnosis": 0,
+      "orders_at_diagnosis": 0,
+      "favorites_at_diagnosis": 0,
+      "review_count": 1,
+      "photo_count": null,
+      "has_video": null,
+      "free_shipping": true,
+      "on_sale": true,
+      "original_price": 430.87,
+      "gaps_flagged": [
+        "visibility",
+        "competitiveness",
+        "trust",
+        "pricing"
+      ],
+      "top_action": "Remove the sale. If you want a lower price, just set it directly.",
+      "action_layer": 2
+    },
+    {
+      "title": "Custom Oil Painting from Photo | Fram...",
+      "price": 111.25,
+      "views_at_diagnosis": 0,
+      "orders_at_diagnosis": 0,
+      "favorites_at_diagnosis": 0,
+      "review_count": 1,
+      "photo_count": null,
+      "has_video": null,
+      "free_shipping": true,
+      "on_sale": true,
+      "original_price": 430.87,
+      "gaps_flagged": [
+        "visibility",
+        "competitiveness",
+        "trust",
+        "pricing"
+      ],
+      "top_action": "Remove the sale. If you want a lower price, just set it directly.",
+      "action_layer": 2
+    },
+    {
+      "title": "Customized Oil Painting from Photo | ...",
+      "price": 111.25,
+      "views_at_diagnosis": 0,
+      "orders_at_diagnosis": 0,
+      "favorites_at_diagnosis": 0,
+      "review_count": 1,
+      "photo_count": null,
+      "has_video": null,
+      "free_shipping": true,
+      "on_sale": true,
+      "original_price": 430.87,
+      "gaps_flagged": [
+        "competitiveness",
+        "trust",
+        "pricing"
+      ],
+      "top_action": "Remove the sale. If you want a lower price, just set it directly.",
+      "action_layer": 2
+    },
+    {
+      "title": "Custom Pet Portrait Painting Canvas | ...",
+      "price": 111.25,
+      "views_at_diagnosis": 0,
+      "orders_at_diagnosis": 0,
+      "favorites_at_diagnosis": 0,
+      "review_count": 1,
+      "photo_count": null,
+      "has_video": null,
+      "free_shipping": true,
+      "on_sale": true,
+      "original_price": 430.87,
+      "gaps_flagged": [
+        "visibility",
+        "competitiveness",
+        "trust",
+        "pricing"
+      ],
+      "top_action": "Remove the sale. If you want a lower price, just set it directly.",
+      "action_layer": 2
+    }
+  ],
+  "shop": {
+    "total_favorites": 0,
+    "listing_count": 8,
+    "star_rating": 5.0,
+    "review_count": 1,
+    "total_sales": 1
+  }
+}

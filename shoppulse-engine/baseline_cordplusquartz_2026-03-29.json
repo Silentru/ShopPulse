@@ -1,0 +1,224 @@
+{
+  "shop_name": "CordPlusQuartz",
+  "diagnosis_date": "2026-03-29",
+  "niche_preset": "handmade_gifts",
+  "health_score": 100,
+  "top_3_actions": [
+    {
+      "listing": "Macrame Heart Wall Hanging Pattern PDF Digital Download",
+      "action": "Test raising to $25.50 \u2014 underpricing signals low quality and leaves money on the table.",
+      "gap_type": "pricing",
+      "sub_type": "pricing_issues",
+      "layer": 2,
+      "severity": 3
+    },
+    {
+      "listing": "Large Macrame Wall Hanging Boho Home Decor Tapestry",
+      "action": "With 340 views, even a small conversion improvement means ~2 more sales. Your price ($85.00) is above the niche median \u2014 test $72.25 for 2 weeks.",
+      "gap_type": "conversion",
+      "sub_type": "low_conversion",
+      "layer": 2,
+      "severity": 3
+    },
+    {
+      "listing": "Macrame Heart Wall Hanging Pattern PDF Digital Download",
+      "action": "Add 1 more photos \u2014 lifestyle context and size comparison work well. Record a 10-15 second clip \u2014 even raw phone video of the item rotating works.",
+      "gap_type": "content",
+      "sub_type": "content_issues",
+      "layer": 1,
+      "severity": 2
+    }
+  ],
+  "listings": [
+    {
+      "title": "Macrame Starter Kit Supply Box Beginner DIY Craft",
+      "price": 42.0,
+      "views_at_diagnosis": 680,
+      "orders_at_diagnosis": 52,
+      "favorites_at_diagnosis": 110,
+      "review_count": 1700,
+      "photo_count": 8,
+      "has_video": true,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [],
+      "top_action": null,
+      "action_layer": null
+    },
+    {
+      "title": "Macrame Moon and Crystal DIY Kit Wall Hanging Boho",
+      "price": 38.0,
+      "views_at_diagnosis": 520,
+      "orders_at_diagnosis": 35,
+      "favorites_at_diagnosis": 85,
+      "review_count": 1700,
+      "photo_count": 7,
+      "has_video": true,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [],
+      "top_action": null,
+      "action_layer": null
+    },
+    {
+      "title": "Beginner Macrame Wall Hanging Kit Learn to Macrame DIY",
+      "price": 35.0,
+      "views_at_diagnosis": 480,
+      "orders_at_diagnosis": 30,
+      "favorites_at_diagnosis": 75,
+      "review_count": 1700,
+      "photo_count": 7,
+      "has_video": true,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [],
+      "top_action": null,
+      "action_layer": null
+    },
+    {
+      "title": "Macrame Heart Wall Hanging Pattern PDF Digital Download",
+      "price": 8.0,
+      "views_at_diagnosis": 900,
+      "orders_at_diagnosis": 85,
+      "favorites_at_diagnosis": 120,
+      "review_count": 1700,
+      "photo_count": 5,
+      "has_video": false,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "content",
+        "pricing"
+      ],
+      "top_action": "Test raising to $25.50 \u2014 underpricing signals low quality and leaves money on the table.",
+      "action_layer": 2
+    },
+    {
+      "title": "Macrame Christmas Gnome Ornament DIY Kit Holiday Craft",
+      "price": 28.0,
+      "views_at_diagnosis": 320,
+      "orders_at_diagnosis": 22,
+      "favorites_at_diagnosis": 55,
+      "review_count": 1700,
+      "photo_count": 6,
+      "has_video": false,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "content"
+      ],
+      "top_action": "Record a 10-15 second clip \u2014 even raw phone video of the item rotating works.",
+      "action_layer": 1
+    },
+    {
+      "title": "Macrame Wooden Dowels 12 Inch Craft Supplies Natural",
+      "price": 12.0,
+      "views_at_diagnosis": 450,
+      "orders_at_diagnosis": 65,
+      "favorites_at_diagnosis": 30,
+      "review_count": 1700,
+      "photo_count": 4,
+      "has_video": false,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "content",
+        "pricing"
+      ],
+      "top_action": "Add 2 more photos \u2014 lifestyle context and size comparison work well. Record a 10-15 second clip \u2014 even raw phone video of the item rotating works. Add more detail: materials, sizing, care instructions, gift-worthiness.",
+      "action_layer": 1
+    },
+    {
+      "title": "Macrame Heart Magnet Pattern PDF Digital Download",
+      "price": 6.0,
+      "views_at_diagnosis": 280,
+      "orders_at_diagnosis": 40,
+      "favorites_at_diagnosis": 35,
+      "review_count": 1700,
+      "photo_count": 4,
+      "has_video": false,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "content",
+        "pricing"
+      ],
+      "top_action": "Test raising to $25.50 \u2014 underpricing signals low quality and leaves money on the table.",
+      "action_layer": 2
+    },
+    {
+      "title": "Large Macrame Wall Hanging Boho Home Decor Tapestry",
+      "price": 85.0,
+      "views_at_diagnosis": 340,
+      "orders_at_diagnosis": 8,
+      "favorites_at_diagnosis": 65,
+      "review_count": 1700,
+      "photo_count": 6,
+      "has_video": false,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "conversion",
+        "content"
+      ],
+      "top_action": "With 340 views, even a small conversion improvement means ~2 more sales. Your price ($85.00) is above the niche median \u2014 test $72.25 for 2 weeks.",
+      "action_layer": 2
+    },
+    {
+      "title": "Macrame Plant Hanger Kit DIY Beginner Craft Indoor",
+      "price": 32.0,
+      "views_at_diagnosis": 260,
+      "orders_at_diagnosis": 18,
+      "favorites_at_diagnosis": 40,
+      "review_count": 1700,
+      "photo_count": 6,
+      "has_video": false,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "content"
+      ],
+      "top_action": "Record a 10-15 second clip \u2014 even raw phone video of the item rotating works.",
+      "action_layer": 1
+    },
+    {
+      "title": "Macrame Rainbow Wall Hanging Kit Kids Craft Activity",
+      "price": 24.0,
+      "views_at_diagnosis": 180,
+      "orders_at_diagnosis": 12,
+      "favorites_at_diagnosis": 28,
+      "review_count": 1700,
+      "photo_count": 5,
+      "has_video": false,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "content"
+      ],
+      "top_action": "Add 1 more photos \u2014 lifestyle context and size comparison work well. Record a 10-15 second clip \u2014 even raw phone video of the item rotating works.",
+      "action_layer": 1
+    }
+  ],
+  "shop": {
+    "total_views": 4410,
+    "total_orders": 367,
+    "total_favorites": 643,
+    "listing_count": 10,
+    "shop_conversion_rate": 8.32,
+    "estimated_revenue": 8424.0,
+    "net_after_fees": 7102.8,
+    "review_count": 1700,
+    "total_sales": 5100,
+    "star_rating": 4.9
+  }
+}

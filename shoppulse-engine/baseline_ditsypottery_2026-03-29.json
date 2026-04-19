@@ -1,0 +1,245 @@
+{
+  "shop_name": "ditsypottery",
+  "diagnosis_date": "2026-03-29",
+  "niche_preset": "handmade_gifts",
+  "health_score": 61,
+  "top_3_actions": [
+    {
+      "listing": "Saltstone Oatmeal Matcha Bowls Handmade Ceramic",
+      "action": "Target sub-niches where the top sellers are weakest rather than competing head-on.",
+      "gap_type": "competitiveness",
+      "sub_type": "competitive_position",
+      "layer": 3,
+      "severity": 2
+    },
+    {
+      "listing": "Saltstone Oatmeal Matcha Bowls Handmade Ceramic",
+      "action": "Reduce processing time below 7 days if possible. 14 days loses impatient buyers.",
+      "gap_type": "trust",
+      "sub_type": "trust_issues",
+      "layer": 2,
+      "severity": 2
+    },
+    {
+      "listing": "Espresso Cups Handmade Pottery Small Coffee Cup Set",
+      "action": "Add 1 more photos \u2014 lifestyle context and size comparison work well. Record a 10-15 second clip \u2014 even raw phone video of the item rotating works.",
+      "gap_type": "content",
+      "sub_type": "content_issues",
+      "layer": 1,
+      "severity": 2
+    }
+  ],
+  "listings": [
+    {
+      "title": "Saltstone Oatmeal Matcha Bowls Handmade Ceramic",
+      "price": 50.0,
+      "views_at_diagnosis": 420,
+      "orders_at_diagnosis": 32,
+      "favorites_at_diagnosis": 85,
+      "review_count": 182,
+      "photo_count": 8,
+      "has_video": true,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "trust",
+        "competitiveness"
+      ],
+      "top_action": "Target sub-niches where the top sellers are weakest rather than competing head-on.",
+      "action_layer": 3
+    },
+    {
+      "title": "Oatmeal Mugs Handmade Pottery Coffee Cup Ceramic",
+      "price": 50.0,
+      "views_at_diagnosis": 380,
+      "orders_at_diagnosis": 28,
+      "favorites_at_diagnosis": 72,
+      "review_count": 182,
+      "photo_count": 7,
+      "has_video": false,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "competitiveness",
+        "trust",
+        "content"
+      ],
+      "top_action": "Record a 10-15 second clip \u2014 even raw phone video of the item rotating works.",
+      "action_layer": 1
+    },
+    {
+      "title": "Chubby Tumbler Handmade Ceramic Cup Pottery",
+      "price": 56.0,
+      "views_at_diagnosis": 310,
+      "orders_at_diagnosis": 22,
+      "favorites_at_diagnosis": 58,
+      "review_count": 182,
+      "photo_count": 7,
+      "has_video": false,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "trust",
+        "content",
+        "competitiveness"
+      ],
+      "top_action": "Target sub-niches where the top sellers are weakest rather than competing head-on.",
+      "action_layer": 3
+    },
+    {
+      "title": "Cocoa Drip Mug Pottery Handmade Coffee Mug",
+      "price": 48.0,
+      "views_at_diagnosis": 280,
+      "orders_at_diagnosis": 18,
+      "favorites_at_diagnosis": 45,
+      "review_count": 182,
+      "photo_count": 6,
+      "has_video": false,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "trust",
+        "content",
+        "competitiveness"
+      ],
+      "top_action": "Target sub-niches where the top sellers are weakest rather than competing head-on.",
+      "action_layer": 3
+    },
+    {
+      "title": "Teddy Bear Matcha Bowl Handmade Ceramic Cute",
+      "price": 55.0,
+      "views_at_diagnosis": 250,
+      "orders_at_diagnosis": 15,
+      "favorites_at_diagnosis": 62,
+      "review_count": 182,
+      "photo_count": 8,
+      "has_video": true,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "trust",
+        "competitiveness"
+      ],
+      "top_action": "Target sub-niches where the top sellers are weakest rather than competing head-on.",
+      "action_layer": 3
+    },
+    {
+      "title": "Pebble Catchall Ceramic Dish Handmade Pottery Ring Dish",
+      "price": 38.0,
+      "views_at_diagnosis": 200,
+      "orders_at_diagnosis": 12,
+      "favorites_at_diagnosis": 35,
+      "review_count": 182,
+      "photo_count": 6,
+      "has_video": false,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "trust",
+        "content",
+        "competitiveness"
+      ],
+      "top_action": "Target sub-niches where the top sellers are weakest rather than competing head-on.",
+      "action_layer": 3
+    },
+    {
+      "title": "Sun Moon Doodle Cups Handmade Ceramic Set",
+      "price": 45.0,
+      "views_at_diagnosis": 180,
+      "orders_at_diagnosis": 8,
+      "favorites_at_diagnosis": 30,
+      "review_count": 182,
+      "photo_count": 6,
+      "has_video": false,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "trust",
+        "content",
+        "competitiveness"
+      ],
+      "top_action": "Target sub-niches where the top sellers are weakest rather than competing head-on.",
+      "action_layer": 3
+    },
+    {
+      "title": "Mini Mug Keychain Handmade Ceramic Miniature Pottery",
+      "price": 23.0,
+      "views_at_diagnosis": 350,
+      "orders_at_diagnosis": 40,
+      "favorites_at_diagnosis": 90,
+      "review_count": 182,
+      "photo_count": 5,
+      "has_video": false,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "trust",
+        "content",
+        "competitiveness"
+      ],
+      "top_action": "Target sub-niches where the top sellers are weakest rather than competing head-on.",
+      "action_layer": 3
+    },
+    {
+      "title": "Ring Dishes Handmade Ceramic Jewelry Tray Small",
+      "price": 23.0,
+      "views_at_diagnosis": 160,
+      "orders_at_diagnosis": 10,
+      "favorites_at_diagnosis": 28,
+      "review_count": 182,
+      "photo_count": 5,
+      "has_video": false,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "trust",
+        "content",
+        "competitiveness"
+      ],
+      "top_action": "Target sub-niches where the top sellers are weakest rather than competing head-on.",
+      "action_layer": 3
+    },
+    {
+      "title": "Espresso Cups Handmade Pottery Small Coffee Cup Set",
+      "price": 36.0,
+      "views_at_diagnosis": 140,
+      "orders_at_diagnosis": 6,
+      "favorites_at_diagnosis": 22,
+      "review_count": 182,
+      "photo_count": 5,
+      "has_video": false,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "competitiveness",
+        "trust",
+        "visibility",
+        "content"
+      ],
+      "top_action": "Add 1 more photos \u2014 lifestyle context and size comparison work well. Record a 10-15 second clip \u2014 even raw phone video of the item rotating works.",
+      "action_layer": 1
+    }
+  ],
+  "shop": {
+    "total_views": 2670,
+    "total_orders": 191,
+    "total_favorites": 527,
+    "listing_count": 10,
+    "shop_conversion_rate": 7.15,
+    "estimated_revenue": 8103.0,
+    "net_after_fees": 7209.12,
+    "review_count": 182,
+    "total_sales": 953,
+    "star_rating": 5.0
+  }
+}

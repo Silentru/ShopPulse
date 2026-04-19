@@ -1,0 +1,302 @@
+{
+  "shop_name": "Crutchfield Pottery",
+  "diagnosis_date": "2026-03-30",
+  "niche_preset": "handmade_gifts",
+  "health_score": 100,
+  "top_3_actions": [
+    {
+      "listing": "4 similar listings",
+      "action": "Differentiate these 4 listings. Options: different subjects (couple vs pet vs family), different sizes or formats (8x10 vs 16x20, framed vs unframed), different styles (realistic vs impressionist), or bundle them into a single listing with variations. Each listing should have a clearly different first photo so buyers can tell them apart in search results.",
+      "gap_type": "content",
+      "sub_type": "duplicate_listings",
+      "layer": 1,
+      "severity": 6
+    },
+    {
+      "listing": "Pottery Spoon Jar and Spoon Rest Set Choose Your Glaze Ceramic Countertop Set Stoneware Utensil Holder",
+      "action": "Suggested restructure: \"Pottery Spoon Jar and Spoon Rest Set Choose Your Glaze Ceramic Countertop\". Trim from 16 to under 15 words.",
+      "gap_type": "visibility",
+      "sub_type": "title_structure",
+      "layer": 1,
+      "severity": 2
+    },
+    {
+      "listing": "Pottery Spoon Jar and Spoon Rest Set Choose Your Glaze Ceramic Countertop Set Stoneware Utensil Holder",
+      "action": "Reduce processing time below 7 days if possible. 42 days loses impatient buyers.",
+      "gap_type": "trust",
+      "sub_type": "trust_issues",
+      "layer": 2,
+      "severity": 2
+    }
+  ],
+  "listings": [
+    {
+      "title": "Pottery Spoon Jar and Spoon Rest Set Choose Your Glaze Ceramic Countertop Set Stoneware Utensil Holder",
+      "price": 72.0,
+      "views_at_diagnosis": 0,
+      "orders_at_diagnosis": 0,
+      "favorites_at_diagnosis": 0,
+      "review_count": 2900,
+      "photo_count": null,
+      "has_video": null,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "trust",
+        "visibility"
+      ],
+      "top_action": "Suggested restructure: \"Pottery Spoon Jar and Spoon Rest Set Choose Your Glaze Ceramic Countertop\". Trim from 16 to under 15 words.",
+      "action_layer": 1
+    },
+    {
+      "title": "Handmade Pottery Spoon Jar Twilight Ceramic Kitchen Crock Hand Thrown Stoneware Utensil Holder",
+      "price": 54.0,
+      "views_at_diagnosis": 0,
+      "orders_at_diagnosis": 0,
+      "favorites_at_diagnosis": 0,
+      "review_count": 2900,
+      "photo_count": null,
+      "has_video": null,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "trust",
+        "visibility"
+      ],
+      "top_action": "Suggested restructure: \"Pottery Spoon Jar Twilight Ceramic Kitchen Crock Hand Thrown Stoneware Utensil Holder Handmade\".",
+      "action_layer": 1
+    },
+    {
+      "title": "Set of Four Handmade Pottery Dessert Salad Plates Twilight Stoneware 8 inch Ceramic Luncheon Plates",
+      "price": 116.0,
+      "views_at_diagnosis": 0,
+      "orders_at_diagnosis": 0,
+      "favorites_at_diagnosis": 0,
+      "review_count": 2900,
+      "photo_count": null,
+      "has_video": null,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "trust"
+      ],
+      "top_action": "Reduce processing time below 7 days if possible. 42 days loses impatient buyers.",
+      "action_layer": 2
+    },
+    {
+      "title": "Handmade Pottery Set of 4 Pasta Bowls Choose Your Glaze 5-cup Ceramic Bowls",
+      "price": 170.0,
+      "views_at_diagnosis": 0,
+      "orders_at_diagnosis": 0,
+      "favorites_at_diagnosis": 0,
+      "review_count": 2900,
+      "photo_count": null,
+      "has_video": null,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "trust",
+        "visibility"
+      ],
+      "top_action": "Suggested restructure: \"Pottery Set of 4 Pasta Bowls Choose Your Glaze 5-cup Ceramic Bowls Handmade\".",
+      "action_layer": 1
+    },
+    {
+      "title": "Pottery Tumblers Set of 4 Choose Your Glaze Ceramic 16-ounce Tumblers Stoneware Cup Set",
+      "price": 120.0,
+      "views_at_diagnosis": 0,
+      "orders_at_diagnosis": 0,
+      "favorites_at_diagnosis": 0,
+      "review_count": 2900,
+      "photo_count": null,
+      "has_video": null,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "trust"
+      ],
+      "top_action": "Reduce processing time below 7 days if possible. 42 days loses impatient buyers.",
+      "action_layer": 2
+    },
+    {
+      "title": "Handmade Pottery Stoneware Sugar and Creamer Set in Slate Aqua",
+      "price": 67.5,
+      "views_at_diagnosis": 0,
+      "orders_at_diagnosis": 0,
+      "favorites_at_diagnosis": 0,
+      "review_count": 2900,
+      "photo_count": null,
+      "has_video": null,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "trust",
+        "visibility"
+      ],
+      "top_action": "Suggested restructure: \"Pottery Stoneware Sugar and Creamer Set in Slate Aqua Handmade\".",
+      "action_layer": 1
+    },
+    {
+      "title": "Handled Handmade Pottery Serving Tray Slate Twilight 8x12 Rectangle Bread Tray",
+      "price": 72.5,
+      "views_at_diagnosis": 0,
+      "orders_at_diagnosis": 0,
+      "favorites_at_diagnosis": 0,
+      "review_count": 2900,
+      "photo_count": null,
+      "has_video": null,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "trust"
+      ],
+      "top_action": "Reduce processing time below 7 days if possible. 42 days loses impatient buyers.",
+      "action_layer": 2
+    },
+    {
+      "title": "Handmade Pottery Lidded Butter Dish Slate Twilight Glaze",
+      "price": 47.5,
+      "views_at_diagnosis": 0,
+      "orders_at_diagnosis": 0,
+      "favorites_at_diagnosis": 0,
+      "review_count": 2900,
+      "photo_count": null,
+      "has_video": null,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "trust",
+        "visibility"
+      ],
+      "top_action": "Suggested restructure: \"Pottery Lidded Butter Dish Slate Twilight Glaze Handmade\".",
+      "action_layer": 1
+    },
+    {
+      "title": "Handmade Pottery Single Ceramic 4-piece Place Setting Choose Your Glaze",
+      "price": 132.0,
+      "views_at_diagnosis": 0,
+      "orders_at_diagnosis": 0,
+      "favorites_at_diagnosis": 0,
+      "review_count": 2900,
+      "photo_count": null,
+      "has_video": null,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "trust",
+        "visibility"
+      ],
+      "top_action": "Suggested restructure: \"Pottery Single Ceramic 4-piece Place Setting Choose Your Glaze Handmade\".",
+      "action_layer": 1
+    },
+    {
+      "title": "Handmade Pottery Set of 3 Nesting Bowl Set Raspberry",
+      "price": 149.5,
+      "views_at_diagnosis": 0,
+      "orders_at_diagnosis": 0,
+      "favorites_at_diagnosis": 0,
+      "review_count": 2900,
+      "photo_count": null,
+      "has_video": null,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "trust",
+        "visibility"
+      ],
+      "top_action": "Suggested restructure: \"Pottery Set of 3 Nesting Bowl Set Raspberry Handmade\".",
+      "action_layer": 1
+    },
+    {
+      "title": "Set of 2 Handmade Pottery Mugs Slate Twilight",
+      "price": 74.0,
+      "views_at_diagnosis": 0,
+      "orders_at_diagnosis": 0,
+      "favorites_at_diagnosis": 0,
+      "review_count": 2900,
+      "photo_count": null,
+      "has_video": null,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "trust"
+      ],
+      "top_action": "Reduce processing time below 7 days if possible. 42 days loses impatient buyers.",
+      "action_layer": 2
+    },
+    {
+      "title": "Handmade Pottery Bowls Set of Four Raspberry Soup Bowls",
+      "price": 108.0,
+      "views_at_diagnosis": 0,
+      "orders_at_diagnosis": 0,
+      "favorites_at_diagnosis": 0,
+      "review_count": 2900,
+      "photo_count": null,
+      "has_video": null,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "trust",
+        "visibility"
+      ],
+      "top_action": "Suggested restructure: \"Pottery Bowls Set of Four Raspberry Soup Bowls Handmade\".",
+      "action_layer": 1
+    },
+    {
+      "title": "Set of 2 Handmade Pottery Tumblers Choose Your Glaze",
+      "price": 60.0,
+      "views_at_diagnosis": 0,
+      "orders_at_diagnosis": 0,
+      "favorites_at_diagnosis": 0,
+      "review_count": 2900,
+      "photo_count": null,
+      "has_video": null,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "trust"
+      ],
+      "top_action": "Reduce processing time below 7 days if possible. 42 days loses impatient buyers.",
+      "action_layer": 2
+    },
+    {
+      "title": "Handmade Pottery Tumbler Slate Single Stoneware Cup",
+      "price": 31.0,
+      "views_at_diagnosis": 0,
+      "orders_at_diagnosis": 0,
+      "favorites_at_diagnosis": 0,
+      "review_count": 2900,
+      "photo_count": null,
+      "has_video": null,
+      "free_shipping": true,
+      "on_sale": null,
+      "original_price": null,
+      "gaps_flagged": [
+        "trust",
+        "visibility"
+      ],
+      "top_action": "Suggested restructure: \"Pottery Tumbler Slate Single Stoneware Cup Handmade\".",
+      "action_layer": 1
+    }
+  ],
+  "shop": {
+    "total_favorites": 0,
+    "listing_count": 14,
+    "review_count": 2900,
+    "total_sales": 11000,
+    "star_rating": 4.9
+  }
+}

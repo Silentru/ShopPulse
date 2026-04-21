@@ -505,8 +505,8 @@ def score_visibility(listing, shop, niche, metrics):
 def score_conversion(listing, shop, niche, metrics):
     """Layer 2. Uses shop average for comparison per spec.
 
-    SKIPPED entirely if views or orders data is not available (None).
-    Conversion analysis requires both traffic AND sales data.
+    SKIPPED entirely if views, orders, or favorites data is not available (None).
+    Conversion analysis requires all three fields per CLAUDE.md spec.
     """
     gaps = []
     views = listing.get("views")      # None = not available
@@ -516,8 +516,9 @@ def score_conversion(listing, shop, niche, metrics):
     title = listing.get("title", "")
     short = short_title(title)
 
-    # Skip if traffic/order data not available
-    if views is None or orders is None:
+    # Skip if traffic/order/favorites data not available
+    # All three fields are required per CLAUDE.md conversion gap spec
+    if views is None or orders is None or favorites is None:
         return {"status": "insufficient_data"}
     # Skip if not enough data to diagnose
     if views < 20:
@@ -553,7 +554,7 @@ def score_conversion(listing, shop, niche, metrics):
         if price and price > niche.get("median_price", 25) * 1.3:
             test_price = round(price * 0.85, 2)
             suggestion = f' Your price ({fmt_price(price)}) is above the niche median — test {fmt_price(test_price)} for 2 weeks.'
-        elif favorites > 10 and orders == 0:
+        elif favorites is not None and favorites > 10 and orders == 0:
             suggestion = ' With zero orders, something is blocking checkout — check price, shipping cost, and processing time.'
 
         extra_sales = max(1, round(views * 0.005))

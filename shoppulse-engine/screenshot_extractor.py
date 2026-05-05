@@ -615,6 +615,13 @@ def extract_shop_page(text):
                           "report this shop", "search all", "sort:", "hand-made"}
             if candidate.lower() in skip_words or any(candidate.lower().startswith(s) for s in skip_words):
                 continue
+            # Skip Etsy urgency/scarcity badges ("Only 5 left and in 3 carts", "4 people have this in their cart")
+            if re.match(r"^only \d+", candidate.lower()):
+                continue
+            if re.search(r"\d+\s+(?:people|carts?|buyers?|others?)\b", candidate.lower()):
+                continue
+            if re.match(r"^(?:over\s+)?\d+\s+people\b", candidate.lower()):
+                continue
             # Skip category lines (single word + number)
             if re.match(r"^[A-Za-z/\s]+\d+$", candidate) and len(candidate) < 25:
                 continue

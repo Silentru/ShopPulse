@@ -301,8 +301,11 @@ async function handleUpload(file) {
       $('upload-msg').innerHTML = '<div class="upload-status upload-err">Could not extract listing data. Try a clearer screenshot or enter details manually.</div>';
     }
   } catch (e) {
-    if (e.message.includes('Failed to fetch')) {
-      $('upload-msg').innerHTML = '<div class="upload-status upload-err">Screenshot extraction requires the local tool running (python3 collector.py). Enter details manually instead.</div>';
+    // Network errors (server not running) have different messages per browser:
+    // Chrome: "Failed to fetch", Safari: "Load failed", Firefox: "NetworkError..."
+    const isNetworkErr = e instanceof TypeError;
+    if (isNetworkErr) {
+      $('upload-msg').innerHTML = '<div class="upload-status upload-err">Screenshot extraction requires the local tool running. In your terminal: <code style="background:#f5f5f5;padding:2px 5px;border-radius:3px">python3 collector.py</code> — then reload this page.</div>';
     } else {
       $('upload-msg').innerHTML = `<div class="upload-status upload-err">${e.message}</div>`;
     }
